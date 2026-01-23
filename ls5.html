@@ -1,0 +1,1544 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BÀI 5: CSS NÂNG CAO</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html{
+            height: 100%;
+            overflow: hidden;
+        }
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 85vh;
+        }
+
+        .sidebar {
+            max-height: 85vh;
+            overflow-y: scroll;
+            background: var(--light);
+            padding: 20px;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .nav-list {
+            list-style: none;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--secondary);
+        }
+
+        .main-content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        h4 {
+            color: var(--info);
+            margin: 20px 0 10px;
+        }
+
+        h5 {
+            color: var(--dark);
+            margin: 15px 0 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul,
+        ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.4;
+            border: 2px solid #444;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .class-name {
+            color: #4ec9b0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .interactive-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn-run {
+            background: var(--success);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-content {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+        }
+        footer p{
+            margin: 0;
+        }
+@media (max-width: 1400px){
+          .content-wrapper {
+             min-height: 75vh;
+        }
+        footer{
+            position: absolute;
+            bottom: 0;
+        }
+    }
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+        }
+
+        .demo-area {
+            background: #f8f9fa;
+            border: 2px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 200px;
+        }
+
+        .position-demo {
+            position: relative;
+            height: 300px;
+            border: 2px dashed #ccc;
+            margin: 20px 0;
+        }
+
+        .demo-box {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 10px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .flex-item {
+            background: var(--secondary);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+            flex: 1;
+        }
+
+        .grid-container {
+            display: grid;
+            gap: 10px;
+            padding: 15px;
+            background: #e9ecef;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .grid-item {
+            background: var(--accent);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .animation-demo {
+            width: 100px;
+            height: 100px;
+            background: var(--info);
+            border-radius: 8px;
+            margin: 20px auto;
+        }
+
+        .property-controls {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .control-group label {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .control-group input,
+        .control-group select {
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .demo-visibility {
+            padding: 15px;
+            background: #e9ecef;
+            border: 2px dashed #999;
+            margin: 10px 0;
+        }
+
+        .demo-float {
+            overflow: hidden;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .float-img {
+            width: 150px;
+            height: 100px;
+            background: var(--info);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-cogs"></i> BÀI 5: CSS NÂNG CAO</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <nav class="sidebar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#intro" class="nav-link active"><i class="fas fa-home"></i> Giới
+                            thiệu</a></li>
+                    <li class="nav-item"><a href="#display-position" class="nav-link"><i class="fas fa-layer-group"></i>
+                            Hiển thị & Vị trí</a></li>
+                    <li class="nav-item"><a href="#flexbox" class="nav-link"><i class="fas fa-th-large"></i> Flexbox</a>
+                    </li>
+                    <li class="nav-item"><a href="#grid" class="nav-link"><i class="fas fa-grip"></i> Grid System</a>
+                    </li>
+                    <li class="nav-item"><a href="#animation" class="nav-link"><i class="fas fa-play-circle"></i> Hiệu
+                            ứng & Hoạt hình</a></li>
+                    <li class="nav-item"><a href="#other" class="nav-link"><i class="fas fa-star"></i> Các thuộc tính
+                            khác</a></li>
+                    <li class="nav-item"><a href="#pseudo" class="nav-link"><i class="fas fa-magic"></i> Lớp giả & Phần
+                            tử giả</a></li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <section id="intro" class="section active">
+                    <h2><i class="fas fa-home"></i> GIỚI THIỆU </h2>
+
+                    <h3>5. CSS Nâng cao</h3>
+                    <p>Bài này sẽ giới thiệu các kỹ thuật CSS nâng cao giúp tạo ra các layout phức tạp, hiệu ứng đẹp
+                        mắt và tương tác linh hoạt với người dùng.</p>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Mục tiêu học tập</h4>
+                        <ul>
+                            <li>Hiểu và áp dụng được các thuộc tính hiển thị và định vị nâng cao</li>
+                            <li>Làm chủ Flexbox và Grid System để tạo layout hiện đại</li>
+                            <li>Tạo được hiệu ứng chuyển động và animation</li>
+                            <li>Sử dụng thành thạo các lớp giả và phần tử giả</li>
+                            <li>Áp dụng các thuộc tính CSS nâng cao khác</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <h4><i class="fas fa-check-circle"></i> Tầm quan trọng</h4>
+                        <p>CSS nâng cao là chìa khóa để tạo ra các website hiện đại, responsive và có trải nghiệm người
+                            dùng tốt. Nắm vững các kỹ thuật này giúp bạn giải quyết các bài toán layout phức tạp một
+                            cách hiệu quả.</p>
+                    </div>
+                </section>
+
+                </section>
+
+                <!-- PHẦN HIỂN THỊ & VỊ TRÍ -->
+                <section id="display-position" class="section">
+                    <h2><i class="fas fa-layer-group"></i> 5.1. HIỂN THỊ & VỊ TRÍ</h2>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá trị phổ biến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>visibility</strong></td>
+                                    <td>Ẩn nhưng vẫn chiếm chỗ</td>
+                                    <td>visible, hidden</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>position</strong></td>
+                                    <td>Vị trí phần tử</td>
+                                    <td>static, relative, absolute, fixed, sticky</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>z-index</strong></td>
+                                    <td>Độ sâu lớp</td>
+                                    <td>1, 999</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>top, left, right, bottom</strong></td>
+                                    <td>Khoảng cách định vị</td>
+                                    <td>0, 10px</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>float</strong></td>
+                                    <td>Đẩy trái/phải</td>
+                                    <td>left, right, none</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <p><b>Mục đích:</b>Giúp kiểm soát cách phần tử hiển thị trong tài liệu và vị trí của chúng trên
+                        trang. Bao gồm: ẩn/hiện, xếp chồng lớp, di chuyển tương đối/tuyệt đối/cố định, định vị theo
+                        viewport hoặc phần tử cha,…</p>
+                    <h3>5.1.1. visibility</h3>
+                    <p><strong>Mục đích:</strong> Ẩn hoặc hiển thị phần tử nhưng vẫn giữ chỗ (khác với display: none)
+                    </p>
+                    <p>
+                        <b>Giá trị phổ biến:</b>
+                    <ul>
+                        <li>visible: phần tử hiển thị (mặc định)</li>
+
+                        <li>hidden: phần tử ẩn nhưng vẫn chiếm diện tích</li>
+                    </ul>
+                    </p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ visibility</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;p style="visibility: hidden;"&gt;Ẩn nhưng vẫn chiếm chỗ&lt;/p&gt;<br>
+                        &lt;p&gt;Đoạn văn bình thường&lt;/p&gt;
+                    </div>
+
+
+                    <div class="demo-area">
+                        <div class="demo-visibility" style="visibility: visible;">
+                            Phần tử này đang hiển thị (visible)
+                        </div>
+                        <button class="btn" onclick="toggleVisibility()">
+                            <i class="fas fa-eye"></i> Chuyển đổi visibility
+                        </button>
+                    </div>
+
+                    <h3>5.1.2. position</h3>
+                    <p><strong>Mục đích:</strong> Thiết lập cách phần tử được định vị trên trang</p>
+                    <p><b>Giá trị phổ biến:</b></p>
+                    <ul>
+                        <li>static: (mặc định) không có định vị đặc biệt</li>
+
+                        <li>relative: định vị tương đối với vị trí gốc</li>
+
+                        <li>absolute: định vị tuyệt đối so với phần tử cha có position: relative</li>
+
+                        <li>fixed: định vị cố định theo cửa sổ trình duyệt</li>
+
+                        <li>sticky: “dính” vào vị trí khi cuộn trang</li>
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ position</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+
+                        <pre><code>
+&lt;style&gt;
+  .box {
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    line-height: 100px;
+    padding: 10px;
+    margin: 10px;
+    color: white;
+    font-weight: bold;
+  }
+
+  .static {
+    position: static;
+    background: gray;
+  }
+
+  .relative {
+    position: relative;
+    left: 20px;
+    background: blue;
+  }
+
+  .container {
+    position: relative;
+    height: 150px;
+    border: 1px solid black;
+  }
+
+  .absolute {
+    position: absolute;
+    top: 0;
+    left: 100px;
+    background: green;
+  }
+
+  .fixed {
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background: red;
+  }
+&lt;/style&gt;
+
+&lt;div class="box static"&gt;Static&lt;/div&gt;
+&lt;div class="container"&gt;
+  &lt;div class="box relative"&gt;Relative&lt;/div&gt;
+  &lt;div class="box absolute"&gt;Absolute&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class="box fixed"&gt;Fixed&lt;/div&gt;
+</code></pre>
+                    </div>
+
+                    <div class="position-demo" id="positionDemo">
+                        <div class="demo-box" style="background: gray; position: static;">Static</div>
+                        <div class="demo-box" style="background: blue; position: relative; top: 20px; left: 50px;">
+                            Relative</div>
+                        <div class="demo-box" style="background: green; position: absolute; top: 120px; left: 100px;">
+                            Absolute</div>
+                        <div class="demo-box" style="background: red; position: fixed; bottom: 20px; right: 20px;">Fixed
+                        </div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Lưu ý quan trọng</h4>
+                        <p>Thuộc tính <strong>absolute</strong> cho phép căn chỉnh một phần tử dựa vào thẻ bao ngoài có
+                            giá trị của position là <strong>relative</strong>. Nếu không tìm thấy phần tử cha có
+                            position, nó sẽ định vị theo thẻ &lt;body&gt;.</p>
+                    </div>
+
+                    <h3>5.1.3. z-index</h3>
+                    <p><strong>Mục đích:</strong> Xác định lớp xếp chồng (phần tử nào nằm trên phần tử nào)</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ z-index</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box1 {<br>
+                        &nbsp;&nbsp;position: absolute;<br>
+                        &nbsp;&nbsp;z-index: 2;<br>
+                        &nbsp;&nbsp;background: red;<br>
+                        }<br>
+                        .box2 {<br>
+                        &nbsp;&nbsp;position: absolute;<br>
+                        &nbsp;&nbsp;z-index: 1;<br>
+                        &nbsp;&nbsp;background: blue;<br>
+                        }
+                    </div>
+                    <div class="demo-area">
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="zIndex1">z-index Box 1:</label>
+                                <input type="range" id="zIndex1" min="0" max="10" value="2">
+                            </div>
+                            <div class="control-group">
+                                <label for="zIndex2">z-index Box 2:</label>
+                                <input type="range" id="zIndex2" min="0" max="10" value="1">
+                            </div>
+                        </div>
+                        <div style="position: relative; height: 120px;">
+                            <div id="box1"
+                                style="position: absolute; width: 100px; height: 100px; background: rgba(52, 152, 219, 0.8); top: 20px; left: 50px; z-index: 2; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                Box 1</div>
+                            <div id="box2"
+                                style="position: absolute; width: 100px; height: 100px; background: rgba(231, 76, 60, 0.8); top: 40px; left: 80px; z-index: 1; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                Box 2</div>
+                        </div>
+                        <button class="btn" onclick="updateZIndex()">
+                            <i class="fas fa-sync-alt"></i> Cập nhật z-index
+                        </button>
+                    </div>
+
+                    <h3>5.1.4. top, left, right, bottom</h3>
+                    <p><strong>Mục đích:</strong> Di chuyển phần tử theo hướng tương ứng (chỉ hoạt động khi position
+                        khác static)</p>
+
+                    <div class="demo-area">
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="topValue">top:</label>
+                                <input type="range" id="topValue" min="0" max="200" value="50">
+                            </div>
+                            <div class="control-group">
+                                <label for="leftValue">left:</label>
+                                <input type="range" id="leftValue" min="0" max="200" value="100">
+                            </div>
+                        </div>
+                        <div style="position: relative; height: 250px; border: 2px dashed #ccc;">
+                            <div id="positionedBox"
+                                style="position: absolute; width: 100px; height: 100px; background: var(--info); color: white; display: flex; align-items: center; justify-content: center; font-weight: bold;">
+                                Box</div>
+                        </div>
+                        <button class="btn" onclick="updatePosition()">
+                            <i class="fas fa-arrows-alt"></i> Cập nhật vị trí
+                        </button>
+                    </div>
+
+                    <h3>5.1.5. float</h3>
+                    <p><strong>Mục đích:</strong> Đẩy phần tử sang trái/phải và để phần tử khác bao quanh</p>
+
+                    <div class="demo-area">
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="floatValue">Chọn giá trị float:</label>
+                                <select id="floatValue">
+                                    <option value="none">none (không float)</option>
+                                    <option value="left">left (trôi trái)</option>
+                                    <option value="right">right (trôi phải)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="demo-float">
+                            <div id="floatDemo" class="float-img" style="float: left;">Float Image</div>
+                            <p id="floatText">Đây là văn bản mẫu sẽ bao quanh hình ảnh khi hình ảnh được float. Khi
+                                float được áp dụng, văn bản sẽ chảy xung quanh phần tử được float. Đây là kỹ thuật
+                                thường dùng để bố trí hình ảnh trong bài viết hoặc tạo layout đơn giản.</p>
+                        </div>
+                        <button class="btn" onclick="updateFloat()">
+                            <i class="fas fa-water"></i> Áp dụng float
+                        </button>
+                    </div>
+                </section>
+
+                <!-- PHẦN FLEXBOX -->
+                <section id="flexbox" class="section">
+                    <a target="_blank" href="./Flex.html">
+                        <img src="./img/flex.png" alt="">
+                    </a>
+                </section>
+
+                <!-- PHẦN GRID SYSTEM -->
+                 <section id="grid" class="section">
+                    <img src="" alt=""><a target="_blank" href="./grid.html">
+                        <img width="100%" src="./img/grid.png" alt="">
+                    </a></section>
+
+                <!-- PHẦN HIỆU ỨNG & HOẠT HÌNH -->
+                <section id="animation" class="section">
+                    <h2><i class="fas fa-play-circle"></i> 5.4. HIỆU ỨNG & HOẠT HÌNH</h2>
+
+                    <h3>5.4.1. transition - Hiệu ứng chuyển tiếp</h3>
+                    <p><strong>Định nghĩa:</strong> transition giúp tạo hiệu ứng mượt mà khi một thuộc tính CSS thay đổi
+                        (thay vì đổi ngay lập tức).</p>
+
+                    <div class="property-controls">
+                        <div class="control-group">
+                            <label for="transitionProp">Thuộc tính:</label>
+                            <select id="transitionProp">
+                                <option value="all">all (tất cả)</option>
+                                <option value="background-color">background-color</option>
+                                <option value="transform">transform</option>
+                                <option value="width">width</option>
+                            </select>
+                        </div>
+                        <div class="control-group">
+                            <label for="transitionDuration">Thời gian (s):</label>
+                            <input type="range" id="transitionDuration" min="0.1" max="3" step="0.1" value="0.5">
+                        </div>
+                        <div class="control-group">
+                            <label for="transitionTiming">Timing function:</label>
+                            <select id="transitionTiming">
+                                <option value="ease">ease</option>
+                                <option value="linear">linear</option>
+                                <option value="ease-in">ease-in</option>
+                                <option value="ease-out">ease-out</option>
+                                <option value="ease-in-out">ease-in-out</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="demo-area">
+                        <div class="animation-demo" id="transitionDemo" style="transition: all 0.5s ease;"></div>
+                        <button class="btn" onclick="applyTransition()">
+                            <i class="fas fa-play"></i> Áp dụng transition
+                        </button>
+                        <button class="btn" onclick="triggerTransition()">
+                            <i class="fas fa-bolt"></i> Kích hoạt hiệu ứng
+                        </button>
+                    </div>
+
+                    <h3>5.4.2. transform - Biến đổi đối tượng</h3>
+                    <p><strong>Định nghĩa:</strong> transform cho phép dịch chuyển, xoay, phóng to/thu nhỏ phần tử trực
+                        quan mà không phá bố cục.</p>
+
+                    <div class="property-controls">
+                        <div class="control-group">
+                            <label for="transformValue">Chọn transform:</label>
+                            <select id="transformValue">
+                                <option value="none">none (không áp dụng)</option>
+                                <option value="scale(1.2)">scale(1.2) - phóng to 1.2 lần</option>
+                                <option value="rotate(30deg)">rotate(30deg) - xoay 30 độ</option>
+                                <option value="translateX(50px)">translateX(50px) - dịch phải 50px</option>
+                                <option value="translateY(-20px)">translateY(-20px) - dịch lên 20px</option>
+                                <option value="skew(20deg, 10deg)">skew(20deg, 10deg) - nghiêng</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="demo-area">
+                        <div class="animation-demo" id="transformDemo"></div>
+                        <button class="btn" onclick="applyTransform()">
+                            <i class="fas fa-sync-alt"></i> Áp dụng transform
+                        </button>
+                    </div>
+
+                    <h3>5.4.3. animation & @keyframes</h3>
+                    <p><strong>Định nghĩa:</strong> animation cho phép tạo hoạt ảnh nhiều bước thông qua @keyframes.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ @keyframes</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        @keyframes slideIn {
+                        from {
+                        transform: translateX(-100%);
+                        opacity: 0;
+                        }
+                        to {
+                        transform: translateX(0);
+                        opacity: 1;
+                        }
+                        }
+
+                        .box {
+                        animation: slideIn 1s ease forwards;
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <div class="animation-demo" id="animationDemo"></div>
+                        <button class="btn" onclick="startAnimation('slideIn')">
+                            <i class="fas fa-play"></i> Slide In Animation
+                        </button>
+                        <button class="btn" onclick="startAnimation('pulse')">
+                            <i class="fas fa-heartbeat"></i> Pulse Animation
+                        </button>
+                        <button class="btn" onclick="startAnimation('rotate')">
+                            <i class="fas fa-sync"></i> Rotate Animation
+                        </button>
+                    </div>
+                </section>
+
+                <!-- PHẦN CÁC THUỘC TÍNH KHÁC -->
+                <section id="other" class="section">
+                    <h2><i class="fas fa-star"></i> 5.5. CÁC THUỘC TÍNH KHÁC</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá trị phổ biến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>cursor</strong></td>
+                                    <td>Kiểu con trỏ</td>
+                                    <td>pointer, default, text, move</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>overflow</strong></td>
+                                    <td>Tràn nội dung</td>
+                                    <td>hidden, scroll, auto, visible</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>box-shadow</strong></td>
+                                    <td>Đổ bóng hộp</td>
+                                    <td>0 4px 8px rgba(0,0,0,0.2)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>filter</strong></td>
+                                    <td>Hiệu ứng hình ảnh</td>
+                                    <td>blur(5px), grayscale(100%)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>5.5.1. cursor</h3>
+                    <p><strong>Định nghĩa:</strong> Thay đổi kiểu con trỏ chuột khi di chuyển vào phần tử.</p>
+
+                    <div class="demo-area">
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="cursorValue">Chọn kiểu cursor:</label>
+                                <select id="cursorValue">
+                                    <option value="default">default (mũi tên)</option>
+                                    <option value="pointer">pointer (bàn tay)</option>
+                                    <option value="text">text (nhập văn bản)</option>
+                                    <option value="move">move (di chuyển)</option>
+                                    <option value="wait">wait (chờ)</option>
+                                    <option value="not-allowed">not-allowed (không cho phép)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div style="padding: 20px; background: #e9ecef; border-radius: 8px; text-align: center;"
+                            id="cursorDemo">
+                            Di chuột vào đây để xem kiểu con trỏ
+                        </div>
+                        <button class="btn" onclick="updateCursor()">
+                            <i class="fas fa-mouse-pointer"></i> Áp dụng cursor
+                        </button>
+                    </div>
+
+                    <h3>5.5.2. overflow</h3>
+                    <p><strong>Định nghĩa:</strong> Quyết định xử lý nội dung bị tràn ra ngoài phần tử chứa.</p>
+
+                    <div class="demo-area">
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="overflowValue">Chọn giá trị overflow:</label>
+                                <select id="overflowValue">
+                                    <option value="visible">visible (hiển thị tràn)</option>
+                                    <option value="hidden">hidden (ẩn phần tràn)</option>
+                                    <option value="scroll">scroll (luôn hiện thanh cuộn)</option>
+                                    <option value="auto">auto (tự động hiện khi cần)</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div id="overflowDemo"
+                            style="height: 100px; width: 100%; padding: 10px; background: #e9ecef; border-radius: 8px; overflow: visible;">
+                            <p>Đây là nội dung mẫu để minh họa thuộc tính overflow. Khi nội dung quá dài so với kích
+                                thước container, thuộc tính overflow sẽ quyết định cách xử lý phần nội dung bị tràn ra
+                                ngoài.</p>
+                            <p>Thử thay đổi các giá trị overflow để xem sự khác biệt.</p>
+                        </div>
+                        <button class="btn" onclick="updateOverflow()">
+                            <i class="fas fa-expand-alt"></i> Áp dụng overflow
+                        </button>
+                    </div>
+
+                    <h3>5.5.3. box-shadow</h3>
+                    <p><strong>Định nghĩa:</strong> Tạo bóng đổ bên ngoài phần tử (hộp).</p>
+
+                    <div class="property-controls">
+                        <div class="control-group">
+                            <label for="shadowX">offsetX (px):</label>
+                            <input type="range" id="shadowX" min="-20" max="20" value="0">
+                        </div>
+                        <div class="control-group">
+                            <label for="shadowY">offsetY (px):</label>
+                            <input type="range" id="shadowY" min="-20" max="20" value="4">
+                        </div>
+                        <div class="control-group">
+                            <label for="shadowBlur">blurRadius (px):</label>
+                            <input type="range" id="shadowBlur" min="0" max="30" value="8">
+                        </div>
+                        <div class="control-group">
+                            <label for="shadowColor">Màu bóng:</label>
+                            <input type="color" id="shadowColor" value="#000000">
+                        </div>
+                    </div>
+
+                    <div class="demo-area">
+                        <div id="shadowDemo"
+                            style="width: 150px; height: 150px; background: var(--secondary); margin: 20px auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                        </div>
+                        <button class="btn" onclick="updateShadow()">
+                            <i class="fas fa-box"></i> Áp dụng box-shadow
+                        </button>
+                    </div>
+
+                    <h3>5.5.4. filter</h3>
+                    <p><strong>Định nghĩa:</strong> Áp dụng hiệu ứng hình ảnh (như làm mờ, đổi màu).</p>
+
+                    <div class="property-controls">
+                        <div class="control-group">
+                            <label for="filterValue">Chọn hiệu ứng filter:</label>
+                            <select id="filterValue">
+                                <option value="none">none (không hiệu ứng)</option>
+                                <option value="grayscale(100%)">grayscale(100%) (đen trắng)</option>
+                                <option value="blur(2px)">blur(2px) (làm mờ)</option>
+                                <option value="brightness(150%)">brightness(150%) (sáng hơn)</option>
+                                <option value="contrast(200%)">contrast(200%) (tương phản)</option>
+                                <option value="sepia(100%)">sepia(100%) (màu nâu cổ điển)</option>
+                                <option value="invert(100%)">invert(100%) (đảo màu)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="demo-area">
+                        <div id="filterDemo"
+                            style="width: 200px; height: 150px; background: url('https://via.placeholder.com/200x150/3498db/ffffff?text=Demo+Image') center/cover no-repeat; margin: 20px auto; border-radius: 8px;">
+                        </div>
+                        <button class="btn" onclick="updateFilter()">
+                            <i class="fas fa-sliders-h"></i> Áp dụng filter
+                        </button>
+                    </div>
+                </section>
+
+                <!-- PHẦN LỚP GIẢ & PHẦN TỬ GIẢ -->
+                <section id="pseudo" class="section">
+                    <h2><i class="fas fa-magic"></i> 5.6. LỚP GIẢ & PHẦN TỬ GIẢ</h2>
+
+                    <h3>5.6.1. Pseudo-class (lớp giả)</h3>
+                    <p><strong>Định nghĩa:</strong> Là một từ khóa được thêm vào selector để xác định trạng thái đặc
+                        biệt của phần tử HTML.</p>
+                    <p><strong>Mục đích:</strong> Thay đổi style khi phần tử ở một trạng thái cụ thể (hover chuột, đã
+                        click, đang focus...).</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ pseudo-class</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        /* Thay đổi màu chữ khi di chuột vào */
+                        a:hover {
+                        color: red;
+                        }
+
+                        /* Thay đổi border khi input được focus */
+                        input:focus {
+                        border: 2px solid blue;
+                        }
+
+                        /* Chọn phần tử con đầu tiên */
+                        li:first-child {
+                        font-weight: bold;
+                        }
+
+                        /* Chọn phần tử con thứ n */
+                        li:nth-child(3) {
+                        color: green;
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo Pseudo-class</h4>
+                        <button id="hoverDemo"
+                            style="padding: 10px 20px; background: var(--secondary); color: white; border: none; border-radius: 5px; cursor: pointer; margin: 10px;">Di
+                            chuột vào tôi</button>
+                        <input type="text" id="focusDemo" placeholder="Click vào đây để focus"
+                            style="padding: 10px; width: 100%; margin: 10px 0; border: 2px solid #ddd; border-radius: 5px;">
+                        <ul style="margin: 15px 0; padding-left: 20px;">
+                            <li>Mục đầu tiên</li>
+                            <li>Mục thứ hai</li>
+                            <li>Mục thứ ba</li>
+                            <li>Mục cuối cùng</li>
+                        </ul>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Một số pseudo-class phổ biến</h4>
+                        <ul>
+                            <li><strong>:hover</strong> → Khi di chuột vào phần tử.</li>
+                            <li><strong>:focus</strong> → Khi phần tử được chọn (focus).</li>
+                            <li><strong>:active</strong> → Khi phần tử đang được click.</li>
+                            <li><strong>:first-child</strong> → Chọn phần tử con đầu tiên.</li>
+                            <li><strong>:last-child</strong> → Chọn phần tử con cuối cùng.</li>
+                            <li><strong>:nth-child(n)</strong> → Chọn phần tử con thứ n.</li>
+                        </ul>
+                    </div>
+
+                    <h3>5.6.2. Pseudo-element (phần tử giả)</h3>
+                    <p><strong>Định nghĩa:</strong> Cho phép tạo và định dạng một phần cụ thể của phần tử mà không cần
+                        thêm thẻ HTML mới.</p>
+                    <p><strong>Mục đích:</strong> Thêm nội dung hoặc style vào trước/ sau nội dung thật của phần tử,
+                        hoặc chỉ định style cho một phần con của phần tử.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ pseudo-element</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        /* Thêm icon trước tiêu đề */
+                        h1::before {
+                        content: "🔥 ";
+                        }
+
+                        /* Thêm dấu chấm ở cuối tiêu đề */
+                        h1::after {
+                        content: " ●";
+                        }
+
+                        /* Đổi màu ký tự đầu tiên */
+                        p::first-letter {
+                        font-size: 2em;
+                        color: blue;
+                        }
+
+                        /* Đổi màu dòng đầu tiên */
+                        p::first-line {
+                        color: green;
+                        }
+
+                        /* Style khi bôi đen */
+                        ::selection {
+                        background: yellow;
+                        color: black;
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo Pseudo-element</h4>
+                        <div id="pseudoElementDemo" style="padding: 20px; background: #f8f9fa; border-radius: 8px;">
+                            <p id="firstLineDemo">Đây là đoạn văn bản dài để minh họa pseudo-element ::first-line và
+                                ::first-letter. Dòng đầu tiên của đoạn văn sẽ được định dạng đặc biệt, và chữ cái đầu
+                                tiên sẽ có kích thước lớn hơn.</p>
+                            <button class="btn" onclick="togglePseudoElements()">
+                                <i class="fas fa-eye"></i> Bật/Tắt Pseudo-elements
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Lưu ý quan trọng</h4>
+                        <p><strong>::selection</strong> → Chọn phần tử khi được bôi đen. Lưu ý không được bớt nội dung
+                            này dù chỉ 1 chữ, không thì phải làm lại nữa.</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p> Bài  5: CSS nâng cao &copy; GV: Nguyễn Đình Mạnh</p>
+        </footer>
+    </div>
+
+    <script>
+        // Xử lý điều hướng
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Xóa class active từ tất cả các link và section
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+
+                    // Thêm class active cho link được click
+                    this.classList.add('active');
+
+                    // Hiển thị section tương ứng
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // Khởi tạo các hiệu ứng
+            initDemoEffects();
+        });
+
+        // Hàm copy code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.parentElement;
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Đã copy!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Khởi tạo các hiệu ứng demo
+        function initDemoEffects() {
+            // Hiệu ứng hover cho button
+            const hoverDemo = document.getElementById('hoverDemo');
+            hoverDemo.addEventListener('mouseenter', function () {
+                this.style.backgroundColor = '#e74c3c';
+                this.style.transform = 'scale(1.05)';
+            });
+
+            hoverDemo.addEventListener('mouseleave', function () {
+                this.style.backgroundColor = '#3498db';
+                this.style.transform = 'scale(1)';
+            });
+
+            // Hiệu ứng focus cho input
+            const focusDemo = document.getElementById('focusDemo');
+            focusDemo.addEventListener('focus', function () {
+                this.style.borderColor = '#3498db';
+                this.style.boxShadow = '0 0 5px rgba(52, 152, 219, 0.5)';
+            });
+
+            focusDemo.addEventListener('blur', function () {
+                this.style.borderColor = '#ddd';
+                this.style.boxShadow = 'none';
+            });
+
+            // Áp dụng CSS cho pseudo-element demo
+            const firstLineDemo = document.getElementById('firstLineDemo');
+            firstLineDemo.classList.add('pseudo-enabled');
+        }
+
+        // 5.1.1. visibility toggle
+        function toggleVisibility() {
+            const demoElement = document.querySelector('.demo-visibility');
+            if (demoElement.style.visibility === 'hidden') {
+                demoElement.style.visibility = 'visible';
+                demoElement.textContent = 'Phần tử này đang hiển thị (visible)';
+            } else {
+                demoElement.style.visibility = 'hidden';
+                demoElement.textContent = 'Phần tử này đang ẩn (hidden) nhưng vẫn chiếm chỗ';
+            }
+        }
+
+        // 5.1.3. z-index update
+        function updateZIndex() {
+            const zIndex1 = document.getElementById('zIndex1').value;
+            const zIndex2 = document.getElementById('zIndex2').value;
+
+            document.getElementById('box1').style.zIndex = zIndex1;
+            document.getElementById('box2').style.zIndex = zIndex2;
+
+            document.getElementById('box1').textContent = `Box 1 (z-index: ${zIndex1})`;
+            document.getElementById('box2').textContent = `Box 2 (z-index: ${zIndex2})`;
+        }
+
+        // 5.1.4. position update
+        function updatePosition() {
+            const topValue = document.getElementById('topValue').value;
+            const leftValue = document.getElementById('leftValue').value;
+
+            const box = document.getElementById('positionedBox');
+            box.style.top = `${topValue}px`;
+            box.style.left = `${leftValue}px`;
+            box.textContent = `top: ${topValue}px\nleft: ${leftValue}px`;
+        }
+
+        // 5.1.5. float update
+        function updateFloat() {
+            const floatValue = document.getElementById('floatValue').value;
+            const floatDemo = document.getElementById('floatDemo');
+            const floatText = document.getElementById('floatText');
+
+            floatDemo.style.float = floatValue;
+
+            if (floatValue === 'none') {
+                floatText.textContent = 'Đây là văn bản mẫu. Khi không có float, hình ảnh và văn bản hiển thị theo thứ tự thông thường.';
+            } else if (floatValue === 'left') {
+                floatText.textContent = 'Đây là văn bản mẫu sẽ bao quanh hình ảnh khi hình ảnh được float: left. Văn bản chảy xung quanh phần tử được float sang trái. Đây là kỹ thuật thường dùng để bố trí hình ảnh trong bài viết.';
+            } else {
+                floatText.textContent = 'Đây là văn bản mẫu sẽ bao quanh hình ảnh khi hình ảnh được float: right. Văn bản chảy xung quanh phần tử được float sang phải. Đây là kỹ thuật thường dùng để bố trí hình ảnh trong bài viết hoặc tạo layout đơn giản.';
+            }
+        }
+
+        // 5.2. Flexbox updates
+        function updateFlexbox() {
+            const flexContainer = document.getElementById('flexDemo');
+            const flexDirection = document.getElementById('flexDirection').value;
+            const justifyContent = document.getElementById('justifyContent').value;
+            const alignItems = document.getElementById('alignItems').value;
+
+            flexContainer.style.flexDirection = flexDirection;
+            flexContainer.style.justifyContent = justifyContent;
+            flexContainer.style.alignItems = alignItems;
+
+            // Điều chỉnh chiều cao cho column direction
+            if (flexDirection.includes('column')) {
+                flexContainer.style.height = '300px';
+            } else {
+                flexContainer.style.height = 'auto';
+            }
+        }
+
+        function updateFlexItems() {
+            const items = document.querySelectorAll('#flexDemo .flex-item');
+            const item1Order = document.getElementById('item1Order').value;
+            const item2Order = document.getElementById('item2Order').value;
+            const item3Order = document.getElementById('item3Order').value;
+
+            const item1Grow = document.getElementById('item1Grow').value;
+            const item2Grow = document.getElementById('item2Grow').value;
+            const item3Grow = document.getElementById('item3Grow').value;
+
+            items[0].style.order = item1Order;
+            items[1].style.order = item2Order;
+            items[2].style.order = item3Order;
+
+            items[0].style.flexGrow = item1Grow;
+            items[1].style.flexGrow = item2Grow;
+            items[2].style.flexGrow = item3Grow;
+
+            items[0].textContent = `Item 1\norder: ${item1Order}\ngrow: ${item1Grow}`;
+            items[1].textContent = `Item 2\norder: ${item2Order}\ngrow: ${item2Grow}`;
+            items[2].textContent = `Item 3\norder: ${item3Order}\ngrow: ${item3Grow}`;
+        }
+
+        // 5.3. Grid updates
+        function updateGrid() {
+            const gridContainer = document.getElementById('gridDemo');
+            const gridColumns = document.getElementById('gridColumns').value;
+            const gridRows = document.getElementById('gridRows').value;
+            const gridGap = document.getElementById('gridGap').value;
+
+            gridContainer.style.gridTemplateColumns = gridColumns;
+            gridContainer.style.gridTemplateRows = gridRows;
+            gridContainer.style.gap = `${gridGap}px`;
+
+            // Cập nhật nội dung các item để hiển thị thông tin
+            const items = document.querySelectorAll('#gridDemo .grid-item');
+            const texts = ['Header', 'Sidebar', 'Content', 'Ads', 'Footer'];
+
+            items.forEach((item, index) => {
+                if (index < texts.length) {
+                    item.textContent = texts[index];
+                }
+            });
+        }
+
+        // 5.4.1. Transition updates
+        function applyTransition() {
+            const transitionProp = document.getElementById('transitionProp').value;
+            const transitionDuration = document.getElementById('transitionDuration').value;
+            const transitionTiming = document.getElementById('transitionTiming').value;
+
+            const demo = document.getElementById('transitionDemo');
+            demo.style.transition = `${transitionProp} ${transitionDuration}s ${transitionTiming}`;
+
+            demo.textContent = `Transition:\n${transitionProp} ${transitionDuration}s ${transitionTiming}`;
+        }
+
+        function triggerTransition() {
+            const demo = document.getElementById('transitionDemo');
+            const colors = ['#3498db', '#e74c3c', '#2ecc71', '#f39c12', '#9b59b6'];
+            const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
+            demo.style.backgroundColor = randomColor;
+            demo.style.width = demo.style.width === '150px' ? '100px' : '150px';
+            demo.style.borderRadius = demo.style.borderRadius === '50%' ? '8px' : '50%';
+        }
+
+        // 5.4.2. Transform updates
+        function applyTransform() {
+            const transformValue = document.getElementById('transformValue').value;
+            const demo = document.getElementById('transformDemo');
+
+            demo.style.transform = transformValue;
+            demo.textContent = `Transform:\n${transformValue}`;
+        }
+
+        // 5.4.3. Animation updates
+        function startAnimation(type) {
+            const demo = document.getElementById('animationDemo');
+
+            // Xóa animation hiện tại
+            demo.style.animation = 'none';
+            void demo.offsetWidth; // Trigger reflow
+
+            let animationCss = '';
+
+            switch (type) {
+                case 'slideIn':
+                    animationCss = 'slideIn 1s ease forwards';
+                    demo.textContent = 'Slide In';
+                    break;
+                case 'pulse':
+                    animationCss = 'pulse 1s infinite';
+                    demo.textContent = 'Pulse';
+                    break;
+                case 'rotate':
+                    animationCss = 'rotate 2s linear infinite';
+                    demo.textContent = 'Rotate';
+                    break;
+            }
+
+            demo.style.animation = animationCss;
+        }
+
+        // Thêm keyframes cho animation
+        const styleSheet = document.createElement('style');
+        styleSheet.textContent = `
+            @keyframes slideIn {
+                from {
+                    transform: translateX(-100%);
+                    opacity: 0;
+                }
+                to {
+                    transform: translateX(0);
+                    opacity: 1;
+                }
+            }
+            
+            @keyframes pulse {
+                0% { transform: scale(1); }
+                50% { transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+            
+            @keyframes rotate {
+                from { transform: rotate(0deg); }
+                to { transform: rotate(360deg); }
+            }
+            
+            /* Pseudo-element styles */
+            .pseudo-enabled::first-letter {
+                font-size: 2em;
+                color: #3498db;
+                font-weight: bold;
+            }
+            
+            .pseudo-enabled::first-line {
+                color: #2ecc71;
+                font-weight: bold;
+            }
+            
+            .pseudo-enabled::before {
+                content: "→ ";
+                color: #e74c3c;
+            }
+            
+            .pseudo-enabled::after {
+                content: " ←";
+                color: #e74c3c;
+            }
+            
+            /* Selection style */
+            *::selection {
+                background-color: yellow;
+                color: black;
+            }
+        `;
+        document.head.appendChild(styleSheet);
+
+        // 5.5.1. Cursor update
+        function updateCursor() {
+            const cursorValue = document.getElementById('cursorValue').value;
+            const demo = document.getElementById('cursorDemo');
+
+            demo.style.cursor = cursorValue;
+            demo.textContent = `Di chuột vào đây để xem kiểu con trỏ: ${cursorValue}`;
+        }
+
+        // 5.5.2. Overflow update
+        function updateOverflow() {
+            const overflowValue = document.getElementById('overflowValue').value;
+            const demo = document.getElementById('overflowDemo');
+
+            demo.style.overflow = overflowValue;
+        }
+
+        // 5.5.3. Box-shadow update
+        function updateShadow() {
+            const shadowX = document.getElementById('shadowX').value;
+            const shadowY = document.getElementById('shadowY').value;
+            const shadowBlur = document.getElementById('shadowBlur').value;
+            const shadowColor = document.getElementById('shadowColor').value;
+
+            const demo = document.getElementById('shadowDemo');
+            demo.style.boxShadow = `${shadowX}px ${shadowY}px ${shadowBlur}px ${shadowColor}`;
+        }
+
+        // 5.5.4. Filter update
+        function updateFilter() {
+            const filterValue = document.getElementById('filterValue').value;
+            const demo = document.getElementById('filterDemo');
+
+            demo.style.filter = filterValue;
+        }
+
+        // 5.6.2. Toggle pseudo-elements
+        function togglePseudoElements() {
+            const demo = document.getElementById('firstLineDemo');
+            demo.classList.toggle('pseudo-enabled');
+        }
+    </script>
+</body>
+
+</html>

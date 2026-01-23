@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Expo 2024</title>
+</head>
+
+<body>
+
+    <h1>Hội chợ Công nghệ & Thiết bị Thông minh 2024</h1>
+
+    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475"
+        alt="Technology Expo" width="800">
+
+    <div class="info">
+        <p><span class="label">Thời gian:</span> <span class="value">15/11/2024 – 09:00</span></p>
+        <p><span class="label">Địa điểm:</span> <span class="value">Trung tâm Hội chợ SECC – Quận 7</span></p>
+    </div>
+
+    <hr>
+
+    <h3>Giới thiệu</h3>
+    <pre>
+Hội chợ Công nghệ & Thiết bị Thông minh 2024 là sự kiện thường niên
+quy tụ các doanh nghiệp công nghệ trong và ngoài nước.
+Sự kiện mang đến cơ hội trải nghiệm, mua sắm và kết nối
+các sản phẩm công nghệ tiên tiến nhất hiện nay.
+    </pre>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th rowspan="2">Gian hàng</th>
+                <th rowspan="2">Đối tượng</th>
+                <th colspan="3">Quyền lợi</th>
+                <th rowspan="2">Phí tham gia (VNĐ)</th>
+                <th rowspan="2">Ghi chú</th>
+            </tr>
+            <tr>
+                <th>Bàn trưng bày</th>
+                <th>Backdrop</th>
+                <th>Quảng bá</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td rowspan="2">Tiêu chuẩn</td>
+                <td>Cá nhân</td>
+                <td rowspan="4">Có</td>
+                <td rowspan="2">Không</td>
+                <td rowspan="2">Có</td>
+                <td>2.000.000</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Sinh viên</td>
+                <td>1.000.000</td>
+                <td rowspan="2">
+                    <ul>
+                        <li>Giảm 50% cho SV</li>
+                        <li>Hỗ trợ kỹ thuật</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <tr>
+                <td>Doanh nghiệp</td>
+                <td rowspan="2">Tổ chức</td>
+                <td>5.000.000</td>
+                <td>Được quảng bá trên website</td>
+            </tr>
+
+            <tr>
+                <td>Gian lớn</td>
+                <td>8.000.000</td>
+                <td>Vị trí trung tâm</td>
+            </tr>
+
+            <tr>
+                <td colspan="2">VIP Sponsor</td>
+                <td colspan="3">Gian riêng + quảng bá truyền thông</td>
+                <td>20.000.000</td>
+                <td>Logo xuất hiện toàn sự kiện</td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="7" style="text-align:center; font-style:italic;">
+                    * Phí đã bao gồm điện, wifi và nhân sự hỗ trợ
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <br><br>
+
+    <form action="#" method="post" style="width:700px;">
+        <fieldset>
+            <legend>🔹 Thông tin đăng ký</legend>
+
+            <label>Tên đơn vị / cá nhân:</label><br>
+            <input type="text" name="name" required><br><br>
+
+            <label>Email liên hệ:</label><br>
+            <input type="email" name="email" required><br><br>
+
+            <label>Số điện thoại:</label><br>
+            <input type="tel" name="phone" pattern="[0-9]{10}" required><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>🔹 Lựa chọn gian hàng</legend>
+
+            <label>Loại gian:</label><br>
+            <select name="booth" required>
+                <option value="">-- Chọn --</option>
+                <option value="standard">Tiêu chuẩn</option>
+                <option value="company">Doanh nghiệp</option>
+                <option value="large">Gian lớn</option>
+                <option value="vip">VIP Sponsor</option>
+            </select><br><br>
+
+            <label>Dịch vụ thêm:</label><br>
+            <input type="checkbox" name="service" value="electric"> Điện công suất cao<br>
+            <input type="checkbox" name="service" value="screen"> Màn hình LED<br>
+            <input type="checkbox" name="service" value="banner"> Banner quảng cáo<br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>🔹 Xác nhận</legend>
+
+            <label>Ghi chú:</label><br>
+            <textarea rows="4" cols="50" placeholder="Yêu cầu đặc biệt nếu có..."></textarea><br><br>
+
+            <input type="checkbox" required>
+            <label>Tôi đồng ý với điều khoản tham gia hội chợ</label><br><br>
+
+            <button type="submit">Gửi đăng ký</button>
+            <button type="reset">Làm lại</button>
+        </fieldset>
+    </form>
+
+</body>
+
+</html>

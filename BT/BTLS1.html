@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Giải chạy Techcombank Ho Chi Minh City International Marathon 2023</h1>
+
+    <img src="https://irace-web.s3.ap-southeast-1.amazonaws.com/photos/events/2023/12/16/event-techcombank-hcm-marathon-2023-banner.jpeg?v=120223"
+        alt="Techcombank Marathon">
+
+    <div class="info">
+        <p><span class="label">Thời gian:</span> <span class="value">10/12/2023 04:00:00</span></p>
+        <p><span class="label">Địa điểm:</span> <span class="value">Lê Duẩn - Nhà Thờ Đức Bà</span></p>
+    </div>
+
+    <hr>
+
+    <h3>Giới thiệu</h3>
+    <pre>
+        Giải Marathon Quốc tế Thành phố Hồ Chí Minh Techcombank Mùa thứ 6 là cơ hội tuyệt vời để bạn chiêm ngưỡng một
+        trong những thành phố năng động bậc nhất thế giới! Chạy dọc những con đường năng động của Thành phố đầy cảm hứng
+        này và tham gia một giải chạy mang tính biểu tượng nhất tại Đông Nam Á.
+    </pre>
+
+    <table border="1" cellpadding="10" cellspacing="0">
+        <thead>
+            <tr>
+                <th rowspan="2">Cự ly</th>
+                <th rowspan="2">Đối tượng</th>
+                <th colspan="3">Quyền lợi</th>
+                <th rowspan="2">Lệ phí (VNĐ)</th>
+                <th rowspan="2">Ghi chú</th>
+            </tr>
+            <tr>
+                <th>Áo giải</th>
+                <th>Huy chương</th>
+                <th>Phụ kiện</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 5km -->
+            <tr>
+                <td rowspan="2">5km</td>
+                <td>Người lớn</td>
+                <td rowspan="5">Có</td>
+                <td rowspan="2" colspan="2">Không</td>
+                <td>300.000</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Học sinh/Sinh viên</td>
+                <td>150.000</td>
+                <td rowspan="3">
+                    <ul>
+                        <li>Giảm 50% cho đối tượng ưu tiên</li>
+                        <li> Có chip điện tử đo thời gian</li>
+                    </ul>
+                </td>
+            </tr>
+
+            <!-- 10km -->
+            <tr>
+                <td>10km</td>
+                <td rowspan="3">Tất cả</td>
+                <td rowspan="3">Có</td>
+                <td>400.000</td>
+                <td>Bao gồm nước uống, số bib</td>
+            </tr>
+
+            <!-- 21km -->
+            <tr>
+                <td>21km</td>
+                <td rowspan="2">Có</td>
+                <td>600.000</td>
+                <!-- <td></td> -->
+            </tr>
+
+            <!-- 42km -->
+            <tr>
+                <td>42km</td>
+                <td>900.000</td>
+                <td>Tiếp sức & y tế dọc đường</td>
+            </tr>
+
+            <!-- VIP -->
+            <tr>
+                <td colspan="2">VIP (5km/10km/21km)</td>
+                <td colspan="3">Áo riêng, huy chương + bộ quà tặng</td>
+                <td>2.000.000</td>
+                <td>Khu vực riêng, lối chạy riêng</td>
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="7" style="text-align:center; font-style:italic;">
+                    * Lệ phí đã bao gồm thuế, bảo hiểm và hỗ trợ tổ chức
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <!-- <form action="/submit-form" method="POST" style="width: 700px;">
+        <fieldset>
+            <legend>🔹 Thông tin cá nhân</legend>
+
+            <label for="fullname">Họ và tên:</label><br>
+            <input type="text" id="fullname" name="fullname" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="phone">Số điện thoại:</label><br>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required><br><br>
+
+            <label for="dob">Ngày sinh:</label><br>
+            <input type="date" id="dob" name="dob"><br><br>
+
+            <label for="gender">Giới tính:</label><br>
+            <input type="radio" id="male" name="gender" value="Nam">
+            <label for="male">Nam</label>
+            <input type="radio" id="female" name="gender" value="Nữ">
+            <label for="female">Nữ</label><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>🔹 Đăng ký giải</legend>
+
+            <label for="distance">Chọn cự ly:</label><br>
+            <select id="distance" name="distance" required>
+                <option value="">--Chọn--</option>
+                <option value="5km">5km</option>
+                <option value="10km">10km</option>
+                <option value="21km">21km</option>
+                <option value="42km">42km</option>
+                <option value="vip">VIP</option>
+            </select><br><br>
+
+            <label for="shirt-size">Chọn size áo:</label><br>
+            <input list="shirt-sizes" name="shirt-size" id="shirt-size" required>
+            <datalist id="shirt-sizes">
+                <option value="S">
+                <option value="M">
+                <option value="L">
+                <option value="XL">
+                <option value="XXL">
+            </datalist><br><br>
+
+            <label>Đăng ký thêm:</label><br>
+            <input type="checkbox" id="chip" name="extras" value="chip">
+            <label for="chip">Chip thời gian</label><br>
+            <input type="checkbox" id="insurance" name="extras" value="insurance">
+            <label for="insurance">Bảo hiểm</label><br>
+            <input type="checkbox" id="transport" name="extras" value="transport">
+            <label for="transport">Xe đưa đón</label><br><br>
+        </fieldset>
+        <fieldset>
+            <legend>🔹 Ghi chú & xác nhận</legend>
+
+            <label for="note">Ghi chú thêm:</label><br>
+            <textarea id="note" name="note" rows="4" cols="50"
+                placeholder="Ghi yêu cầu đặc biệt nếu có..."></textarea><br><br>
+
+            <label for="agree">Xác nhận:</label>
+            <input type="checkbox" id="agree" name="agree" required>
+            <label for="agree">Tôi đồng ý với điều khoản giải chạy.</label><br><br>
+
+            <button type="submit">Gửi đăng ký</button>
+            <button type="reset">Xóa form</button>
+        </fieldset>
+    </form> -->
+
+
+</body>
+
+</html>

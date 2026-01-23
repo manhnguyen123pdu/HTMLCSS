@@ -1,0 +1,1904 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GRID SYSTEM - Layout 2 Chiều</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html{
+            height: 100%;
+            overflow: hidden;
+        }
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --grid-bg: #f8f9fa;
+            --grid-line: #3498db;
+            --grid-item: #2ecc71;
+            --area-header: #3498db;
+            --area-sidebar: #e74c3c;
+            --area-content: #2ecc71;
+            --area-ads: #f39c12;
+            --area-footer: #9b59b6;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        header h1 i {
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            max-height: 85vh;
+        }
+
+        .sidebar {
+            background: var(--light);
+            padding: 25px;
+            border-right: 3px solid var(--secondary);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .nav-section {
+            margin-bottom: 30px;
+        }
+
+        .nav-section h3 {
+            color: var(--primary);
+            padding: 10px 15px;
+            background: white;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .nav-list {
+            list-style: none;
+        }
+
+        .nav-item {
+            margin-bottom: 8px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            font-size: 0.95rem;
+        }
+
+        .nav-link:hover {
+            background: #e3f2fd;
+            transform: translateX(5px);
+            border-color: #bbdefb;
+        }
+
+        .nav-link.active {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--secondary);
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .main-content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 85vh;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 2rem;
+        }
+
+        h2 i {
+            color: var(--accent);
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 30px 0 20px;
+            padding-left: 20px;
+            border-left: 5px solid var(--accent);
+            font-size: 1.6rem;
+        }
+
+        h4 {
+            color: var(--info);
+            margin: 25px 0 15px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h5 {
+            color: var(--dark);
+            margin: 20px 0 10px;
+            font-size: 1.1rem;
+        }
+
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+            line-height: 1.8;
+            font-size: 1.05rem;
+        }
+
+        .definition-box {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-left: 5px solid var(--info);
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .definition-box strong {
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 25px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.5;
+            border: 2px solid #444;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            color: #aaa;
+            font-size: 0.9rem;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #444;
+        }
+
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            transition: all 0.3s ease;
+        }
+
+        .copy-btn:hover {
+            background: var(--success);
+            transform: translateY(-2px);
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .class-name {
+            color: #4ec9b0;
+        }
+
+        .example-container {
+            background: var(--grid-bg);
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+
+        .example-title {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .example-title h4 {
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .result-preview {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px dashed #adb5bd;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .controls-panel {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .property-controls {
+            display: grid;
+            /* grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); */
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .control-group {
+            display: flex;
+            gap: 8px;
+        }
+
+        .control-group label {
+            font-weight: 600;
+            color: var(--primary);
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .control-group label i {
+            color: var(--info);
+        }
+
+        .control-group input,
+        .control-group select,
+        .control-group textarea {
+            padding: 12px;
+            border: 2px solid #dee2e6;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-group input:focus,
+        .control-group select:focus,
+        .control-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 10px 5px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+        }
+
+        .btn:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-run {
+            background: var(--success);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.3);
+        }
+
+        .btn-run:hover {
+            background: #229954;
+            box-shadow: 0 6px 20px rgba(39, 174, 96, 0.4);
+        }
+
+        .btn-reset {
+            background: var(--warning);
+            box-shadow: 0 4px 12px rgba(243, 156, 18, 0.3);
+        }
+
+        .btn-reset:hover {
+            background: #d68910;
+            box-shadow: 0 6px 20px rgba(243, 156, 18, 0.4);
+        }
+
+        .grid-container-demo {
+            display: grid;
+            background: var(--grid-bg);
+            border: 2px solid #adb5bd;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .grid-item {
+            background: var(--grid-item);
+            color: white;
+            padding: 20px;
+            border-radius: 6px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .grid-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .grid-line {
+            position: absolute;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .column-line {
+            border-left: 2px dashed var(--grid-line);
+            height: 100%;
+        }
+
+        .row-line {
+            border-top: 2px dashed var(--grid-line);
+            width: 100%;
+        }
+
+        .grid-label {
+            position: absolute;
+            background: var(--grid-line);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+        }
+
+        .visual-guide {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--info);
+            flex-wrap: wrap;
+        }
+
+        .color-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .color-box {
+            width: 20px;
+            height: 20px;
+            border-radius: 3px;
+        }
+
+        .color-box.container {
+            background: var(--grid-bg);
+            border: 2px solid #adb5bd;
+        }
+
+        .color-box.item {
+            background: var(--grid-item);
+        }
+
+        .color-box.line {
+            background: var(--grid-line);
+        }
+
+        .interactive-demo {
+            margin: 30px 0;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #dee2e6;
+        }
+
+        .demo-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #dee2e6;
+        }
+
+        .demo-header h3 {
+            margin: 0;
+            color: var(--primary);
+        }
+
+        .code-preview {
+            background: #2d2d2d;
+            color: #ccc;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.5;
+            overflow-x: auto;
+            border: 1px solid #444;
+        }
+
+        .value-display {
+            display: inline-block;
+            background: #e3f2fd;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            color: var(--secondary);
+            font-weight: bold;
+        }
+
+        footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+            border-top: 3px solid var(--secondary);
+        }
+footer p{
+    margin: 0;
+}
+        @media (max-width: 1024px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .property-controls {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            h2 {
+                font-size: 1.6rem;
+            }
+            
+            h3 {
+                font-size: 1.4rem;
+            }
+        }
+
+        .note-box {
+            background: #fff3cd;
+            border-left: 5px solid var(--warning);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .note-box h4 {
+            color: #856404;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .note-box p {
+            margin-bottom: 0;
+            color: #856404;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 5px solid var(--info);
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .info-box h4 {
+            color: #0c5460;
+            margin-top: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .info-box p {
+            margin-bottom: 0;
+            color: #0c5460;
+        }
+
+        .area-demo {
+            display: grid;
+            gap: 10px;
+            padding: 20px;
+            background: var(--grid-bg);
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .area-header {
+            background: var(--area-header);
+            grid-area: header;
+        }
+
+        .area-sidebar {
+            background: var(--area-sidebar);
+            grid-area: sidebar;
+        }
+
+        .area-content {
+            background: var(--area-content);
+            grid-area: content;
+        }
+
+        .area-ads {
+            background: var(--area-ads);
+            grid-area: ads;
+        }
+
+        .area-footer {
+            background: var(--area-footer);
+            grid-area: footer;
+        }
+
+        .grid-coordinate {
+            position: absolute;
+            font-size: 0.7rem;
+            color: #666;
+            background: rgba(255, 255, 255, 0.8);
+            padding: 2px 4px;
+            border-radius: 3px;
+            pointer-events: none;
+        }
+
+        .coordinate-row {
+            left: 5px;
+        }
+
+        .coordinate-col {
+            top: 5px;
+        }
+
+        .grid-tracks {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+
+        .track-control {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .track-label {
+            font-size: 0.9rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+
+        .track-input {
+            width: 80px;
+            padding: 8px;
+            text-align: center;
+            border: 2px solid #dee2e6;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-grip"></i> GRID SYSTEM - HỆ THỐNG LƯỚI 2 CHIỀU</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <nav class="sidebar">
+                <div class="nav-section">
+                    <h3><i class="fas fa-layer-group"></i> GRID CONTAINER</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="#intro" class="nav-link active"><i class="fas fa-play"></i> Giới thiệu</a></li>
+                        <li class="nav-item"><a href="#display-grid" class="nav-link"><i class="fas fa-th"></i> display: grid</a></li>
+                        <li class="nav-item"><a href="#template-columns-rows" class="nav-link"><i class="fas fa-border-style"></i> grid-template</a></li>
+                        <li class="nav-item"><a href="#gap" class="nav-link"><i class="fas fa-arrows-alt-h"></i> gap</a></li>
+                        <li class="nav-item"><a href="#template-areas" class="nav-link"><i class="fas fa-th-large"></i> grid-template-areas</a></li>
+                        <li class="nav-item"><a href="#justify-align-items" class="nav-link"><i class="fas fa-align-center"></i> justify/align-items</a></li>
+                        <li class="nav-item"><a href="#justify-align-content" class="nav-link"><i class="fas fa-object-group"></i> justify/align-content</a></li>
+                    </ul>
+                </div>
+                
+                <div class="nav-section">
+                    <h3><i class="fas fa-cube"></i> GRID ITEMS</h3>
+                    <ul class="nav-list">
+                        <li class="nav-item"><a href="#grid-column-row" class="nav-link"><i class="fas fa-expand-alt"></i> grid-column & grid-row</a></li>
+                        <li class="nav-item"><a href="#grid-area" class="nav-link"><i class="fas fa-map"></i> grid-area</a></li>
+                        <li class="nav-item"><a href="#practical-example" class="nav-link"><i class="fas fa-laptop-code"></i> Ví dụ thực tế</a></li>
+                    </ul>
+                </div>
+                
+                <div class="visual-guide">
+                    <div class="color-indicator">
+                        <div class="color-box container"></div>
+                        <span>Grid Container</span>
+                    </div>
+                    <div class="color-indicator">
+                        <div class="color-box item"></div>
+                        <span>Grid Item</span>
+                    </div>
+                    <div class="color-indicator">
+                        <div class="color-box line"></div>
+                        <span>Grid Line</span>
+                    </div>
+                </div>
+            </nav>
+
+            <main class="main-content">
+                <!-- PHẦN GIỚI THIỆU -->
+                <section id="intro" class="section active">
+                    <h2><i class="fas fa-grip"></i> GIỚI THIỆU GRID SYSTEM</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>CSS Grid Layout</strong> là một hệ thống layout 2 chiều (hàng và cột) mạnh mẽ trong CSS3. Khác với Flexbox (1 chiều), Grid cho phép bạn tạo các layout phức tạp với sự kiểm soát chính xác cả hai chiều.</p>
+                    </div>
+                    
+                    <h3>Tại sao nên dùng Grid?</h3>
+                    <div class="property-controls">
+                        <div class="control-group">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <p><strong>Layout 2 chiều:</strong> Kiểm soát cả hàng và cột đồng thời</p>
+                        </div>
+                        <div class="control-group">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <p><strong>Responsive mạnh mẽ:</strong> Dễ dàng tạo layout thích ứng với fr unit và auto-fit</p>
+                        </div>
+                        <div class="control-group">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <p><strong>Căn chỉnh chính xác:</strong> Đặt phần tử vào bất kỳ vị trí nào trong lưới</p>
+                        </div>
+                        <div class="control-group">
+                            <i class="fas fa-check-circle" style="color: var(--success);"></i>
+                            <p><strong>Template areas:</strong> Định nghĩa layout bằng tên vùng trực quan</p>
+                        </div>
+                    </div>
+                    
+                    <h3>Khái niệm cơ bản</h3>
+                    <p>Grid bao gồm các thành phần chính:</p>
+                    
+                    <div class="example-container">
+                        <div class="example-title">
+                            <h4><i class="fas fa-project-diagram"></i> Grid Container & Grid Items</h4>
+                        </div>
+                        
+                        <div class="grid-container-demo" id="introDemo" style="grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 100px); gap: 15px;">
+                            <div class="grid-item">Item 1</div>
+                            <div class="grid-item">Item 2</div>
+                            <div class="grid-item">Item 3</div>
+                            <div class="grid-item">Item 4</div>
+                            <div class="grid-item">Item 5</div>
+                            <div class="grid-item">Item 6</div>
+                        </div>
+                        
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Ví dụ cơ bản</span>
+                                <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                            </div>
+                            <span class="comment">/* HTML */</span><br>
+                            &lt;div class="container"&gt;<br>
+                            &nbsp;&nbsp;&lt;div&gt;Item 1&lt;/div&gt;<br>
+                            &nbsp;&nbsp;&lt;div&gt;Item 2&lt;/div&gt;<br>
+                            &nbsp;&nbsp;&lt;div&gt;Item 3&lt;/div&gt;<br>
+                            &nbsp;&nbsp;&lt;div&gt;Item 4&lt;/div&gt;<br>
+                            &nbsp;&nbsp;&lt;div&gt;Item 5&lt;/div&gt;<br>
+                            &nbsp;&nbsp;&lt;div&gt;Item 6&lt;/div&gt;<br>
+                            &lt;/div&gt;<br><br>
+                            <span class="comment">/* CSS */</span><br>
+                            .container {<br>
+                            &nbsp;&nbsp;display: grid;<br>
+                            &nbsp;&nbsp;grid-template-columns: repeat(3, 1fr);<br>
+                            &nbsp;&nbsp;grid-template-rows: repeat(2, 100px);<br>
+                            &nbsp;&nbsp;gap: 15px;<br>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-lightbulb"></i> Grid vs Flexbox</h4>
+                        <p><strong>Flexbox:</strong> 1 chiều, tốt cho việc sắp xếp các item trong một hàng hoặc một cột.</p>
+                        <p><strong>Grid:</strong> 2 chiều, hoàn hảo cho layout phức tạp cần kiểm soát cả hàng và cột.</p>
+                        <p>Bạn có thể kết hợp cả hai: dùng Grid cho layout tổng thể và Flexbox cho các thành phần bên trong.</p>
+                    </div>
+                </section>
+
+                <!-- DISPLAY: GRID -->
+                <section id="display-grid" class="section">
+                    <h2><i class="fas fa-th"></i> 5.3.1.1. display: grid</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>Định nghĩa:</strong> Biến phần tử trở thành một grid container, cho phép sử dụng tất cả các thuộc tính của Grid Layout.</p>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        .container {<br>
+                        &nbsp;&nbsp;<span class="keyword">display</span>: <span class="string">grid</span>;<br>
+                        }
+                    </div>
+                    
+                    <div class="property-controls">
+                        <div class="control-group">
+                            <label><i class="fas fa-bullseye"></i> Giá trị:</label>
+                            <div style="padding: 15px; background: #f8f9fa; border-radius: 6px;">
+                                <p><strong>grid</strong>: Phần tử là một block-level grid container.</p>
+                                <p><strong>inline-grid</strong>: Phần tử là một inline-level grid container.</p>
+                                <p><strong>subgrid</strong>: Kế thừa grid từ container cha (chưa được hỗ trợ đầy đủ).</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-header">
+                            <h3><i class="fas fa-gamepad"></i> Demo tương tác: display</h3>
+                        </div>
+                        
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="displayGridType"><i class="fas fa-cog"></i> Chọn giá trị display:</label>
+                                <select id="displayGridType">
+                                    <option value="grid">grid</option>
+                                    <option value="inline-grid">inline-grid</option>
+                                    <option value="block">block (không grid)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div id="displayGridDemo" class="result-preview">
+                            <div id="displayGridContainer" class="grid-container-demo" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; width: 100%;">
+                                <div class="grid-item">1</div>
+                                <div class="grid-item">2</div>
+                                <div class="grid-item">3</div>
+                                <div class="grid-item">4</div>
+                                <div class="grid-item">5</div>
+                                <div class="grid-item">6</div>
+                            </div>
+                            <div style="margin-top: 15px; padding: 10px; background: #f8f9fa; border-radius: 5px; font-size: 0.9rem; color: #666;">
+                                Đây là một phần tử bình thường đứng sau grid container
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-run" onclick="updateDisplayGridDemo()">
+                            <i class="fas fa-play"></i> Áp dụng
+                        </button>
+                        
+                        <div class="code-preview" id="displayGridCodePreview">
+                            .container {<br>
+                            &nbsp;&nbsp;display: <span class="value-display">grid</span>;<br>
+                            &nbsp;&nbsp;grid-template-columns: repeat(3, 1fr);<br>
+                            &nbsp;&nbsp;gap: 15px;<br>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Kết quả:</h4>
+                        <p>Với <strong>grid</strong>: Container chiếm toàn bộ chiều rộng (block-level).</p>
+                        <p>Với <strong>inline-grid</strong>: Container chỉ chiếm đúng chiều rộng cần thiết (inline-level).</p>
+                    </div>
+                </section>
+
+                <!-- GRID-TEMPLATE-COLUMNS & ROWS -->
+                <section id="template-columns-rows" class="section">
+                    <h2><i class="fas fa-border-style"></i> 5.3.1.2. grid-template-columns & grid-template-rows</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>Định nghĩa:</strong> Xác định số lượng và kích thước các cột và hàng trong grid.</p>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        .container {<br>
+                        &nbsp;&nbsp;<span class="keyword">display</span>: <span class="string">grid</span>;<br>
+                        &nbsp;&nbsp;<span class="keyword">grid-template-columns</span>: <span class="number">1</span><span class="string">fr</span> <span class="number">2</span><span class="string">fr</span> <span class="number">1</span><span class="string">fr</span>; <span class="comment">/* 3 cột: tỉ lệ 1-2-1 */</span><br>
+                        &nbsp;&nbsp;<span class="keyword">grid-template-rows</span>: <span class="number">100</span><span class="string">px</span> <span class="number">200</span><span class="string">px</span>;   <span class="comment">/* 2 hàng: cao 100px và 200px */</span><br>
+                        }
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-lightbulb"></i> Đơn vị fr và hàm repeat()</h4>
+                        <p><strong>fr (fraction)</strong>: Đơn vị phân số, chia không gian còn lại theo tỉ lệ.</p>
+                        <p><strong>repeat()</strong>: Hàm lặp lại giá trị, giúp viết code ngắn gọn hơn.</p>
+                        <div class="code-block" style="margin: 10px 0; padding: 15px; font-size: 0.9rem;">
+                            <span class="comment">/* Cách viết thông thường */</span><br>
+                            grid-template-columns: 1fr 1fr 1fr 1fr;<br><br>
+                            <span class="comment">/* Dùng repeat() */</span><br>
+                            grid-template-columns: repeat(4, 1fr);<br><br>
+                            <span class="comment">/* Kết hợp nhiều giá trị */</span><br>
+                            grid-template-columns: 200px repeat(3, 1fr) 100px;
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-header">
+                            <h3><i class="fas fa-gamepad"></i> Demo tương tác: grid-template</h3>
+                        </div>
+                        
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="columnsValue"><i class="fas fa-columns"></i> grid-template-columns:</label>
+                                <textarea id="columnsValue" rows="2">repeat(3, 1fr)</textarea>
+                            </div>
+                            <div class="control-group">
+                                <label for="rowsValue"><i class="fas fa-stream"></i> grid-template-rows:</label>
+                                <textarea id="rowsValue" rows="2">100px 150px</textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="grid-tracks">
+                            <div class="track-control">
+                                <div class="track-label">Cột 1</div>
+                                <input type="text" class="track-input" id="col1" value="1fr" placeholder="100px, 1fr, auto">
+                            </div>
+                            <div class="track-control">
+                                <div class="track-label">Cột 2</div>
+                                <input type="text" class="track-input" id="col2" value="1fr" placeholder="100px, 1fr, auto">
+                            </div>
+                            <div class="track-control">
+                                <div class="track-label">Cột 3</div>
+                                <input type="text" class="track-input" id="col3" value="1fr" placeholder="100px, 1fr, auto">
+                            </div>
+                            <div class="track-control">
+                                <div class="track-label">Hàng 1</div>
+                                <input type="text" class="track-input" id="row1" value="100px" placeholder="100px, 1fr, auto">
+                            </div>
+                            <div class="track-control">
+                                <div class="track-label">Hàng 2</div>
+                                <input type="text" class="track-input" id="row2" value="150px" placeholder="100px, 1fr, auto">
+                            </div>
+                        </div>
+                        
+                        <div id="templateDemo" class="grid-container-demo" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: 100px 150px; gap: 10px;">
+                            <!-- Grid lines -->
+                            <div class="grid-line column-line" style="left: calc(100% / 3);"></div>
+                            <div class="grid-line column-line" style="left: calc(200% / 3);"></div>
+                            <div class="grid-line row-line" style="top: 100px;"></div>
+                            
+                            <!-- Coordinates -->
+                            <div class="grid-coordinate coordinate-col" style="left: calc(100% / 6); top: 5px;">1</div>
+                            <div class="grid-coordinate coordinate-col" style="left: calc(300% / 6); top: 5px;">2</div>
+                            <div class="grid-coordinate coordinate-col" style="left: calc(500% / 6); top: 5px;">3</div>
+                            <div class="grid-coordinate coordinate-col" style="left: calc(600% / 6); top: 5px;">4</div>
+                            
+                            <div class="grid-coordinate coordinate-row" style="top: 50px;">1</div>
+                            <div class="grid-coordinate coordinate-row" style="top: 175px;">2</div>
+                            <div class="grid-coordinate coordinate-row" style="top: 275px;">3</div>
+                            
+                            <!-- Grid items -->
+                            <div class="grid-item">A1</div>
+                            <div class="grid-item">B1</div>
+                            <div class="grid-item">C1</div>
+                            <div class="grid-item">A2</div>
+                            <div class="grid-item">B2</div>
+                            <div class="grid-item">C2</div>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button class="btn btn-run" onclick="updateTemplateDemo()">
+                                <i class="fas fa-sync-alt"></i> Cập nhật từ textarea
+                            </button>
+                            <button class="btn btn-run" onclick="updateTemplateFromInputs()">
+                                <i class="fas fa-sliders-h"></i> Cập nhật từ inputs
+                            </button>
+                            <button class="btn btn-reset" onclick="resetTemplateDemo()">
+                                <i class="fas fa-redo"></i> Đặt lại
+                            </button>
+                        </div>
+                        
+                        <div class="code-preview" id="templateCodePreview">
+                            .container {<br>
+                            &nbsp;&nbsp;display: grid;<br>
+                            &nbsp;&nbsp;grid-template-columns: <span class="value-display">repeat(3, 1fr)</span>;<br>
+                            &nbsp;&nbsp;grid-template-rows: <span class="value-display">100px 150px</span>;<br>
+                            &nbsp;&nbsp;gap: 10px;<br>
+                            }
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GAP -->
+                <section id="gap" class="section">
+                    <h2><i class="fas fa-arrows-alt-h"></i> 5.3.1.3. gap, row-gap, column-gap</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>Định nghĩa:</strong> Tạo khoảng cách giữa các hàng và cột trong grid.</p>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        .container {<br>
+                        &nbsp;&nbsp;<span class="keyword">display</span>: <span class="string">grid</span>;<br>
+                        &nbsp;&nbsp;<span class="keyword">gap</span>: <span class="number">10</span><span class="string">px</span>; <span class="comment">/* cả hàng và cột */</span><br>
+                        &nbsp;&nbsp;<span class="keyword">row-gap</span>: <span class="number">10</span><span class="string">px</span>;<br>
+                        &nbsp;&nbsp;<span class="keyword">column-gap</span>: <span class="number">20</span><span class="string">px</span>;<br>
+                        }
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-header">
+                            <h3><i class="fas fa-gamepad"></i> Demo tương tác: gap</h3>
+                        </div>
+                        
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="gapValueGrid"><i class="fas fa-arrows-alt-h"></i> gap chung (px):</label>
+                                <input type="range" id="gapValueGrid" min="0" max="50" value="10">
+                            </div>
+                            <div class="control-group">
+                                <label for="rowGapValue"><i class="fas fa-arrows-alt-v"></i> row-gap (px):</label>
+                                <input type="range" id="rowGapValue" min="0" max="50" value="10">
+                            </div>
+                            <div class="control-group">
+                                <label for="columnGapValue"><i class="fas fa-arrows-alt-h"></i> column-gap (px):</label>
+                                <input type="range" id="columnGapValue" min="0" max="50" value="10">
+                            </div>
+                        </div>
+                        
+                        <div id="gapGridDemo" class="grid-container-demo" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 100px); gap: 10px;">
+                            <div class="grid-item">1</div>
+                            <div class="grid-item">2</div>
+                            <div class="grid-item">3</div>
+                            <div class="grid-item">4</div>
+                            <div class="grid-item">5</div>
+                            <div class="grid-item">6</div>
+                        </div>
+                        
+                        <div class="btn-group">
+                            <button class="btn btn-run" onclick="updateGapGridDemo('gap')">
+                                <i class="fas fa-square"></i> Áp dụng gap
+                            </button>
+                            <button class="btn btn-run" onclick="updateGapGridDemo('separate')">
+                                <i class="fas fa-columns"></i> Áp dụng row/column-gap
+                            </button>
+                        </div>
+                        
+                        <div class="code-preview" id="gapGridCodePreview">
+                            .container {<br>
+                            &nbsp;&nbsp;display: grid;<br>
+                            &nbsp;&nbsp;grid-template-columns: repeat(3, 1fr);<br>
+                            &nbsp;&nbsp;grid-template-rows: repeat(2, 100px);<br>
+                            &nbsp;&nbsp;gap: <span class="value-display">10px</span>;<br>
+                            }
+                        </div>
+                    </div>
+                </section>
+
+                <!-- GRID-TEMPLATE-AREAS -->
+                <section id="template-areas" class="section">
+                    <h2><i class="fas fa-th-large"></i> 5.3.1.4. grid-template-areas</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>Định nghĩa:</strong> Đặt tên cho các vùng trong grid để dễ sắp xếp và tạo layout phức tạp.</p>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ cú pháp</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        .container {<br>
+                        &nbsp;&nbsp;display: grid;<br>
+                        &nbsp;&nbsp;grid-template-areas:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"header header"</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"sidebar content"</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string">"footer footer"</span>;<br>
+                        &nbsp;&nbsp;grid-template-columns: 1fr 3fr;<br>
+                        &nbsp;&nbsp;grid-template-rows: auto auto auto;<br>
+                        }<br><br>
+                        <span class="comment">/* Gán vùng cho từng phần tử */</span><br>
+                        .header { grid-area: header; }<br>
+                        .sidebar { grid-area: sidebar; }<br>
+                        .content { grid-area: content; }<br>
+                        .footer { grid-area: footer; }
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-header">
+                            <h3><i class="fas fa-gamepad"></i> Demo tương tác: grid-template-areas</h3>
+                        </div>
+                        
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="areasValue"><i class="fas fa-th-large"></i> grid-template-areas:</label>
+                                <textarea style="width: 250px;" id="areasValue" rows="4">"header header header"
+"sidebar content ads"
+"footer footer footer"</textarea>
+                            </div>
+                            <div class="control-group">
+                                <label for="areasColumns"><i class="fas fa-columns"></i> grid-template-columns:</label>
+                                <input type="text" id="areasColumns" value="200px 1fr 200px">
+                            </div>
+                            <div class="control-group">
+                                <label for="areasRows"><i class="fas fa-stream"></i> grid-template-rows:</label>
+                                <input type="text" id="areasRows" value="80px auto 60px">
+                            </div>
+                        </div>
+                        
+                        <div id="areasDemo" class="area-demo" style="grid-template-areas: 'header header header' 'sidebar content ads' 'footer footer footer'; grid-template-columns: 200px 1fr 200px; grid-template-rows: 80px auto 60px;">
+                            <div class="grid-item area-header">Header</div>
+                            <div class="grid-item area-sidebar">Sidebar</div>
+                            <div class="grid-item area-content">Main Content</div>
+                            <div class="grid-item area-ads">Ads</div>
+                            <div class="grid-item area-footer">Footer</div>
+                        </div>
+                        
+                        <button class="btn btn-run" onclick="updateAreasDemo()">
+                            <i class="fas fa-sync-alt"></i> Cập nhật
+                        </button>
+                        
+                        <div class="code-preview" id="areasCodePreview">
+                            .container {<br>
+                            &nbsp;&nbsp;display: grid;<br>
+                            &nbsp;&nbsp;grid-template-areas:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="value-display">"header header header"</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="value-display">"sidebar content ads"</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="value-display">"footer footer footer"</span>;<br>
+                            &nbsp;&nbsp;grid-template-columns: <span class="value-display">200px 1fr 200px</span>;<br>
+                            &nbsp;&nbsp;grid-template-rows: <span class="value-display">80px auto 60px</span>;<br>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="note-box">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Quy tắc đặt tên vùng:</h4>
+                        <ul style="padding-left: 20px; margin: 10px 0;">
+                            <li>Mỗi hàng được đặt trong dấu ngoặc kép</li>
+                            <li>Mỗi vùng được đặt tên (không có khoảng trắng)</li>
+                            <li>Dấu chấm (.) để chỉ ô trống</li>
+                            <li>Các vùng có thể mở rộng nhiều ô bằng cách lặp lại tên</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- JUSTIFY/ALIGN-ITEMS -->
+                <section id="justify-align-items" class="section">
+                    <h2><i class="fas fa-align-center"></i> 5.3.1.5. justify-items & align-items</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>Định nghĩa:</strong> Căn chỉnh nội dung bên trong các grid items theo chiều ngang (justify-items) và chiều dọc (align-items).</p>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        .container {<br>
+                        &nbsp;&nbsp;<span class="keyword">justify-items</span>: <span class="string">center</span>; <span class="comment">/* căn ngang */</span><br>
+                        &nbsp;&nbsp;<span class="keyword">align-items</span>: <span class="string">stretch</span>; <span class="comment">/* căn dọc */</span><br>
+                        }
+                    </div>
+                    
+                    <div class="property-controls">
+                        <div class="control-group">
+                            <label><i class="fas fa-bullseye"></i> Giá trị:</label>
+                            <div style="padding: 15px; background: #f8f9fa; border-radius: 6px;">
+                                <p><strong>start</strong>: Căn về đầu trục</p>
+                                <p><strong>end</strong>: Căn về cuối trục</p>
+                                <p><strong>center</strong>: Căn giữa</p>
+                                <p><strong>stretch</strong> (mặc định): Kéo dài để lấp đầy ô</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-header">
+                            <h3><i class="fas fa-gamepad"></i> Demo tương tác: justify-items & align-items</h3>
+                        </div>
+                        
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="justifyItems"><i class="fas fa-align-center"></i> justify-items:</label>
+                                <select id="justifyItems">
+                                    <option value="stretch">stretch</option>
+                                    <option value="start">start</option>
+                                    <option value="end">end</option>
+                                    <option value="center">center</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="alignItemsGrid"><i class="fas fa-align-left"></i> align-items:</label>
+                                <select id="alignItemsGrid">
+                                    <option value="stretch">stretch</option>
+                                    <option value="start">start</option>
+                                    <option value="end">end</option>
+                                    <option value="center">center</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div id="itemsDemo" class="grid-container-demo" style="display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, 120px); justify-items: stretch; align-items: stretch; gap: 15px;">
+                            <div class="grid-item" style="padding: 10px; font-size: 1rem;">Item 1<br>(Nội dung ngắn)</div>
+                            <div class="grid-item" style="padding: 10px; font-size: 1rem;">Item 2<br>(Nội dung dài hơn một chút)</div>
+                            <div class="grid-item" style="padding: 10px; font-size: 1rem;">Item 3<br>(Nội dung rất dài để kiểm tra căn chỉnh)</div>
+                            <div class="grid-item" style="padding: 10px; font-size: 1rem;">Item 4</div>
+                            <div class="grid-item" style="padding: 10px; font-size: 1rem;">Item 5</div>
+                            <div class="grid-item" style="padding: 10px; font-size: 1rem;">Item 6</div>
+                        </div>
+                        
+                        <button class="btn btn-run" onclick="updateItemsDemo()">
+                            <i class="fas fa-sync-alt"></i> Cập nhật
+                        </button>
+                    </div>
+                </section>
+
+                <!-- JUSTIFY/ALIGN-CONTENT -->
+                <section id="justify-align-content" class="section">
+                    <h2><i class="fas fa-object-group"></i> 5.3.1.6. justify-content & align-content</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>Định nghĩa:</strong> Căn chỉnh toàn bộ grid trong container khi grid nhỏ hơn container.</p>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        .container {<br>
+                        &nbsp;&nbsp;<span class="keyword">justify-content</span>: <span class="string">space-between</span>; <span class="comment">/* căn ngang */</span><br>
+                        &nbsp;&nbsp;<span class="keyword">align-content</span>: <span class="string">center</span>; <span class="comment">/* căn dọc */</span><br>
+                        }
+                    </div>
+                    
+                    <div class="note-box">
+                        <h4><i class="fas fa-info-circle"></i> Khi nào dùng?</h4>
+                        <p>Chỉ có tác dụng khi tổng kích thước các track (cột/hàng) nhỏ hơn kích thước container.</p>
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-header">
+                            <h3><i class="fas fa-gamepad"></i> Demo tương tác: justify-content & align-content</h3>
+                        </div>
+                        
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="justifyContent"><i class="fas fa-object-group"></i> justify-content:</label>
+                                <select id="justifyContent">
+                                    <option value="start">start</option>
+                                    <option value="end">end</option>
+                                    <option value="center">center</option>
+                                    <option value="stretch">stretch</option>
+                                    <option value="space-around">space-around</option>
+                                    <option value="space-between">space-between</option>
+                                    <option value="space-evenly">space-evenly</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="alignContent"><i class="fas fa-object-group"></i> align-content:</label>
+                                <select id="alignContent">
+                                    <option value="start">start</option>
+                                    <option value="end">end</option>
+                                    <option value="center">center</option>
+                                    <option value="stretch">stretch</option>
+                                    <option value="space-around">space-around</option>
+                                    <option value="space-between">space-between</option>
+                                    <option value="space-evenly">space-evenly</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="containerWidth"><i class="fas fa-arrows-alt-h"></i> Container width:</label>
+                                <input type="range" id="containerWidth" min="400" max="800" value="600">
+                            </div>
+                            <div class="control-group">
+                                <label for="containerHeight"><i class="fas fa-arrows-alt-v"></i> Container height:</label>
+                                <input type="range" id="containerHeight" min="300" max="600" value="400">
+                            </div>
+                        </div>
+                        
+                        <div id="contentDemo" class="grid-container-demo" style="display: grid; grid-template-columns: repeat(3, 150px); grid-template-rows: repeat(2, 100px); justify-content: start; align-content: start; gap: 10px; width: 600px; height: 400px;">
+                            <div class="grid-item">1</div>
+                            <div class="grid-item">2</div>
+                            <div class="grid-item">3</div>
+                            <div class="grid-item">4</div>
+                            <div class="grid-item">5</div>
+                            <div class="grid-item">6</div>
+                        </div>
+                        
+                        <button class="btn btn-run" onclick="updateContentDemo()">
+                            <i class="fas fa-sync-alt"></i> Cập nhật
+                        </button>
+                    </div>
+                </section>
+
+                <!-- GRID-COLUMN & GRID-ROW -->
+                <section id="grid-column-row" class="section">
+                    <h2><i class="fas fa-expand-alt"></i> 5.3.2.1. grid-column & grid-row</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>Định nghĩa:</strong> Xác định vị trí phần tử trên lưới theo hàng/cột.</p>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        .item {<br>
+                        &nbsp;&nbsp;<span class="comment">/* Bắt đầu từ cột 1 đến trước cột 3 */</span><br>
+                        &nbsp;&nbsp;<span class="keyword">grid-column</span>: <span class="number">1</span> / <span class="number">3</span>;<br>
+                        &nbsp;&nbsp;<span class="comment">/* Bắt đầu từ hàng 2 đến trước hàng 4 */</span><br>
+                        &nbsp;&nbsp;<span class="keyword">grid-row</span>: <span class="number">2</span> / <span class="number">4</span>;<br>
+                        }<br><br>
+                        <span class="comment">/* Hoặc dùng span */</span><br>
+                        .wide-item {<br>
+                        &nbsp;&nbsp;<span class="keyword">grid-column</span>: <span class="string">span 2</span>; <span class="comment">/* chiếm 2 cột */</span><br>
+                        }
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-header">
+                            <h3><i class="fas fa-gamepad"></i> Demo tương tác: grid-column & grid-row</h3>
+                        </div>
+                        
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="itemSelect"><i class="fas fa-cube"></i> Chọn item:</label>
+                                <select id="itemSelect">
+                                    <option value="item1">Item 1</option>
+                                    <option value="item2">Item 2</option>
+                                    <option value="item3">Item 3</option>
+                                    <option value="item4">Item 4</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="gridColumn"><i class="fas fa-columns"></i> grid-column:</label>
+                                <input type="text" id="gridColumn" placeholder="1 / 3 hoặc span 2">
+                            </div>
+                            <div class="control-group">
+                                <label for="gridRow"><i class="fas fa-stream"></i> grid-row:</label>
+                                <input type="text" id="gridRow" placeholder="2 / 4 hoặc span 2">
+                            </div>
+                        </div>
+                        
+                        <div id="columnRowDemo" class="grid-container-demo" style="display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(3, 100px); gap: 10px;">
+                            <!-- Grid lines -->
+                            <div class="grid-line column-line" style="left: 25%;"></div>
+                            <div class="grid-line column-line" style="left: 50%;"></div>
+                            <div class="grid-line column-line" style="left: 75%;"></div>
+                            <div class="grid-line row-line" style="top: 33.33%;"></div>
+                            <div class="grid-line row-line" style="top: 66.66%;"></div>
+                            
+                            <!-- Coordinates -->
+                            <div class="grid-coordinate coordinate-col" style="left: 12.5%;">1</div>
+                            <div class="grid-coordinate coordinate-col" style="left: 37.5%;">2</div>
+                            <div class="grid-coordinate coordinate-col" style="left: 62.5%;">3</div>
+                            <div class="grid-coordinate coordinate-col" style="left: 87.5%;">4</div>
+                            <div class="grid-coordinate coordinate-col" style="left: 100%;">5</div>
+                            
+                            <div class="grid-coordinate coordinate-row" style="top: 16.66%;">1</div>
+                            <div class="grid-coordinate coordinate-row" style="top: 50%;">2</div>
+                            <div class="grid-coordinate coordinate-row" style="top: 83.33%;">3</div>
+                            <div class="grid-coordinate coordinate-row" style="top: 100%;">4</div>
+                            
+                            <!-- Grid items -->
+                            <div class="grid-item" id="demoItem1" style="background: #3498db;">Item 1</div>
+                            <div class="grid-item" id="demoItem2" style="background: #e74c3c;">Item 2</div>
+                            <div class="grid-item" id="demoItem3" style="background: #2ecc71;">Item 3</div>
+                            <div class="grid-item" id="demoItem4" style="background: #f39c12;">Item 4</div>
+                        </div>
+                        
+                        <button class="btn btn-run" onclick="updateColumnRowDemo()">
+                            <i class="fas fa-sync-alt"></i> Áp dụng
+                        </button>
+                        <button class="btn btn-reset" onclick="resetColumnRowDemo()">
+                            <i class="fas fa-redo"></i> Đặt lại
+                        </button>
+                    </div>
+                </section>
+
+                <!-- GRID-AREA -->
+                <section id="grid-area" class="section">
+                    <h2><i class="fas fa-map"></i> 5.3.2.2. grid-area</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>Định nghĩa:</strong> Thuộc tính viết tắt cho grid-row-start, grid-column-start, grid-row-end, grid-column-end.</p>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        .item {<br>
+                        &nbsp;&nbsp;<span class="comment">/* row-start / column-start / row-end / column-end */</span><br>
+                        &nbsp;&nbsp;<span class="keyword">grid-area</span>: <span class="number">2</span> / <span class="number">1</span> / <span class="number">4</span> / <span class="number">3</span>;<br>
+                        }<br><br>
+                        <span class="comment">/* Hoặc gán tên vùng từ grid-template-areas */</span><br>
+                        .header {<br>
+                        &nbsp;&nbsp;<span class="keyword">grid-area</span>: <span class="string">header</span>;<br>
+                        }
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-header">
+                            <h3><i class="fas fa-gamepad"></i> Demo tương tác: grid-area</h3>
+                        </div>
+                        
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="areaItemSelect"><i class="fas fa-cube"></i> Chọn item:</label>
+                                <select id="areaItemSelect">
+                                    <option value="areaItem1">Item 1</option>
+                                    <option value="areaItem2">Item 2</option>
+                                    <option value="areaItem3">Item 3</option>
+                                </select>
+                            </div>
+                            <div class="control-group">
+                                <label for="gridArea"><i class="fas fa-map"></i> grid-area:</label>
+                                <input type="text" id="gridArea" placeholder="2 / 1 / 4 / 3">
+                            </div>
+                        </div>
+                        
+                        <div id="areaDemo" class="grid-container-demo" style="display: grid; grid-template-columns: repeat(4, 1fr); grid-template-rows: repeat(4, 80px); gap: 10px;">
+                            <!-- Grid items -->
+                            <div class="grid-item" id="areaDemoItem1" style="background: #3498db;">Item 1</div>
+                            <div class="grid-item" id="areaDemoItem2" style="background: #e74c3c;">Item 2</div>
+                            <div class="grid-item" id="areaDemoItem3" style="background: #2ecc71;">Item 3</div>
+                        </div>
+                        
+                        <button class="btn btn-run" onclick="updateAreaDemo()">
+                            <i class="fas fa-sync-alt"></i> Áp dụng
+                        </button>
+                    </div>
+                </section>
+
+                <!-- VÍ DỤ THỰC TẾ -->
+                <section id="practical-example" class="section">
+                    <h2><i class="fas fa-laptop-code"></i> 5.3.2.3. Ví dụ thực tế - Layout website</h2>
+                    
+                    <div class="definition-box">
+                        <p><strong>Mục tiêu:</strong> Tạo layout website hoàn chỉnh với Grid System, bao gồm header, sidebar, content, ads và footer.</p>
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>HTML</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        &lt;div class="website-layout"&gt;<br>
+                        &nbsp;&nbsp;&lt;header class="header"&gt;Header&lt;/header&gt;<br>
+                        &nbsp;&nbsp;&lt;nav class="sidebar"&gt;Sidebar&lt;/nav&gt;<br>
+                        &nbsp;&nbsp;&lt;main class="content"&gt;Main Content&lt;/main&gt;<br>
+                        &nbsp;&nbsp;&lt;aside class="ads"&gt;Advertisement&lt;/aside&gt;<br>
+                        &nbsp;&nbsp;&lt;footer class="footer"&gt;Footer&lt;/footer&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>CSS Grid Layout</span>
+                            <button class="copy-btn" onclick="copyCode(this)"><i class="far fa-copy"></i> Copy</button>
+                        </div>
+                        .website-layout {<br>
+                        &nbsp;&nbsp;display: grid;<br>
+                        &nbsp;&nbsp;grid-template-columns: 200px 1fr 200px;<br>
+                        &nbsp;&nbsp;grid-template-rows: 80px auto 60px;<br>
+                        &nbsp;&nbsp;grid-template-areas:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"header  header  header"<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"sidebar content ads"<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"footer  footer  footer";<br>
+                        &nbsp;&nbsp;gap: 10px;<br>
+                        &nbsp;&nbsp;min-height: 100vh;<br>
+                        }<br><br>
+                        .header  { grid-area: header; background: lightblue; }<br>
+                        .sidebar { grid-area: sidebar; background: lightgray; }<br>
+                        .content { grid-area: content; background: white; }<br>
+                        .ads     { grid-area: ads; background: lightyellow; }<br>
+                        .footer  { grid-area: footer; background: lightgreen; }
+                    </div>
+                    
+                    <div class="interactive-demo">
+                        <div class="demo-header">
+                            <h3><i class="fas fa-gamepad"></i> Demo tương tác: Website Layout</h3>
+                        </div>
+                        
+                        <div class="property-controls">
+                            <div class="control-group">
+                                <label for="layoutStyle"><i class="fas fa-palette"></i> Chọn layout style:</label>
+                                <select id="layoutStyle">
+                                    <option value="standard">Standard (3 cột)</option>
+                                    <option value="sidebar-left">Sidebar trái (2 cột)</option>
+                                    <option value="sidebar-right">Sidebar phải (2 cột)</option>
+                                    <option value="full-width">Full width (1 cột)</option>
+                                    <option value="magazine">Magazine (phức tạp)</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <div id="websiteDemo" class="grid-container-demo" style="display: grid; min-height: 400px; grid-template-columns: 200px 1fr 200px; grid-template-rows: 80px auto 60px; grid-template-areas: 'header header header' 'sidebar content ads' 'footer footer footer'; gap: 10px;">
+                            <div class="grid-item area-header">Header</div>
+                            <div class="grid-item area-sidebar">Sidebar</div>
+                            <div class="grid-item area-content" style="background: white; color: #333; display: flex; flex-direction: column; gap: 10px;">
+                                <h4 style="margin: 0; color: var(--primary);">Main Content</h4>
+                                <p style="margin: 0; font-size: 0.9rem;">Đây là nội dung chính của trang web. Grid layout giúp tổ chức nội dung một cách khoa học và responsive.</p>
+                            </div>
+                            <div class="grid-item area-ads">Ads</div>
+                            <div class="grid-item area-footer">Footer</div>
+                        </div>
+                        
+                        <button class="btn btn-run" onclick="updateWebsiteDemo()">
+                            <i class="fas fa-sync-alt"></i> Thay đổi layout
+                        </button>
+                        
+                        <div class="code-preview" id="websiteCodePreview">
+                            .website-layout {<br>
+                            &nbsp;&nbsp;display: grid;<br>
+                            &nbsp;&nbsp;grid-template-columns: <span class="value-display">200px 1fr 200px</span>;<br>
+                            &nbsp;&nbsp;grid-template-rows: <span class="value-display">80px auto 60px</span>;<br>
+                            &nbsp;&nbsp;grid-template-areas:<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="value-display">"header header header"</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="value-display">"sidebar content ads"</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="value-display">"footer footer footer"</span>;<br>
+                            &nbsp;&nbsp;gap: 10px;<br>
+                            }
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-lightbulb"></i> Ưu điểm của Grid cho layout website:</h4>
+                        <ul style="padding-left: 20px; margin: 10px 0;">
+                            <li><strong>Code ngắn gọn:</strong> Chỉ cần vài dòng CSS để tạo layout phức tạp</li>
+                            <li><strong>Dễ bảo trì:</strong> Thay đổi layout bằng cách sửa grid-template-areas</li>
+                            <li><strong>Responsive dễ dàng:</strong> Dùng media queries để thay đổi grid layout</li>
+                            <li><strong>Căn chỉnh chính xác:</strong> Kiểm soát hoàn toàn vị trí các phần tử</li>
+                        </ul>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>GRID SYSTEM  &copy; GV: Nguyễn Đình Mạnh </p>
+        </footer>
+    </div>
+
+    <script>
+        // Xử lý điều hướng
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+            
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    
+                    // Xóa class active từ tất cả các link và section
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+                    
+                    // Thêm class active cho link được click
+                    this.classList.add('active');
+                    
+                    // Hiển thị section tương ứng
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    // Cuộn lên đầu section
+                    document.getElementById(targetId).scrollIntoView({ behavior: 'smooth' });
+                });
+            });
+            
+            // Khởi tạo các demo
+            initGridDemos();
+        });
+        
+        // Hàm copy code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.parentElement;
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.innerHTML = '<i class="fas fa-check"></i> Đã copy!';
+                setTimeout(() => {
+                    button.innerHTML = '<i class="far fa-copy"></i> Copy';
+                }, 2000);
+            });
+        }
+        
+        // Khởi tạo các demo Grid
+        function initGridDemos() {
+            // Thêm sự kiện cho các input range để cập nhật giá trị hiển thị
+            const rangeInputs = document.querySelectorAll('input[type="range"]');
+            rangeInputs.forEach(input => {
+                const display = document.createElement('span');
+                display.className = 'value-display';
+                display.textContent = input.value + 'px';
+                input.parentNode.appendChild(display);
+                
+                input.addEventListener('input', function() {
+                    display.textContent = this.value + 'px';
+                });
+            });
+            
+            // Khởi tạo giá trị cho các input track
+            const trackInputs = document.querySelectorAll('.track-input');
+            trackInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    updateTemplateFromInputs();
+                });
+            });
+        }
+        
+        // 5.3.1.1. Display: grid Demo
+        function updateDisplayGridDemo() {
+            const displayType = document.getElementById('displayGridType').value;
+            const container = document.getElementById('displayGridContainer');
+            const codePreview = document.getElementById('displayGridCodePreview');
+            
+            container.style.display = displayType;
+            codePreview.innerHTML = `.container {<br>&nbsp;&nbsp;display: <span class="value-display">${displayType}</span>;<br>&nbsp;&nbsp;grid-template-columns: repeat(3, 1fr);<br>&nbsp;&nbsp;gap: 15px;<br>}`;
+        }
+        
+        // 5.3.1.2. Grid-template Demo
+        function updateTemplateDemo() {
+            const columnsValue = document.getElementById('columnsValue').value;
+            const rowsValue = document.getElementById('rowsValue').value;
+            const demo = document.getElementById('templateDemo');
+            const codePreview = document.getElementById('templateCodePreview');
+            
+            demo.style.gridTemplateColumns = columnsValue;
+            demo.style.gridTemplateRows = rowsValue;
+            
+            codePreview.innerHTML = `.container {<br>&nbsp;&nbsp;display: grid;<br>&nbsp;&nbsp;grid-template-columns: <span class="value-display">${columnsValue}</span>;<br>&nbsp;&nbsp;grid-template-rows: <span class="value-display">${rowsValue}</span>;<br>&nbsp;&nbsp;gap: 10px;<br>}`;
+        }
+        
+        function updateTemplateFromInputs() {
+            const col1 = document.getElementById('col1').value;
+            const col2 = document.getElementById('col2').value;
+            const col3 = document.getElementById('col3').value;
+            const row1 = document.getElementById('row1').value;
+            const row2 = document.getElementById('row2').value;
+            
+            const columnsValue = `${col1} ${col2} ${col3}`;
+            const rowsValue = `${row1} ${row2}`;
+            
+            document.getElementById('columnsValue').value = columnsValue;
+            document.getElementById('rowsValue').value = rowsValue;
+            
+            updateTemplateDemo();
+        }
+        
+        function resetTemplateDemo() {
+            document.getElementById('columnsValue').value = 'repeat(3, 1fr)';
+            document.getElementById('rowsValue').value = '100px 150px';
+            
+            document.getElementById('col1').value = '1fr';
+            document.getElementById('col2').value = '1fr';
+            document.getElementById('col3').value = '1fr';
+            document.getElementById('row1').value = '100px';
+            document.getElementById('row2').value = '150px';
+            
+            updateTemplateDemo();
+        }
+        
+        // 5.3.1.3. Gap Demo
+        function updateGapGridDemo(type) {
+            const demo = document.getElementById('gapGridDemo');
+            const codePreview = document.getElementById('gapGridCodePreview');
+            
+            if (type === 'gap') {
+                const gapValue = document.getElementById('gapValueGrid').value;
+                console.log(gapValue)
+                demo.style.gap = gapValue + 'px';
+                demo.style.rowGap = demo.style.gap;
+                demo.style.columnGap = demo.style.gap;
+                
+                codePreview.innerHTML = `.container {<br>&nbsp;&nbsp;display: grid;<br>&nbsp;&nbsp;grid-template-columns: repeat(3, 1fr);<br>&nbsp;&nbsp;grid-template-rows: repeat(2, 100px);<br>&nbsp;&nbsp;gap: <span class="value-display">${gapValue}px</span>;<br>}`;
+            } else {
+                const rowGapValue = document.getElementById('rowGapValue').value;
+                const columnGapValue = document.getElementById('columnGapValue').value;
+                demo.style.gap = '';
+                demo.style.rowGap = rowGapValue + 'px';
+                demo.style.columnGap = columnGapValue + 'px';
+                
+                codePreview.innerHTML = `.container {<br>&nbsp;&nbsp;display: grid;<br>&nbsp;&nbsp;grid-template-columns: repeat(3, 1fr);<br>&nbsp;&nbsp;grid-template-rows: repeat(2, 100px);<br>&nbsp;&nbsp;row-gap: <span class="value-display">${rowGapValue}px</span>;<br>&nbsp;&nbsp;column-gap: <span class="value-display">${columnGapValue}px</span>;<br>}`;
+            }
+        }
+        
+        // 5.3.1.4. Grid-template-areas Demo
+        function updateAreasDemo() {
+            const areasValue = document.getElementById('areasValue').value;
+            const columnsValue = document.getElementById('areasColumns').value;
+            const rowsValue = document.getElementById('areasRows').value;
+            const demo = document.getElementById('areasDemo');
+            const codePreview = document.getElementById('areasCodePreview');
+            
+            // Chuyển đổi textarea value thành CSS hợp lệ
+            const areasArray = areasValue.split('\n').map(line => `"${line.trim()}"`).join('\n  ');
+            
+            demo.style.gridTemplateAreas = areasValue;
+            demo.style.gridTemplateColumns = columnsValue;
+            demo.style.gridTemplateRows = rowsValue;
+            
+            codePreview.innerHTML = `.container {<br>&nbsp;&nbsp;display: grid;<br>&nbsp;&nbsp;grid-template-areas:<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="value-display">${areasArray}</span>;<br>&nbsp;&nbsp;grid-template-columns: <span class="value-display">${columnsValue}</span>;<br>&nbsp;&nbsp;grid-template-rows: <span class="value-display">${rowsValue}</span>;<br>}`;
+        }
+        
+        // 5.3.1.5. Justify/Align-items Demo
+        function updateItemsDemo() {
+            const justifyItems = document.getElementById('justifyItems').value;
+            const alignItems = document.getElementById('alignItemsGrid').value;
+            const demo = document.getElementById('itemsDemo');
+            
+            demo.style.justifyItems = justifyItems;
+            demo.style.alignItems = alignItems;
+        }
+        
+        // 5.3.1.6. Justify/Align-content Demo
+        function updateContentDemo() {
+            const justifyContent = document.getElementById('justifyContent').value;
+            const alignContent = document.getElementById('alignContent').value;
+            const containerWidth = document.getElementById('containerWidth').value;
+            const containerHeight = document.getElementById('containerHeight').value;
+            const demo = document.getElementById('contentDemo');
+            
+            demo.style.justifyContent = justifyContent;
+            demo.style.alignContent = alignContent;
+            demo.style.width = containerWidth + 'px';
+            demo.style.height = containerHeight + 'px';
+        }
+        
+        // 5.3.2.1. Grid-column & Grid-row Demo
+        function updateColumnRowDemo() {
+            const itemSelect = document.getElementById('itemSelect').value;
+            const gridColumn = document.getElementById('gridColumn').value;
+            const gridRow = document.getElementById('gridRow').value;
+            const item = document.getElementById('demo' + itemSelect.charAt(0).toUpperCase() + itemSelect.slice(1));
+            
+            if (gridColumn) {
+                item.style.gridColumn = gridColumn;
+            }
+            
+            if (gridRow) {
+                item.style.gridRow = gridRow;
+            }
+            
+            // Cập nhật text hiển thị
+            item.textContent = `${itemSelect.replace('item', 'Item ')} (col: ${gridColumn || 'auto'}, row: ${gridRow || 'auto'})`;
+        }
+        
+        function resetColumnRowDemo() {
+            const items = ['demoItem1', 'demoItem2', 'demoItem3', 'demoItem4'];
+            items.forEach((id, index) => {
+                const item = document.getElementById(id);
+                item.style.gridColumn = '';
+                item.style.gridRow = '';
+                item.textContent = `Item ${index + 1}`;
+            });
+            
+            document.getElementById('gridColumn').value = '';
+            document.getElementById('gridRow').value = '';
+        }
+        
+        // 5.3.2.2. Grid-area Demo
+        function updateAreaDemo() {
+            const itemSelect = document.getElementById('areaItemSelect').value;
+            const gridArea = document.getElementById('gridArea').value;
+            const item = document.getElementById('area' + itemSelect.charAt(0).toUpperCase() + itemSelect.slice(1));
+            
+            if (gridArea) {
+                item.style.gridArea = gridArea;
+                item.textContent = `${itemSelect.replace('item', 'Item ')} (area: ${gridArea})`;
+            }
+        }
+        
+        // 5.3.2.3. Website Layout Demo
+        function updateWebsiteDemo() {
+            const layoutStyle = document.getElementById('layoutStyle').value;
+            const demo = document.getElementById('websiteDemo');
+            const codePreview = document.getElementById('websiteCodePreview');
+            
+            let templateColumns, templateRows, templateAreas;
+            
+            switch(layoutStyle) {
+                case 'standard':
+                    templateColumns = '200px 1fr 200px';
+                    templateRows = '80px auto 60px';
+                    templateAreas = "'header header header' 'sidebar content ads' 'footer footer footer'";
+                    break;
+                case 'sidebar-left':
+                    templateColumns = '250px 1fr';
+                    templateRows = '80px auto 60px';
+                    templateAreas = "'header header' 'sidebar content' 'footer footer'";
+                    break;
+                case 'sidebar-right':
+                    templateColumns = '1fr 250px';
+                    templateRows = '80px auto 60px';
+                    templateAreas = "'header header' 'content sidebar' 'footer footer'";
+                    break;
+                case 'full-width':
+                    templateColumns = '1fr';
+                    templateRows = '80px auto 60px';
+                    templateAreas = "'header' 'content' 'footer'";
+                    break;
+                case 'magazine':
+                    templateColumns = '1fr 2fr 1fr';
+                    templateRows = '100px 200px 150px 80px';
+                    templateAreas = "'header header header' 'sidebar content ads' 'sidebar content2 content2' 'footer footer footer'";
+                    
+                    // Thêm item mới cho layout magazine
+                    if (!document.getElementById('content2')) {
+                        const content2 = document.createElement('div');
+                        content2.id = 'content2';
+                        content2.className = 'grid-item';
+                        content2.style.background = '#9b59b6';
+                        content2.innerHTML = '<h4 style="margin: 0; color: white;">Content 2</h4><p style="margin: 0; font-size: 0.9rem;">Phần nội dung thứ hai</p>';
+                        demo.appendChild(content2);
+                    }
+                    break;
+            }
+            
+            demo.style.gridTemplateColumns = templateColumns;
+            demo.style.gridTemplateRows = templateRows;
+            demo.style.gridTemplateAreas = templateAreas;
+            
+            // Xóa content2 nếu không phải layout magazine
+            if (layoutStyle !== 'magazine') {
+                const content2 = document.getElementById('content2');
+                if (content2) {
+                    content2.remove();
+                }
+            }
+            
+            codePreview.innerHTML = `.website-layout {<br>&nbsp;&nbsp;display: grid;<br>&nbsp;&nbsp;grid-template-columns: <span class="value-display">${templateColumns}</span>;<br>&nbsp;&nbsp;grid-template-rows: <span class="value-display">${templateRows}</span>;<br>&nbsp;&nbsp;grid-template-areas:<br>&nbsp;&nbsp;&nbsp;&nbsp;<span class="value-display">${templateAreas.replace(/'/g, '"')}</span>;<br>&nbsp;&nbsp;gap: 10px;<br>}`;
+        }
+    </script>
+</body>
+</html>

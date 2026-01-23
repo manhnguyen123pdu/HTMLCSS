@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>demo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 80vh;
+        }
+
+        .sidebar {
+            background: var(--light);
+            padding: 20px;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .nav-list {
+            list-style: none;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--secondary);
+        }
+
+        .main-content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        h4 {
+            color: var(--info);
+            margin: 20px 0 10px;
+        }
+
+        h5 {
+            color: var(--dark);
+            margin: 15px 0 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul,
+        ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.4;
+            border: 2px solid #444;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .class-name {
+            color: #4ec9b0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .interactive-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn-run {
+            background: var(--success);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-content {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+
+        .demo-area {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            margin: 20px 0;
+        }
+
+        .position-demo {
+            height: 300px;
+            border: 2px dashed #ddd;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .position-box {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 5px;
+        }
+
+        .static-box {
+            background: gray;
+        }
+
+        .relative-box {
+            background: blue;
+            position: relative;
+            top: 20px;
+            left: 20px;
+        }
+
+        .absolute-box {
+            background: green;
+            position: absolute;
+            top: 50px;
+            right: 50px;
+        }
+
+        .fixed-box {
+            background: red;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+        }
+
+        .flex-demo {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .flex-item {
+            background: var(--secondary);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            min-width: 80px;
+            text-align: center;
+        }
+
+        .grid-demo {
+            display: grid;
+            gap: 10px;
+            margin: 20px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .grid-item {
+            background: var(--accent);
+            color: white;
+            padding: 20px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .transition-demo {
+            width: 100px;
+            height: 100px;
+            background: var(--secondary);
+            border-radius: 8px;
+            margin: 20px auto;
+            transition: all 0.5s ease;
+        }
+
+        .transform-demo {
+            width: 100px;
+            height: 100px;
+            background: var(--success);
+            border-radius: 8px;
+            margin: 20px auto;
+            transition: transform 0.5s ease;
+        }
+
+        .animation-demo {
+            width: 100px;
+            height: 100px;
+            background: var(--warning);
+            border-radius: 8px;
+            margin: 20px auto;
+        }
+
+        .pseudo-demo {
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .pseudo-demo p {
+            margin: 10px 0;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-rocket"></i> CHƯƠNG 5: CSS NÂNG CAO</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <nav class="sidebar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#intro" class="nav-link active"><i class="fas fa-home"></i> Giới
+                            thiệu</a></li>
+                    <li class="nav-item"><a href="#display-position" class="nav-link"><i class="fas fa-layer-group"></i>
+                            Hiển thị & Vị trí</a></li>
+                    <li class="nav-item"><a href="#flexbox" class="nav-link"><i class="fas fa-th-large"></i> Flexbox</a>
+                    </li>
+                    <li class="nav-item"><a href="#grid" class="nav-link"><i class="fas fa-table"></i> Grid System</a>
+                    </li>
+                    <li class="nav-item"><a href="#effects" class="nav-link"><i class="fas fa-magic"></i> Hiệu ứng &
+                            Hoạt hình</a></li>
+                    <li class="nav-item"><a href="#other" class="nav-link"><i class="fas fa-star"></i> Thuộc tính
+                            khác</a></li>
+                    <li class="nav-item"><a href="#pseudo" class="nav-link"><i class="fas fa-ghost"></i> Lớp giả & Phần
+                            tử giả</a></li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <!-- PHẦN GIỚI THIỆU -->
+                <section id="intro" class="section active">
+                    <h2><i class="fas fa-home"></i> GIỚI THIỆU CHƯƠNG</h2>
+
+                    <h3>5. CSS Nâng cao</h3>
+                    <p>Chương này sẽ giới thiệu các kỹ thuật CSS nâng cao giúp tạo ra các layout phức tạp, hiệu ứng đẹp
+                        mắt và tương tác linh hoạt với người dùng.</p>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Mục tiêu học tập</h4>
+                        <ul>
+                            <li>Hiểu và áp dụng được các thuộc tính hiển thị và định vị nâng cao</li>
+                            <li>Làm chủ Flexbox và Grid System để tạo layout hiện đại</li>
+                            <li>Tạo được hiệu ứng chuyển động và animation</li>
+                            <li>Sử dụng thành thạo các lớp giả và phần tử giả</li>
+                            <li>Áp dụng các thuộc tính CSS nâng cao khác</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <h4><i class="fas fa-check-circle"></i> Tầm quan trọng</h4>
+                        <p>CSS nâng cao là chìa khóa để tạo ra các website hiện đại, responsive và có trải nghiệm người
+                            dùng tốt. Nắm vững các kỹ thuật này giúp bạn giải quyết các bài toán layout phức tạp một
+                            cách hiệu quả.</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN HIỂN THỊ & VỊ TRÍ -->
+                <section id="display-position" class="section">
+                    <h2><i class="fas fa-layer-group"></i> HIỂN THỊ & VỊ TRÍ</h2>
+
+                    <h3>5.1. Các thuộc tính hiển thị và định vị</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá trị phổ biến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>visibility</strong></td>
+                                    <td>Ẩn nhưng vẫn chiếm chỗ</td>
+                                    <td>visible, hidden</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>position</strong></td>
+                                    <td>Vị trí phần tử</td>
+                                    <td>static, relative, absolute, fixed, sticky</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>z-index</strong></td>
+                                    <td>Độ sâu lớp</td>
+                                    <td>1, 999</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>top, left, right, bottom</strong></td>
+                                    <td>Khoảng cách định vị</td>
+                                    <td>0, 10px</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>float</strong></td>
+                                    <td>Đẩy trái/phải</td>
+                                    <td>left, right, none</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>5.1.1. visibility</h4>
+                    <p>Mục đích: Ẩn hoặc hiển thị phần tử nhưng vẫn giữ chỗ (khác với display: none)</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ visibility</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;p style="visibility: hidden;"&gt;Ẩn nhưng vẫn chiếm chỗ&lt;/p&gt;<br>
+                        &lt;p&gt;Đoạn văn bình thường&lt;/p&gt;
+                    </div>
+
+                    <h4>5.1.2. position</h4>
+                    <p>Mục đích: Thiết lập cách phần tử được định vị trên trang</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ position</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="box static"&gt;Static&lt;/div&gt;<br>
+                        &lt;div class="box relative"&gt;Relative&lt;/div&gt;<br>
+                        &lt;div class="container"&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="box absolute"&gt;Absolute&lt;/div&gt;<br>
+                        &lt;/div&gt;<br>
+                        &lt;div class="box fixed"&gt;Fixed&lt;/div&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .box {<br>
+                        &nbsp;&nbsp;padding: 10px;<br>
+                        &nbsp;&nbsp;margin: 10px;<br>
+                        &nbsp;&nbsp;color: white;<br>
+                        }<br>
+                        .static {<br>
+                        &nbsp;&nbsp;position: static;<br>
+                        &nbsp;&nbsp;background: gray;<br>
+                        }<br>
+                        .relative {<br>
+                        &nbsp;&nbsp;position: relative;<br>
+                        &nbsp;&nbsp;top: 10px;<br>
+                        &nbsp;&nbsp;left: 20px;<br>
+                        &nbsp;&nbsp;background: blue;<br>
+                        }<br>
+                        .container {<br>
+                        &nbsp;&nbsp;position: relative;<br>
+                        &nbsp;&nbsp;height: 150px;<br>
+                        &nbsp;&nbsp;border: 1px solid black;<br>
+                        }<br>
+                        .absolute {<br>
+                        &nbsp;&nbsp;position: absolute;<br>
+                        &nbsp;&nbsp;top: 20px;<br>
+                        &nbsp;&nbsp;left: 30px;<br>
+                        &nbsp;&nbsp;background: green;<br>
+                        }<br>
+                        .fixed {<br>
+                        &nbsp;&nbsp;position: fixed;<br>
+                        &nbsp;&nbsp;bottom: 10px;<br>
+                        &nbsp;&nbsp;right: 10px;<br>
+                        &nbsp;&nbsp;background: red;<br>
+                        }
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-lightbulb"></i> Lưu ý quan trọng</h4>
+                        <p>Thuộc tính <strong>absolute</strong> cho phép căn chỉnh một phần tử dựa vào thẻ bao ngoài có
+                            giá trị của position là relative. Nếu không có phần tử cha nào có position: relative, nó sẽ
+                            định vị theo thẻ &lt;body&gt;.</p>
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo position:</h4>
+                        <div class="position-demo">
+                            <div class="position-box static-box">Static</div>
+                            <div class="position-box relative-box">Relative</div>
+                            <div class="position-box absolute-box">Absolute</div>
+                            <div class="position-box fixed-box">Fixed</div>
+                        </div>
+                        <p class="note">Lưu ý: Box "Fixed" sẽ dính vào góc dưới bên phải màn hình khi cuộn trang.</p>
+                    </div>
+
+                    <h4>5.1.3. z-index</h4>
+                    <p>Mục đích: Xác định lớp xếp chồng (phần tử nào nằm trên phần tử nào)</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ z-index</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box1 {<br>
+                        &nbsp;&nbsp;position: absolute;<br>
+                        &nbsp;&nbsp;z-index: 2;<br>
+                        &nbsp;&nbsp;background: red;<br>
+                        }<br>
+                        .box2 {<br>
+                        &nbsp;&nbsp;position: absolute;<br>
+                        &nbsp;&nbsp;z-index: 1;<br>
+                        &nbsp;&nbsp;background: blue;<br>
+                        }
+                    </div>
+                </section>
+
+                <!-- PHẦN FLEXBOX -->
+                <section id="flexbox" class="section">
+                    <h2><i class="fas fa-th-large"></i> FLEXBOX</h2>
+
+                    <h3>5.2. Flexbox - Bố cục linh hoạt</h3>
+
+                    <h4>5.2.1. Flex Container - Thuộc tính áp dụng cho phần tử cha</h4>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá trị phổ biến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>display</strong></td>
+                                    <td>Kích hoạt chế độ Flexbox</td>
+                                    <td>flex, inline-flex</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>flex-direction</strong></td>
+                                    <td>Xác định hướng sắp xếp</td>
+                                    <td>row, row-reverse, column, column-reverse</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>justify-content</strong></td>
+                                    <td>Căn chỉnh theo trục chính</td>
+                                    <td>flex-start, center, flex-end, space-between, space-around</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>align-items</strong></td>
+                                    <td>Căn chỉnh theo trục phụ</td>
+                                    <td>stretch, flex-start, center, flex-end</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>flex-wrap</strong></td>
+                                    <td>Xuống dòng khi tràn</td>
+                                    <td>nowrap, wrap, wrap-reverse</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>gap</strong></td>
+                                    <td>Khoảng cách giữa các item</td>
+                                    <td>10px, 1rem, 20px</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>5.2.2. Flex Item - Thuộc tính áp dụng cho phần tử con</h4>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá trị phổ biến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>order</strong></td>
+                                    <td>Sắp xếp thứ tự xuất hiện</td>
+                                    <td>0, 1, 2, -1</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>flex-grow</strong></td>
+                                    <td>Tỉ lệ giãn ra khi còn chỗ trống</td>
+                                    <td>0, 1, 2</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>flex-shrink</strong></td>
+                                    <td>Khả năng thu nhỏ khi thiếu chỗ</td>
+                                    <td>0, 1</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>flex-basis</strong></td>
+                                    <td>Kích thước ban đầu</td>
+                                    <td>auto, 100px, 20%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>flex</strong></td>
+                                    <td>Viết tắt (grow, shrink, basis)</td>
+                                    <td>1 1 auto, 0 0 200px</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ Flexbox hoàn chỉnh</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- HTML --&gt;</span><br>
+                        &lt;div class="container"&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="item item1"&gt;1&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="item item2"&gt;2&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="item item3"&gt;3&lt;/div&gt;<br>
+                        &lt;/div&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .container {<br>
+                        &nbsp;&nbsp;display: flex;<br>
+                        &nbsp;&nbsp;flex-direction: row;<br>
+                        &nbsp;&nbsp;justify-content: space-between;<br>
+                        &nbsp;&nbsp;align-items: center;<br>
+                        &nbsp;&nbsp;gap: 10px;<br>
+                        &nbsp;&nbsp;height: 200px;<br>
+                        &nbsp;&nbsp;background: #f8f9fa;<br>
+                        &nbsp;&nbsp;padding: 20px;<br>
+                        }<br>
+                        .item {<br>
+                        &nbsp;&nbsp;background: #3498db;<br>
+                        &nbsp;&nbsp;color: white;<br>
+                        &nbsp;&nbsp;padding: 20px;<br>
+                        &nbsp;&nbsp;border-radius: 5px;<br>
+                        }<br>
+                        .item1 {<br>
+                        &nbsp;&nbsp;flex-grow: 1;<br>
+                        &nbsp;&nbsp;order: 2;<br>
+                        }<br>
+                        .item2 {<br>
+                        &nbsp;&nbsp;flex-grow: 2;<br>
+                        &nbsp;&nbsp;order: 1;<br>
+                        }<br>
+                        .item3 {<br>
+                        &nbsp;&nbsp;flex-grow: 1;<br>
+                        &nbsp;&nbsp;order: 3;<br>
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo Flexbox:</h4>
+                        <div class="flex-demo" id="flexDemo">
+                            <div class="flex-item">Item 1</div>
+                            <div class="flex-item">Item 2</div>
+                            <div class="flex-item">Item 3</div>
+                        </div>
+                        <div class="input-group">
+                            <label for="flexDirection">Chọn flex-direction:</label>
+                            <select id="flexDirection" onchange="updateFlexDemo()">
+                                <option value="row">row</option>
+                                <option value="row-reverse">row-reverse</option>
+                                <option value="column">column</option>
+                                <option value="column-reverse">column-reverse</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="justifyContent">Chọn justify-content:</label>
+                            <select id="justifyContent" onchange="updateFlexDemo()">
+                                <option value="flex-start">flex-start</option>
+                                <option value="center">center</option>
+                                <option value="flex-end">flex-end</option>
+                                <option value="space-between">space-between</option>
+                                <option value="space-around">space-around</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN GRID SYSTEM -->
+                <section id="grid" class="section">
+                    <h2><i class="fas fa-table"></i> GRID SYSTEM</h2>
+
+                    <h3>5.3. Grid System - Hệ thống lưới</h3>
+
+                    <h4>5.3.1. Thuộc tính áp dụng cho Grid Container</h4>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>display</strong></td>
+                                    <td>Kích hoạt Grid</td>
+                                    <td>grid, inline-grid</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>grid-template-columns</strong></td>
+                                    <td>Xác định số và kích thước cột</td>
+                                    <td>1fr 2fr 1fr, repeat(3, 1fr)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>grid-template-rows</strong></td>
+                                    <td>Xác định số và kích thước hàng</td>
+                                    <td>100px 200px, auto</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>gap</strong></td>
+                                    <td>Khoảng cách giữa các ô</td>
+                                    <td>10px, 1rem</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>grid-template-areas</strong></td>
+                                    <td>Đặt tên cho các vùng</td>
+                                    <td>"header header" "sidebar content"</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>5.3.2. Thuộc tính áp dụng cho Grid Item</h4>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>grid-column</strong></td>
+                                    <td>Xác định vị trí theo cột</td>
+                                    <td>1 / 3, span 2</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>grid-row</strong></td>
+                                    <td>Xác định vị trí theo hàng</td>
+                                    <td>1 / 4, span 3</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>grid-area</strong></td>
+                                    <td>Gán cho vùng đã đặt tên</td>
+                                    <td>header, sidebar</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ Grid System hoàn chỉnh</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- HTML --&gt;</span><br>
+                        &lt;div class="container"&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="header"&gt;Header&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="sidebar"&gt;Sidebar&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="content"&gt;Main Content&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="ads"&gt;Ads&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="footer"&gt;Footer&lt;/div&gt;<br>
+                        &lt;/div&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .container {<br>
+                        &nbsp;&nbsp;display: grid;<br>
+                        &nbsp;&nbsp;grid-template-columns: 200px 1fr 200px;<br>
+                        &nbsp;&nbsp;grid-template-rows: 80px auto 60px;<br>
+                        &nbsp;&nbsp;grid-template-areas:<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"header header header"<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"sidebar content ads"<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;"footer footer footer";<br>
+                        &nbsp;&nbsp;gap: 10px;<br>
+                        &nbsp;&nbsp;height: 400px;<br>
+                        }<br>
+                        .header {<br>
+                        &nbsp;&nbsp;grid-area: header;<br>
+                        &nbsp;&nbsp;background: lightblue;<br>
+                        }<br>
+                        .sidebar {<br>
+                        &nbsp;&nbsp;grid-area: sidebar;<br>
+                        &nbsp;&nbsp;background: lightgray;<br>
+                        }<br>
+                        .content {<br>
+                        &nbsp;&nbsp;grid-area: content;<br>
+                        &nbsp;&nbsp;background: white;<br>
+                        }<br>
+                        .ads {<br>
+                        &nbsp;&nbsp;grid-area: ads;<br>
+                        &nbsp;&nbsp;background: lightyellow;<br>
+                        }<br>
+                        .footer {<br>
+                        &nbsp;&nbsp;grid-area: footer;<br>
+                        &nbsp;&nbsp;background: lightgreen;<br>
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo Grid System:</h4>
+                        <div class="grid-demo" id="gridDemo" style="
+                            display: grid;
+                            grid-template-columns: repeat(3, 1fr);
+                            grid-template-rows: repeat(3, 100px);
+                            gap: 10px;
+                        ">
+                            <div class="grid-item" style="grid-column: 1 / 3; background: #3498db;">Header (col 1-3)
+                            </div>
+                            <div class="grid-item" style="background: #2ecc71;">Sidebar</div>
+                            <div class="grid-item" style="background: #f39c12;">Content</div>
+                            <div class="grid-item" style="background: #9b59b6;">Ads</div>
+                            <div class="grid-item" style="grid-column: 1 / 4; background: #e74c3c;">Footer (col 1-4)
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN HIỆU ỨNG & HOẠT HÌNH -->
+                <section id="effects" class="section">
+                    <h2><i class="fas fa-magic"></i> HIỆU ỨNG & HOẠT HÌNH</h2>
+
+                    <h3>5.4. Tạo hiệu ứng và animation</h3>
+
+                    <h4>5.4.1. transition - Hiệu ứng chuyển tiếp</h4>
+                    <p>Định nghĩa: transition giúp tạo hiệu ứng mượt mà khi một thuộc tính CSS thay đổi</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ transition</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box {<br>
+                        &nbsp;&nbsp;width: 100px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;background: blue;<br>
+                        &nbsp;&nbsp;transition: all 0.5s ease-in-out;<br>
+                        }<br>
+                        .box:hover {<br>
+                        &nbsp;&nbsp;background: red;<br>
+                        &nbsp;&nbsp;width: 150px;<br>
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo transition:</h4>
+                        <div class="transition-demo" id="transitionDemo"
+                            onmouseover="this.style.background='#e74c3c'; this.style.width='150px'; this.style.height='150px';"
+                            onmouseout="this.style.background='#3498db'; this.style.width='100px'; this.style.height='100px';">
+                            Hover vào tôi!
+                        </div>
+                    </div>
+
+                    <h4>5.4.2. transform - Biến đổi đối tượng</h4>
+                    <p>Định nghĩa: Cho phép dịch chuyển, xoay, phóng to/thu nhỏ phần tử</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ transform</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box {<br>
+                        &nbsp;&nbsp;width: 100px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;background: green;<br>
+                        &nbsp;&nbsp;transition: all 0.3s ease;<br>
+                        }<br>
+                        .box:hover {<br>
+                        &nbsp;&nbsp;transform: scale(1.2) rotate(10deg);<br>
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo transform:</h4>
+                        <div class="transform-demo" id="transformDemo"
+                            onmouseover="this.style.transform='scale(1.2) rotate(10deg)'"
+                            onmouseout="this.style.transform='scale(1) rotate(0deg)'">
+                            Hover vào tôi!
+                        </div>
+                    </div>
+
+                    <h4>5.4.3. animation & @keyframes - Hoạt hình</h4>
+                    <p>Định nghĩa: Tạo hoạt ảnh nhiều bước thông qua @keyframes</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ animation</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box {<br>
+                        &nbsp;&nbsp;width: 100px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;background: orange;<br>
+                        &nbsp;&nbsp;animation: slideIn 1s ease forwards;<br>
+                        }<br>
+                        @keyframes slideIn {<br>
+                        &nbsp;&nbsp;from {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;transform: translateX(-200px);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;opacity: 0;<br>
+                        &nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;to {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;transform: translateX(0);<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;opacity: 1;<br>
+                        &nbsp;&nbsp;}<br>
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo animation:</h4>
+                        <div class="animation-demo" id="animationDemo" onclick="startAnimation()">
+                            Click để xem animation!
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN THUỘC TÍNH KHÁC -->
+                <section id="other" class="section">
+                    <h2><i class="fas fa-star"></i> THUỘC TÍNH KHÁC</h2>
+
+                    <h3>5.5. Các thuộc tính CSS nâng cao khác</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá trị phổ biến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>cursor</strong></td>
+                                    <td>Kiểu con trỏ</td>
+                                    <td>pointer, default, text, move</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>overflow</strong></td>
+                                    <td>Xử lý nội dung tràn</td>
+                                    <td>hidden, scroll, auto, visible</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>visibility</strong></td>
+                                    <td>Ẩn/hiện (giữ vị trí)</td>
+                                    <td>visible, hidden, collapse</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>box-shadow</strong></td>
+                                    <td>Đổ bóng hộp</td>
+                                    <td>0 4px 8px rgba(0,0,0,0.2)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>filter</strong></td>
+                                    <td>Hiệu ứng hình ảnh</td>
+                                    <td>blur(5px), grayscale(100%)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>5.5.1. cursor</h4>
+                    <p>Định nghĩa: Thay đổi kiểu con trỏ chuột khi di chuyển vào phần tử</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ cursor</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        button {<br>
+                        &nbsp;&nbsp;cursor: pointer;<br>
+                        }<br>
+                        input {<br>
+                        &nbsp;&nbsp;cursor: text;<br>
+                        }<br>
+                        .disabled {<br>
+                        &nbsp;&nbsp;cursor: not-allowed;<br>
+                        }
+                    </div>
+
+                    <h4>5.5.2. overflow</h4>
+                    <p>Định nghĩa: Quyết định xử lý nội dung bị tràn ra ngoài phần tử chứa</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ overflow</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .scroll-box {<br>
+                        &nbsp;&nbsp;width: 200px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        &nbsp;&nbsp;overflow: scroll;<br>
+                        }<br>
+                        .hidden-box {<br>
+                        &nbsp;&nbsp;overflow: hidden;<br>
+                        }
+                    </div>
+
+                    <h4>5.5.4. box-shadow</h4>
+                    <p>Định nghĩa: Tạo bóng đổ bên ngoài phần tử</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ box-shadow</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .card {<br>
+                        &nbsp;&nbsp;box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);<br>
+                        &nbsp;&nbsp;/* offsetX offsetY blurRadius color */<br>
+                        }
+                    </div>
+
+                    <h4>5.5.5. filter</h4>
+                    <p>Định nghĩa: Áp dụng hiệu ứng hình ảnh (làm mờ, đổi màu, v.v.)</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ filter</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        img {<br>
+                        &nbsp;&nbsp;filter: grayscale(100%);<br>
+                        &nbsp;&nbsp;/* Chuyển ảnh sang đen trắng */<br>
+                        }<br>
+                        <br>
+                        .blur-img {<br>
+                        &nbsp;&nbsp;filter: blur(5px);<br>
+                        &nbsp;&nbsp;/* Làm mờ ảnh */<br>
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo các thuộc tính:</h4>
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            <div style="padding: 20px; background: white; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); cursor: pointer;"
+                                onmouseover="this.style.boxShadow='0 8px 16px rgba(0,0,0,0.3)'"
+                                onmouseout="this.style.boxShadow='0 4px 8px rgba(0,0,0,0.2)'">
+                                Box với shadow (hover vào)
+                            </div>
+                            <div style="padding: 20px; background: white; border-radius: 8px; cursor: move;">
+                                Box với cursor: move
+                            </div>
+                            <div
+                                style="width: 150px; height: 100px; padding: 10px; background: #f8f9fa; border-radius: 8px; overflow: scroll;">
+                                <p>Đây là nội dung rất dài sẽ bị tràn và có thanh cuộn...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN LỚP GIẢ & PHẦN TỬ GIẢ -->
+                <section id="pseudo" class="section">
+                    <h2><i class="fas fa-ghost"></i> LỚP GIẢ & PHẦN TỬ GIẢ</h2>
+
+                    <h3>5.6. Pseudo-class và Pseudo-element</h3>
+
+                    <h4>5.6.1. Pseudo-class (lớp giả)</h4>
+                    <p>Định nghĩa: Là một từ khóa được thêm vào selector để xác định trạng thái đặc biệt của phần tử
+                        HTML</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ pseudo-class</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">/* Thay đổi màu khi hover */</span><br>
+                        a:hover {<br>
+                        &nbsp;&nbsp;color: red;<br>
+                        }<br>
+                        <br>
+                        <span class="comment">/* Focus vào input */</span><br>
+                        input:focus {<br>
+                        &nbsp;&nbsp;border: 2px solid blue;<br>
+                        }<br>
+                        <br>
+                        <span class="comment">/* Phần tử con đầu tiên */</span><br>
+                        li:first-child {<br>
+                        &nbsp;&nbsp;font-weight: bold;<br>
+                        }<br>
+                        <br>
+                        <span class="comment">/* Phần tử con thứ n */</span><br>
+                        li:nth-child(2n) {<br>
+                        &nbsp;&nbsp;background: #f0f0f0;<br>
+                        }
+                    </div>
+
+                    <h4>5.6.2. Pseudo-element (phần tử giả)</h4>
+                    <p>Định nghĩa: Cho phép tạo và định dạng một phần cụ thể của phần tử mà không cần thêm thẻ HTML mới
+                    </p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ pseudo-element</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">/* Thêm nội dung trước tiêu đề */</span><br>
+                        h1::before {<br>
+                        &nbsp;&nbsp;content: "🔥 ";<br>
+                        }<br>
+                        <br>
+                        <span class="comment">/* Thêm nội dung sau tiêu đề */</span><br>
+                        h1::after {<br>
+                        &nbsp;&nbsp;content: " ●";<br>
+                        }<br>
+                        <br>
+                        <span class="comment">/* Định dạng ký tự đầu tiên */</span><br>
+                        p::first-letter {<br>
+                        &nbsp;&nbsp;font-size: 2em;<br>
+                        &nbsp;&nbsp;color: blue;<br>
+                        }<br>
+                        <br>
+                        <span class="comment">/* Định dạng dòng đầu tiên */</span><br>
+                        p::first-line {<br>
+                        &nbsp;&nbsp;color: green;<br>
+                        }<br>
+                        <br>
+                        <span class="comment">/* Định dạng phần được chọn */</span><br>
+                        ::selection {<br>
+                        &nbsp;&nbsp;background: yellow;<br>
+                        &nbsp;&nbsp;color: black;<br>
+                        }
+                    </div>
+
+                    <div class="pseudo-demo">
+                        <h4>Demo pseudo-class và pseudo-element:</h4>
+                        <p class="pseudo-demo-item">Đoạn văn bản để demo. Bạn có thể chọn văn bản này để xem hiệu ứng
+                            selection.</p>
+                        <ul>
+                            <li>Mục đầu tiên (first-child)</li>
+                            <li>Mục thứ hai</li>
+                            <li>Mục thứ ba (last-child)</li>
+                        </ul>
+                        <button
+                            style="padding: 10px 20px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer;"
+                            onmouseover="this.style.background='#2980b9'" onmouseout="this.style.background='#3498db'">
+                            Nút bấm (hover vào)
+                        </button>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>Giáo trình CSS - Chương 5: CSS Nâng cao &copy; GV: Nguyễn Đình Mạnh</p>
+        </footer>
+    </div>
+
+    <script>
+        // Xử lý điều hướng
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Xóa class active từ tất cả các link và section
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+
+                    // Thêm class active cho link được click
+                    this.classList.add('active');
+
+                    // Hiển thị section tương ứng
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+
+            // Áp dụng CSS cho pseudo-demo
+            const style = document.createElement('style');
+            style.textContent = `
+                .pseudo-demo-item::first-letter {
+                    font-size: 2em;
+                    color: #3498db;
+                    font-weight: bold;
+                }
+                .pseudo-demo-item::first-line {
+                    color: #2c3e50;
+                    font-weight: 500;
+                }
+                .pseudo-demo-item::selection {
+                    background: yellow;
+                    color: black;
+                }
+                .pseudo-demo li:first-child {
+                    font-weight: bold;
+                    color: #e74c3c;
+                }
+                .pseudo-demo li:last-child {
+                    font-weight: bold;
+                    color: #27ae60;
+                }
+                .pseudo-demo li:nth-child(2) {
+                    background: #f8f9fa;
+                }
+            `;
+            document.head.appendChild(style);
+        });
+
+        // Hàm copy code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.parentElement;
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Đã copy!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Cập nhật Flexbox demo
+        function updateFlexDemo() {
+            const flexDemo = document.getElementById('flexDemo');
+            const direction = document.getElementById('flexDirection').value;
+            const justify = document.getElementById('justifyContent').value;
+
+            flexDemo.style.flexDirection = direction;
+            flexDemo.style.justifyContent = justify;
+
+            // Điều chỉnh chiều cao nếu là column
+            if (direction.includes('column')) {
+                flexDemo.style.height = '300px';
+            } else {
+                flexDemo.style.height = 'auto';
+            }
+        }
+
+        // Bắt đầu animation
+        function startAnimation() {
+            const demo = document.getElementById('animationDemo');
+
+            // Reset animation
+            demo.style.animation = 'none';
+            demo.offsetHeight; /* Trigger reflow */
+
+            // Áp dụng animation mới
+            demo.style.animation = 'slideIn 1s ease forwards';
+
+            // Định nghĩa keyframes động
+            const styleSheet = document.styleSheets[0];
+            const keyframes = `
+                @keyframes slideIn {
+                    from {
+                        transform: translateX(-200px);
+                        opacity: 0;
+                    }
+                    to {
+                        transform: translateX(0);
+                        opacity: 1;
+                    }
+                }
+            `;
+
+            // Thêm keyframes nếu chưa có
+            if (!document.querySelector('#animationKeyframes')) {
+                const style = document.createElement('style');
+                style.id = 'animationKeyframes';
+                style.textContent = keyframes;
+                document.head.appendChild(style);
+            }
+        }
+    </script>
+
+</body>
+
+</html>

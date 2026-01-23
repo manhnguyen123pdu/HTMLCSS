@@ -1,0 +1,1966 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BÀI 4: CSS CƠ BẢN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+  html, body{
+            height: 100%;
+            overflow: hidden;
+        }
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 84vh;
+        }
+
+        .sidebar {
+            max-height: 84vh;
+            overflow-y: scroll;
+            background: var(--light);
+            padding: 20px;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .nav-list {
+            list-style: none;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--secondary);
+        }
+
+        .main-content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 84vh;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        h4 {
+            color: var(--info);
+            margin: 20px 0 10px;
+        }
+
+        h5 {
+            color: var(--dark);
+            margin: 15px 0 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul,
+        ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.4;
+            border: 2px solid #444;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .class-name {
+            color: #4ec9b0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .interactive-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn-run {
+            background: var(--success);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-content {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+
+        .demo-area {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            margin: 20px 0;
+        }
+
+        .css-demo-box {
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 15px 0;
+            background: #f9f9f9;
+            border-radius: 5px;
+        }
+
+        .css-selector-demo {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .css-selector-demo div {
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+
+        .demo-element {
+            background: #e3f2fd;
+            border: 1px solid #90caf9;
+        }
+
+        .demo-class {
+            background: #f3e5f5;
+            border: 1px solid #ce93d8;
+        }
+
+        .demo-id {
+            background: #e8f5e8;
+            border: 1px solid #a5d6a7;
+        }
+
+        .box-model-demo {
+            width: 300px;
+            height: 150px;
+            margin: 20px auto;
+            padding: 20px;
+            border: 10px solid #f39c12;
+            background: #3498db;
+            color: white;
+            position: relative;
+        }
+
+        .box-model-label {
+            position: absolute;
+            font-size: 12px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2px 5px;
+            border-radius: 3px;
+        }
+
+        .margin-label {
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .border-label {
+            top: 50%;
+            right: -40px;
+            transform: translateY(-50%);
+        }
+
+        .padding-label {
+            top: 20px;
+            left: 10px;
+        }
+
+        .content-label {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .bem-demo {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            margin: 20px 0;
+        }
+
+        .bem-card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            background: #f9f9f9;
+        }
+
+        .bem-card--highlight {
+            border: 2px solid red;
+            background: #fff0f0;
+        }
+
+        .bem-card__title {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #2c3e50;
+        }
+
+        .bem-card__desc {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .bem-card__btn {
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .bem-card__btn--disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+        }
+@media (max-width: 1400px) {
+            .container {
+                height: 100%;
+                position: relative;
+            }
+
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                padding: 5px;
+            }
+
+            footer p {
+                margin: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-paint-brush"></i> BÀI 4: CSS CƠ BẢN</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <nav class="sidebar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#intro" class="nav-link active"><i class="fas fa-home"></i> Giới
+                            thiệu</a></li>
+                    <li class="nav-item"><a href="#embedding" class="nav-link"><i class="fas fa-code"></i> Cách nhúng
+                            CSS</a></li>
+                    <li class="nav-item"><a href="#syntax" class="nav-link"><i class="fas fa-terminal"></i> Cú pháp
+                            CSS</a></li>
+                    <li class="nav-item"><a href="#selectors" class="nav-link"><i class="fas fa-mouse-pointer"></i> Bộ
+                            chọn CSS</a></li>
+                    <li class="nav-item"><a href="#priority" class="nav-link"><i class="fas fa-sort-amount-down"></i> Độ
+                            ưu tiên CSS</a></li>
+                    <li class="nav-item"><a href="#bem" class="nav-link"><i class="fas fa-layer-group"></i> BEM CSS</a>
+                    </li>
+                    <li class="nav-item"><a href="#units" class="nav-link"><i class="fas fa-ruler"></i> Đơn vị kích
+                            thước</a></li>
+                    <li class="nav-item"><a href="#text" class="nav-link"><i class="fas fa-font"></i> Định dạng văn
+                            bản</a></li>
+                    <li class="nav-item"><a href="#box-model" class="nav-link"><i class="fas fa-square"></i> Box
+                            Model</a></li>
+                    <li class="nav-item"><a href="#background" class="nav-link"><i class="fas fa-fill-drip"></i> Nền &
+                            Màu sắc</a></li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <!-- PHẦN GIỚI THIỆU -->
+                <section id="intro" class="section active">
+                    <h2><i class="fas fa-home"></i> GIỚI THIỆU</h2>
+
+                    <h3>CSS là gì?</h3>
+                    <p><strong>CSS (Cascading Style Sheets)</strong> là ngôn ngữ dùng để định dạng, tạo kiểu cho các
+                        phần tử HTML trên trang web.</p>
+                    <p>CSS giúp bạn thay đổi màu sắc, font chữ, khoảng cách, bố cục và nhiều hiệu ứng khác cho trang
+                        web.</p>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Mục tiêu học tập</h4>
+                        <ul>
+                            <li>Hiểu khái niệm và vai trò của CSS</li>
+                            <li>Nắm vững các cách nhúng CSS vào HTML</li>
+                            <li>Hiểu cú pháp và bộ chọn CSS cơ bản</li>
+                            <li>Áp dụng được Box Model trong thiết kế</li>
+                            <li>Sử dụng thành thạo các thuộc tính định dạng văn bản và màu sắc</li>
+                            <li>Hiểu và áp dụng được phương pháp BEM CSS</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <h4><i class="fas fa-check-circle"></i> CSS trong thực tế</h4>
+                        <p>CSS là công cụ không thể thiếu trong thiết kế web hiện đại. Kết hợp với HTML và JavaScript,
+                            CSS tạo nên bộ ba công nghệ nền tảng cho phát triển web front-end.</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN CÁCH NHÚNG CSS -->
+                <section id="embedding" class="section">
+                    <h2><i class="fas fa-code"></i> CÁC CÁCH NHÚNG CSS</h2>
+
+                    <h3>4.1. Các cách nhúng CSS vào HTML</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Cách</th>
+                                    <th>Mô tả</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Inline</strong></td>
+                                    <td>CSS viết trực tiếp trong thẻ HTML</td>
+                                    <td>&lt;p style="color: blue;"&gt;Hello&lt;/p&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Internal</strong></td>
+                                    <td>CSS viết trong thẻ &lt;style&gt; trong &lt;head&gt;</td>
+                                    <td>&lt;style&gt; p { color: blue; } &lt;/style&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>External</strong></td>
+                                    <td>CSS nằm trong file .css riêng và link vào HTML</td>
+                                    <td>&lt;link rel="stylesheet" href="style.css"&gt;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ đầy đủ các cách nhúng CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;!DOCTYPE html&gt;<br>
+                        &lt;html&gt;<br>
+                        &lt;head&gt;<br>
+                        &nbsp;&nbsp;<span class="comment">&lt;!-- Internal CSS --&gt;</span><br>
+                        &nbsp;&nbsp;&lt;style&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;h1 {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;color: green;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        &nbsp;&nbsp;&lt;/style&gt;<br>
+                        <br>
+                        &nbsp;&nbsp;<span class="comment">&lt;!-- External CSS --&gt;</span><br>
+                        &nbsp;&nbsp;&lt;link rel="stylesheet" href="styles.css"&gt;<br>
+                        &lt;/head&gt;<br>
+                        &lt;body&gt;<br>
+                        &nbsp;&nbsp;<span class="comment">&lt;!-- Inline CSS --&gt;</span><br>
+                        &nbsp;&nbsp;&lt;p style="color: red;"&gt;Đoạn văn có màu đỏ&lt;/p&gt;<br>
+                        <br>
+                        &nbsp;&nbsp;&lt;h1&gt;Tiêu đề có màu xanh&lt;/h1&gt;<br>
+                        &lt;/body&gt;<br>
+                        &lt;/html&gt;
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Ưu và nhược điểm</h4>
+                        <ul>
+                            <li><strong>Inline:</strong> Ưu tiên cao nhất, dễ test nhưng khó bảo trì</li>
+                            <li><strong>Internal:</strong> Tiện cho trang đơn lẻ nhưng không tái sử dụng</li>
+                            <li><strong>External:</strong> Tái sử dụng tốt, dễ bảo trì, được khuyến khích sử dụng</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- PHẦN CÚ PHÁP CSS -->
+                <section id="syntax" class="section">
+                    <h2><i class="fas fa-terminal"></i> CÚ PHÁP CSS CƠ BẢN</h2>
+
+                    <h3>4.2. Cú pháp CSS cơ bản</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Khái niệm</th>
+                                    <th>Giải thích</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Selector (Bộ chọn)</strong></td>
+                                    <td>Xác định phần tử HTML muốn áp dụng kiểu</td>
+                                    <td>p, .class, #id</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Property (Thuộc tính)</strong></td>
+                                    <td>Thuộc tính muốn thay đổi</td>
+                                    <td>color, font-size, margin</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Value (Giá trị)</strong></td>
+                                    <td>Giá trị của thuộc tính</td>
+                                    <td>red, 16px, 10px</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp CSS cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        selector {<br>
+                        &nbsp;&nbsp;property: value;<br>
+                        }<br>
+                        <br>
+                        <span class="comment">/* Ví dụ cụ thể */</span><br>
+                        p {<br>
+                        &nbsp;&nbsp;font-size: 16px;<br>
+                        &nbsp;&nbsp;color: #333;<br>
+                        &nbsp;&nbsp;margin-bottom: 10px;<br>
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo cú pháp CSS:</h4>
+                        <div class="css-demo-box" id="syntaxDemo">
+                            <p>Đây là đoạn văn bản sẽ được áp dụng CSS</p>
+                        </div>
+                        <button class="btn" onclick="applySyntaxDemo()">
+                            <i class="fas fa-play"></i> Áp dụng CSS
+                        </button>
+                        <div class="result" id="syntaxResult">
+                            <strong>CSS đã áp dụng:</strong>
+                            <div class="result-content" id="syntaxResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN BỘ CHỌN CSS -->
+                <section id="selectors" class="section">
+                    <h2><i class="fas fa-mouse-pointer"></i> BỘ CHỌN CSS</h2>
+
+                    <h3>4.3. Các loại bộ chọn (Selectors) trong CSS</h3>
+                    <b>
+                        &lt;div class="blue"&gt;Blue&lt;/div&gt;<br>
+                        &lt;div class="red"&gt;Red&lt;/div&gt;
+                    </b>
+                    <p>Để có thể phân biệt được 2 thẻ div trong ví dụ trên, ta sẽ thêm một thuộc tính đặc biệt cho các
+                        thẻ HTML là class</p>
+
+
+                    <p>Lúc này, ta thêm đoạn mã CSS để áp dụng các màu nền khác nhau cho các class riêng biệt. Khác với
+                        selector bên trên, để chọn các class trong CSS, ta sử dụng dấu chấm (.) để đánh dấu đó là một
+                        CSS class, sử dụng dấu # để chọn css id
+
+                    </p>
+                    <p>ID là định danh DUY NHẤT cho một phần tử HTML.</p>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Selector</th>
+                                    <th>Mô tả</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Selector đơn giản</strong></td>
+                                    <td>Chọn theo tên thẻ HTML</td>
+                                    <td>p chọn tất cả thẻ &lt;p&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Class selector</strong></td>
+                                    <td>Chọn các phần tử có class cụ thể</td>
+                                    <td>.menu chọn tất cả class="menu"</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>ID selector</strong></td>
+                                    <td>Chọn phần tử có id cụ thể</td>
+                                    <td>#header chọn phần tử id="header"</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Selector kết hợp</strong></td>
+                                    <td>Chọn phần tử con hoặc kết hợp nhiều selector</td>
+                                    <td>div p chọn tất cả thẻ &lt;p&gt; bên trong &lt;div&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Universal selector</strong></td>
+                                    <td>Chọn tất cả phần tử</td>
+                                    <td>*</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Attribute selector</strong></td>
+                                    <td>Chọn phần tử dựa trên thuộc tính</td>
+                                    <td>input[type="text"] chọn các input có type="text"</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pseudo-class</strong></td>
+                                    <td>Chọn phần tử theo trạng thái đặc biệt</td>
+                                    <td>a:hover chọn liên kết khi rê chuột vào</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Pseudo-element</strong></td>
+                                    <td>Chọn một phần của phần tử</td>
+                                    <td>p::first-letter chọn chữ cái đầu của đoạn văn</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ các bộ chọn CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">/* Element selector */</span><br>
+                        p { color: blue; }<br>
+                        <br>
+                        <span class="comment">/* Class selector */</span><br>
+                        .highlight { background: yellow; }<br>
+                        <br>
+                        <span class="comment">/* ID selector */</span><br>
+                        #main-header { font-size: 24px; }<br>
+                        <br>
+                        <span class="comment">/* Attribute selector */</span><br>
+                        input[type="email"] { border: 2px solid green; }<br>
+                        <br>
+                        <span class="comment">/* Pseudo-class */</span><br>
+                        a:hover { color: red; }<br>
+                        <br>
+                        <span class="comment">/* Pseudo-element */</span><br>
+                        p::first-line { font-weight: bold; }<br>
+                        <br>
+                        <span class="comment">/* Combinators */</span><br>
+                        div &gt; p { <span class="comment">/* Chọn p là con trực tiếp của div */</span><br>
+                        &nbsp;&nbsp;margin-left: 20px;<br>
+                        }
+                    </div>
+
+                    <div class="demo-area">
+                        <h4>Demo bộ chọn CSS:</h4>
+                        <div class="css-selector-demo">
+                            <div class="demo-element">Thẻ div</div>
+                            <div class="demo-class">Class .demo</div>
+                            <div id="demo-id">ID #demo</div>
+                            <div class="demo-element">Thẻ div khác</div>
+                        </div>
+                        <button class="btn" onclick="applySelectorDemo()">
+                            <i class="fas fa-play"></i> Áp dụng bộ chọn
+                        </button>
+                        <div class="result" id="selectorResult">
+                            <strong>CSS đã áp dụng:</strong>
+                            <div class="result-content" id="selectorResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN ĐỘ ƯU TIÊN CSS -->
+                <section id="priority" class="section">
+                    <h2><i class="fas fa-sort-amount-down"></i> ĐỘ ƯU TIÊN CSS</h2>
+
+                    <h3>4.4. Độ ưu tiên (Specificity) trong CSS</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thứ tự Ưu tiên</th>
+                                    <th>Loại Selector / Quy tắc</th>
+                                    <th>Mô tả</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>1</td>
+                                    <td><strong>Inline style (style="...")</strong></td>
+                                    <td>Ưu tiên cao nhất</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td><strong>ID selector (#id)</strong></td>
+                                    <td>Ưu tiên cao hơn class và thẻ</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td><strong>Class, attribute, pseudo-class (.class, [attr], :hover)</strong></td>
+                                    <td>Ưu tiên cao hơn thẻ, thấp hơn ID</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td><strong>Element selector (div, p, h1)</strong></td>
+                                    <td>Ưu tiên thấp hơn ID và class</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td><strong>Universal selector (*), combinators</strong></td>
+                                    <td>Ưu tiên thấp nhất</td>
+                                </tr>
+                                <tr>
+                                    <td>Đặc biệt</td>
+                                    <td><strong>!important</strong></td>
+                                    <td>Ưu tiên hơn tất cả các quy tắc khác</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ độ ưu tiên CSS</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- HTML --&gt;</span><br>
+                        &lt;div id="myDiv" class="box" style="color: red;"&gt;Hello CSS&lt;/div&gt;<br>
+                        <br>
+                        <span class="comment">/* CSS */</span><br>
+                        * {<br>
+                        &nbsp;&nbsp;color: black; <span class="comment">/* Độ ưu tiên: 0 */</span><br>
+                        }<br>
+                        <br>
+                        div {<br>
+                        &nbsp;&nbsp;color: green; <span class="comment">/* Độ ưu tiên: 1 */</span><br>
+                        }<br>
+                        <br>
+                        .box {<br>
+                        &nbsp;&nbsp;color: blue; <span class="comment">/* Độ ưu tiên: 10 */</span><br>
+                        }<br>
+                        <br>
+                        #myDiv {<br>
+                        &nbsp;&nbsp;color: purple; <span class="comment">/* Độ ưu tiên: 100 */</span><br>
+                        }<br>
+                        <br>
+                        <span class="comment">/* Kết quả: chữ có màu RED (inline style có độ ưu tiên cao nhất: 1000)
+                            */</span>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-flask"></i> Thử nghiệm độ ưu tiên</h4>
+                        <p>Đoán xem đoạn văn dưới đây sẽ có màu gì?</p>
+                        <div id="priorityDemo" style="color: red;" class="demo-class" data-id="demo-id">
+                            Đoạn văn có inline style, class và thuộc tính data-id
+                        </div>
+                        <button class="btn" onclick="testPriority()">
+                            <i class="fas fa-question-circle"></i> Kiểm tra
+                        </button>
+                        <div class="result" id="priorityResult">
+                            <strong>Kết quả:</strong>
+                            <div class="result-content" id="priorityResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN BEM CSS -->
+                <section id="bem" class="section">
+                    <h2><i class="fas fa-layer-group"></i> TIÊU CHUẨN BEM CSS</h2>
+
+                    <h3>4.5. BEM (Block - Element - Modifier)</h3>
+
+                    <h4>1. BEM là gì?</h4>
+                    <p><strong>BEM (Block – Element – Modifier)</strong> là quy ước đặt tên class CSS giúp:</p>
+                    <ul>
+                        <li> Code dễ đọc – dễ bảo trì</li>
+                        <li> Tránh xung đột CSS</li>
+                        <li> Phù hợp cho dự án lớn / teamwork</li>
+                        <li> Rất hay dùng trong HTML + CSS + JS / React / Vue</li>
+                    </ul>
+
+                    <h4>2. Cấu trúc đặt tên BEM</h4>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp BEM</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        block__element--modifier
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thành phần</th>
+                                    <th>Ý nghĩa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>block</strong></td>
+                                    <td>Khối độc lập</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>element</strong></td>
+                                    <td>Thành phần con của block</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>modifier</strong></td>
+                                    <td>Trạng thái / biến thể</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>3. BLOCK (Khối)</h4>
+                    <p><strong>Khái niệm:</strong> Block là một thành phần độc lập, có thể tái sử dụng.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ Block</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="card"&gt;&lt;/div&gt;<br>
+                        &lt;div class="menu"&gt;&lt;/div&gt;<br>
+                        &lt;div class="header"&gt;&lt;/div&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .card {}<br>
+                        .menu {}<br>
+                        .header {}
+                    </div>
+
+                    <p><strong>📌 Block không phụ thuộc block khác</strong></p>
+
+                    <h4>4. ELEMENT (Thành phần con)</h4>
+                    <p><strong>Khái niệm:</strong> Element là thành phần bên trong block, không tồn tại độc lập.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ Element</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="card"&gt;<br>
+                        &nbsp;&nbsp;&lt;h3 class="card__title"&gt;&lt;/h3&gt;<br>
+                        &nbsp;&nbsp;&lt;p class="card__desc"&gt;&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&lt;button class="card__btn"&gt;&lt;/button&gt;<br>
+                        &lt;/div&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .card__title {}<br>
+                        .card__desc {}<br>
+                        .card__btn {}
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Lưu ý quan trọng</h4>
+                        <p><strong>Không dùng element ngoài block</strong></p>
+                        <p>❌ Sai: <code>&lt;h3 class="card__title"&gt;&lt;/h3&gt;</code> (không có block card bao ngoài)
+                        </p>
+                    </div>
+
+                    <h4>5. MODIFIER (Trạng thái / biến thể)</h4>
+                    <p><strong>Khái niệm:</strong> Modifier dùng để thay đổi giao diện / trạng thái.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Modifier cho Block</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="card card--highlight"&gt;&lt;/div&gt;<br>
+                        &lt;div class="button button--primary"&gt;&lt;/div&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .card--highlight {<br>
+                        &nbsp;&nbsp;border: 2px solid red;<br>
+                        }
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Modifier cho Element</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;button class="card__btn card__btn--disabled"&gt;&lt;/button&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .card__btn--disabled {<br>
+                        &nbsp;&nbsp;opacity: 0.5;<br>
+                        }
+                    </div>
+
+                    <div class="bem-demo">
+                        <h4>Demo BEM CSS:</h4>
+                        <div class="bem-card">
+                            <h3 class="bem-card__title">Card tiêu chuẩn</h3>
+                            <p class="bem-card__desc">Đây là card thông thường sử dụng BEM</p>
+                            <button class="bem-card__btn">Nút bình thường</button>
+                        </div>
+
+                        <div class="bem-card bem-card--highlight">
+                            <h3 class="bem-card__title">Card nổi bật</h3>
+                            <p class="bem-card__desc">Đây là card có modifier --highlight</p>
+                            <button class="bem-card__btn bem-card__btn--disabled">Nút bị vô hiệu hóa</button>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN ĐƠN VỊ KÍCH THƯỚC -->
+                <section id="units" class="section">
+                    <h2><i class="fas fa-ruler"></i> ĐƠN VỊ KÍCH THƯỚC</h2>
+
+                    <h3>4.6. Các đơn vị kích thước trong CSS</h3>
+
+                    <h4>4.6.1. px – Pixels</h4>
+                    <p>Đơn vị tuyệt đối: chính xác, không phụ thuộc màn hình.</p>
+                    <p>Thường dùng cho border, khoảng cách nhỏ, font size cố định.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ px</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        h1 {<br>
+                        &nbsp;&nbsp;font-size: 24px;<br>
+                        }
+
+                    </div>
+
+
+                    <h4>4.6.2. % – Phần trăm</h4>
+                    <p>Đơn vị tương đối so với phần tử cha.</p>
+                    <p>Rất hữu ích khi làm layout responsive.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ %</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .container {<br>
+                        &nbsp;&nbsp;width: 80%; <span class="comment">/* chiếm 80% chiều rộng thẻ cha */</span><br>
+                        }
+                    </div>
+
+                    <h4>4.6.3. em – Tương đối theo font-size của phần tử cha</h4>
+                    <p>1em = kích thước font hiện tại của phần tử.</p>
+                    <p>Nếu không xác định cụ thể, nó kế thừa từ phần tử cha.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ em</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        p {<br>
+                        &nbsp;&nbsp;font-size: 16px;<br>
+                        }<br>
+                        span {<br>
+                        &nbsp;&nbsp;font-size: 2em; <span class="comment">/* = 2 x 16px = 32px */</span><br>
+                        }
+                    </div>
+
+                    <h4>4.6.4. rem – Tương đối theo font-size của html</h4>
+                    <p>1rem = kích thước font của thẻ &lt;html&gt;</p>
+                    <p>Ổn định hơn em vì không bị cộng dồn theo cấp.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ rem</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        html {<br>
+                        &nbsp;&nbsp;font-size: 16px;<br>
+                        }<br>
+                        h2 {<br>
+                        &nbsp;&nbsp;font-size: 2rem; <span class="comment">/* = 2 x 16px = 32px */</span><br>
+                        }
+                    </div>
+
+                    <h4>4.6.5. vh – Viewport Height</h4>
+                    <p>1vh = 1% chiều cao của cửa sổ trình duyệt.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ vh</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .banner {<br>
+                        &nbsp;&nbsp;height: 100vh; <span class="comment">/* chiếm toàn bộ chiều cao màn hình
+                            */</span><br>
+                        }
+                    </div>
+
+                    <h4>4.6.6. vw – Viewport Width</h4>
+                    <p>1vw = 1% chiều rộng của cửa sổ trình duyệt.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ vw</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .full-width {<br>
+                        &nbsp;&nbsp;width: 100vw; <span class="comment">/* chiếm toàn bộ chiều rộng màn hình
+                            */</span><br>
+                        }
+                    </div>
+
+                    <h4>4.6.7. Các dạng phần tử</h4>
+                    <div class="item">
+                        <h3>Block element (Phần tử dạng khối)</h3>
+                        <ul>
+                            <li>Chiếm toàn bộ chiều ngang của vùng chứa (container), tức là chiếm hết dòng.</li>
+                            <li>Luôn bắt đầu trên một dòng mới và kết thúc cũng xuống dòng mới.</li>
+                            <li>Có thể đặt chiều rộng, chiều cao, margin, padding.</li>
+                            <li>Ví dụ: div, p, h1, ul, li, <section>
+                            </li>
+
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <h3>Inline element (Phần tử dạng nội dòng)</h3>
+                        <ul>
+                            <li>Chỉ chiếm đúng phần diện tích cần thiết cho nội dung, không phá vỡ dòng.</li>
+                            <li>Không thể đặt chiều rộng, chiều cao trực tiếp.</li>
+                            <li>Chỉ có thể chỉnh margin và padding theo chiều ngang (trái/phải) một cách dễ dàng.</li>
+                            <li>Ví dụ: span, a, strong, img, input</li>
+                        </ul>
+                    </div>
+                    <div class="item">
+                        <h3>inline-block</h3>
+                        <ul>
+
+                            <li>Giá trị inline-block tương tự như giá trị inline: </li>
+                            <li>Các phần tử HTML inline hoặc inline-block tiếp theo sẽ nằm trên cùng một dòng. Tuy
+                                nhiên, khác biệt ở đây là với các thẻ HTML có thuộc tính này sẽ cho phép thay đổi width
+                                và height cũng như padding và margin </li>
+
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- PHẦN ĐỊNH DẠNG VĂN BẢN -->
+                <section id="text" class="section">
+                    <h2><i class="fas fa-font"></i> ĐỊNH DẠNG VĂN BẢN</h2>
+
+                    <h3>4.7. Định dạng văn bản trong CSS</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá trị phổ biến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>color</strong></td>
+                                    <td>Màu chữ</td>
+                                    <td>red, #333, rgb()</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>font-size</strong></td>
+                                    <td>Cỡ chữ</td>
+                                    <td>16px, 1.5em</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>font-weight</strong></td>
+                                    <td>Độ đậm chữ</td>
+                                    <td>normal, bold, 500</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>font-family</strong></td>
+                                    <td>Phông chữ</td>
+                                    <td>'Arial', sans-serif</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>font-style</strong></td>
+                                    <td>Kiểu chữ</td>
+                                    <td>italic, normal</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>text-align</strong></td>
+                                    <td>Căn lề chữ</td>
+                                    <td>left, center, right</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>text-transform</strong></td>
+                                    <td>Viết hoa/thường</td>
+                                    <td>uppercase, lowercase</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>text-decoration</strong></td>
+                                    <td>Gạch chân</td>
+                                    <td>none, underline, line-through</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>line-height</strong></td>
+                                    <td>Giãn dòng</td>
+                                    <td>1.5, 120%</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>letter-spacing</strong></td>
+                                    <td>Giãn chữ</td>
+                                    <td>2px, normal</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>word-spacing</strong></td>
+                                    <td>Giãn từ</td>
+                                    <td>5px, normal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>4.7.1. Màu chữ – color</h4>
+                    <p>Công dụng: Thiết lập màu sắc cho văn bản.</p>
+                    <p><b>Giá trị phổ biến:</b></p>
+                    <ul>
+                        <li>Tên màu: red, blue, green</li>
+                        <li>Mã HEX: #333, #ff0000</li>
+                        <li>RGB/RGBA: rgb(0,0,0), rgba(0,0,0,0.5)</li>
+
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ color</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        p {<br>
+                        &nbsp;&nbsp;color: #333;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.2. Cỡ chữ – font-size</h4>
+                    <p>Công dụng: Điều chỉnh kích thước văn bản.</p>
+                    <p><b>Giá trị phổ biến:</b></p>
+                    <ul>
+                        <li>Đơn vị tuyệt đối: px, pt</li>
+                        <li>Đơn vị tương đối: em, rem, %</li>
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ font-size</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        p {<br>
+                        &nbsp;&nbsp;font-size: 24px;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.3. Độ đậm chữ – font-weight</h4>
+                    <p>Công dụng: Xác định độ đậm của font chữ.</p>
+                    <p><b>Giá trị phổ biến:</b></p>
+                    <ul>
+                        <li>Tên: normal, bold</li>
+                        <li>Số: 100 → 900 (400 = normal, 700 = bold)</li>
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ font-weight</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        strong {<br>
+                        &nbsp;&nbsp;font-weight: bold;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.4. Phông chữ – font-family</h4>
+                    <p>Công dụng: Chọn kiểu font cho văn bản.</p>
+                    <p><b>Giá trị phổ biến:</b></p>
+                    <ul>
+                        <li>Font cụ thể: 'Arial', 'Times New Roman'</li>
+                        <li>Font tổng quát: sans-serif, serif, monospace</li>
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ font-family</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        body {<br>
+                        &nbsp;&nbsp;font-family: 'Arial', sans-serif;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.5. Kiểu chữ – font-style</h4>
+                    <p>Công dụng: Tạo chữ nghiêng, chữ thường...</p>
+                    <p><b>Giá trị phổ biến:</b></p>
+                    <ul>
+                        <li>normal: chữ bình thường</li>
+                        <li>italic: chữ nghiêng</li>
+                        <li>oblique: nghiêng nhẹ</li>
+
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ font-style</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        em {<br>
+                        &nbsp;&nbsp;font-style: italic;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.6. Căn lề chữ – text-align</h4>
+                    <p>Công dụng: Căn chỉnh vị trí văn bản theo chiều ngang.</p>
+                    <p><b>Giá trị phổ biến:</b> left, center, right, justify</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ text-align</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        h2 {<br>
+                        &nbsp;&nbsp;text-align: center;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.7. Viết hoa/thường – text-transform</h4>
+                    <p>Công dụng: Chuyển đổi chữ thường/thường/hoa.</p>
+                    <p><b>Giá trị phổ biến:</b> </p>
+                    <ul>
+                        <li>uppercase: chuyển hết sang chữ in hoa</li>
+                        <li>lowercase: chuyển hết sang chữ thường</li>
+                        <li>capitalize: viết hoa chữ cái đầu mỗi từ</li>
+
+                    </ul>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ text-transform</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        h3 {<br>
+                        &nbsp;&nbsp;text-transform: uppercase;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.8. Gạch chân văn bản – text-decoration</h4>
+                    <p>Công dụng: Thêm/loại bỏ gạch chân, gạch ngang...</p>
+                    <p><b>Giá trị phổ biến:</b></p>
+                    <ul>
+                        <li>none: không gạch</li>
+                        <li>underline: gạch dưới</li>
+                        <li>line-through: gạch ngang chữ</li>
+                        <li>overline: gạch trên</li>
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ text-decoration</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        a {<br>
+                        &nbsp;&nbsp;text-decoration: none;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.9. Giãn dòng – line-height</h4>
+                    <p>Công dụng: Tạo khoảng cách theo chiều dọc giữa các dòng.</p>
+                    <p><b>Giá trị phổ biến:</b> 1.5, 120%, normal</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ line-height</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        p {<br>
+                        &nbsp;&nbsp;line-height: 1.5;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.10. Giãn chữ – letter-spacing</h4>
+                    <p>Công dụng: Tăng/giảm khoảng cách giữa các ký tự.</p>
+                    <p><b>Giá trị phổ biến:</b> normal, 2px, -1px</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ letter-spacing</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        h1 {<br>
+                        &nbsp;&nbsp;letter-spacing: 2px;<br>
+                        }
+                    </div>
+
+                    <h4>4.7.11. Giãn từ – word-spacing</h4>
+                    <p>Công dụng: Tăng/giảm khoảng cách giữa các từ.</p>
+                    <p><b>Giá trị phổ biến:</b> normal, 5px…</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ word-spacing</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        p {<br>
+                        &nbsp;&nbsp;word-spacing: 5px;<br>
+                        }
+                    </div>
+                </section>
+
+                <!-- PHẦN BOX MODEL -->
+                <section id="box-model" class="section">
+                    <h2><i class="fas fa-square"></i> BOX MODEL</h2>
+
+                    <h3>4.8. Box Model trong CSS</h3>
+                    <p>Box Model là mô hình hộp mà trình duyệt sử dụng để tính toán kích thước và khoảng cách của mỗi
+                        phần tử HTML. Mỗi phần tử trong HTML đều được coi là một "hộp hình chữ nhật" gồm 4 phần:</p>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thành phần</th>
+                                    <th>Mô tả</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Content</strong></td>
+                                    <td>Phần nội dung (văn bản, ảnh…)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Padding</strong></td>
+                                    <td>Khoảng cách giữa content và border</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Border</strong></td>
+                                    <td>Đường viền bao ngoài padding</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Margin</strong></td>
+                                    <td>Khoảng cách từ border ra phần tử ngoài</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <img src="https://funix.edu.vn/wp-content/uploads/2022/02/boxmodel.png" alt="">
+
+                    <h4>4.8.1. Content – Phần nội dung</h4>
+                    <p>Chính là nơi hiển thị văn bản, hình ảnh, hoặc thẻ con.</p>
+                    <p>Kích thước nội dung được xác định bởi: width, height.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ Content</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box {<br>
+                        &nbsp;&nbsp;width: 200px;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        }
+                    </div>
+
+                    <h4>4.8.2. Padding – Khoảng cách từ content đến border</h4>
+                    <p>Là phần "đệm bên trong" giữa nội dung và viền.</p>
+                    <p><b>Có thể đặt giá trị:</b></p>
+                    <ul>
+                        <li>1 giá trị: áp dụng cho 4 cạnh.</li>
+                        <li>2 giá trị: trên-dưới | trái-phải.</li>
+                        <li>4 giá trị: trên | phải | dưới | trái.</li>
+                    </ul>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ Padding</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box {<br>
+                        &nbsp;&nbsp;padding: 10px; <span class="comment">/* Cả 4 phía */</span><br>
+                        &nbsp;&nbsp;padding: 10px 20px; <span class="comment">/* Trên dưới 10px, trái phải 20px
+                            */</span><br>
+                        &nbsp;&nbsp;padding: 10px 15px 5px 0; <span class="comment">/* Trên | Phải | Dưới | Trái
+                            */</span><br>
+                        }
+                    </div>
+
+                    <h4>4.8.3. Border – Đường viền bao ngoài padding</h4>
+                    <p>Xác định kiểu đường viền của phần tử.</p>
+                    <p><b>Cú pháp:
+                            border: độ_dày kiểu_viền màu;
+                        </b>
+                    </p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ Border</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box {<br>
+                        &nbsp;&nbsp;border: 2px solid #333;<br>
+                        &nbsp;&nbsp;border: 1px dashed red;<br>
+                        }<br><br>
+                        <span class="comment">/* Bo góc */</span><br>
+                        .rounded {<br>
+                        &nbsp;&nbsp;border-radius: 10px;<br>
+                        &nbsp;&nbsp;border-radius: 50%; <span class="comment">/* tròn */</span><br>
+                        }
+                    </div>
+
+                    <h4>4.8.4. Margin – Khoảng cách giữa phần tử với bên ngoài</h4>
+                    <p>Là phần "đệm bên ngoài", giúp cách các phần tử khác.</p>
+                    <p>margin: auto; giúp căn giữa ngang. </p>
+                    <p>Có thể viết tương tự padding.</p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ Margin</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box {<br>
+                        &nbsp;&nbsp;margin: 20px; <span class="comment">/* Cả 4 phía */</span><br>
+                        &nbsp;&nbsp;margin: 10px 15px 5px 0; <span class="comment">/* Trên | Phải | Dưới | Trái
+                            */</span><br>
+                        &nbsp;&nbsp;margin: 0 auto; <span class="comment">/* Căn giữa ngang */</span><br>
+                        }
+                    </div>
+
+                    <h4>4.8.5. box-sizing – Cách tính kích thước</h4>
+                    <p>Xác định cách tính width và height.</p>
+                    <table>
+                        <tr>
+                            <th>Giá trị</th>
+                            <th>Mô tả</th>
+                        </tr>
+                        <tr>
+                            <td>content-box</td>
+                            <td>Mặc định. width chỉ tính phần content. Padding & border cộng thêm.</td>
+                        </tr>
+                        <tr>
+                            <td>border-box</td>
+                            <td>width bao gồm cả padding và border. Không vượt kích thước đã định.</td>
+                        </tr>
+                    </table>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ box-sizing</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box {<br>
+                        &nbsp;&nbsp;width: 200px;<br>
+                        &nbsp;&nbsp;padding: 20px;<br>
+                        &nbsp;&nbsp;border: 5px solid #000;<br>
+                        &nbsp;&nbsp;box-sizing: border-box; <span class="comment">/* Tổng vẫn là 200px */</span><br>
+                        }
+                    </div>
+
+                    <h4>4.8.6. max-width và min-height</h4>
+                    <h3>max-width – Chiều rộng tối đa</h3>
+
+                    <p><b>Mục đích:</b>Giới hạn chiều rộng tối đa mà phần tử có thể mở rộng. Dù nội dung có lớn đến đâu,
+                        phần tử cũng không vượt quá giá trị </p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ max-width</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        div {<br>
+                        &nbsp;&nbsp;max-width: 500px;<br>
+                        }<br><br>
+                        .container {<br>
+                        &nbsp;&nbsp;width: 100%;<br>
+                        &nbsp;&nbsp;max-width: 960px; <span class="comment">/* Giao diện co giãn, tối đa 960px
+                            */</span><br>
+                        }
+                    </div>
+                    <p><b>Giải thích:</b></p>
+                    <ul>
+                        <li>Phần tử sẽ không bao giờ rộng hơn 500px.</li>
+                        <li>Nếu nội dung ít hoặc rộng đặt nhỏ hơn 500px, nó vẫn giữ nguyên.</li>
+                        <li>Nếu kết hợp với width: 100%, phần tử sẽ co giãn theo trình duyệt nhưng không vượt quá 500px.
+                        </li>
+                    </ul>
+
+                    <h3>min-height – Chiều cao tối thiểu</h3>
+                    <p><b>Mục đích:</b>
+                        Đặt chiều cao tối thiểu cho phần tử. Dù nội dung ít đến đâu, phần tử vẫn giữ độ cao đó.
+                    </p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ min-height</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        section {<br>
+                        &nbsp;&nbsp;min-height: 300px;<br>
+                        }<br><br>
+                        .hero {<br>
+                        &nbsp;&nbsp;min-height: 100vh;<br>
+                        &nbsp;&nbsp;display: flex;<br>
+                        &nbsp;&nbsp;align-items: center;<br>
+                        &nbsp;&nbsp;justify-content: center;<br>
+                        }
+                    </div>
+                    <p><b>Giải thích:</b></p>
+                    <ul>
+                        <li>Đảm bảo phần tử luôn có độ cao tối thiểu 300px.</li>
+                        <li>Nếu nội dung cao hơn → phần tử sẽ tự mở rộng thêm.</li>
+                        <li>Thường dùng để tạo layout đồng đều (ngay cả khi nội dung ngắn).</li>
+                    </ul>
+
+                </section>
+
+                <!-- PHẦN NỀN & MÀU SẮC -->
+                <section id="background" class="section">
+                    <h2><i class="fas fa-fill-drip"></i> NỀN & MÀU SẮC</h2>
+
+                    <h3>4.9. Thuộc tính nền và màu sắc trong CSS</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Giá trị phổ biến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>background-color</strong></td>
+                                    <td>Màu nền</td>
+                                    <td>#f00, rgba(0,0,0,0.5)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>background-image</strong></td>
+                                    <td>Ảnh nền</td>
+                                    <td>url("image.jpg")</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>background-image: linear-gradient</strong></td>
+                                    <td>Nền chuyển màu</td>
+                                    <td>linear-gradient(to right, red, yellow)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>background-size</strong></td>
+                                    <td>Kích thước ảnh</td>
+                                    <td>cover, contain</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>background-repeat</strong></td>
+                                    <td>Lặp ảnh nền</td>
+                                    <td>no-repeat, repeat-x</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>background-position</strong></td>
+                                    <td>Vị trí ảnh</td>
+                                    <td>center, top right</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>opacity</strong></td>
+                                    <td>Độ mờ</td>
+                                    <td>0 → 1</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>4.9.1. background-color – Màu nền</h4>
+                    <p>Định nghĩa: Xác định màu nền của phần tử.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ background-color</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="box1"&gt;Hello&lt;/div&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .box1 {<br>
+                        &nbsp;&nbsp;background-color: #3498db;<br>
+                        &nbsp;&nbsp;color: white;<br>
+                        &nbsp;&nbsp;padding: 20px;<br>
+                        }
+                    </div>
+
+                    <h4>4.9.2. background-image – Ảnh nền</h4>
+                    <p>Định nghĩa: Chèn hình ảnh làm nền cho phần tử.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ background-image</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="box2"&gt;&lt;/div&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .box2 {<br>
+                        &nbsp;&nbsp;background-image: url('https://picsum.photos/300');<br>
+                        &nbsp;&nbsp;width: 300px;<br>
+                        &nbsp;&nbsp;height: 200px;<br>
+                        }
+                    </div>
+
+                    <h4>4.9.3. background-image: linear-gradient(...) – Tạo nền chuyển màu</h4>
+                    <p>Định nghĩa: Tạo ảnh nền dạng chuyển màu (gradient).</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ linear-gradient</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">/* direction có thể là góc (vd: to right, to bottom, 45deg...), mặc định
+                            là từ trên xuống dưới */</span><br>
+                        <br>
+                        .box3 {<br>
+                        &nbsp;&nbsp;background-image: linear-gradient(to right, red, yellow);<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        }
+                    </div>
+
+                    <h4>4.9.4. background-size – Kích thước ảnh nền</h4>
+                    <p>Định nghĩa: Điều chỉnh kích thước ảnh nền.</p>
+                    <p><b>Giá trị phổ biến:</b></p>
+                    <ul>
+                        <li>cover: Phủ kín phần tử, có thể cắt ảnh.</li>
+
+                        <li>contain: Hiển thị toàn bộ ảnh, có thể còn khoảng trống.</li>
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ background-size</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box4 {<br>
+                        &nbsp;&nbsp;background-image: url('https://picsum.photos/200');<br>
+                        &nbsp;&nbsp;background-size: cover;<br>
+                        &nbsp;&nbsp;width: 300px;<br>
+                        &nbsp;&nbsp;height: 150px;<br>
+                        }
+                    </div>
+
+                    <h4>4.9.5. background-repeat – Lặp lại ảnh nền</h4>
+                    <p>Định nghĩa: Thiết lập có lặp lại ảnh nền không.</p>
+                    <p><b>Giá trị phổ biến: </b></p>
+                    <ul>
+                        <li>no-repeat: Không lặp.</li>
+
+                        <li>repeat: Lặp cả ngang và dọc (mặc định).</li>
+
+                        <li>repeat-x: Lặp ngang.</li>
+
+                        <li>repeat-y: Lặp dọc.</li>
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ background-repeat</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box5 {<br>
+                        &nbsp;&nbsp;background-image: url('https://picsum.photos/50');<br>
+                        &nbsp;&nbsp;background-repeat: repeat-x;<br>
+                        &nbsp;&nbsp;height: 100px;<br>
+                        }
+                    </div>
+
+                    <h4>4.9.6. background-position – Vị trí ảnh nền</h4>
+                    <p>Định nghĩa: Căn chỉnh vị trí xuất hiện của ảnh nền trong phần tử.</p>
+                    <p><b>Giá trị:</b></p>
+                    <ul>
+                        <li>center: Chính giữa.</li>
+
+                        <li>top left, top right, bottom center, v.v.</li>
+                    </ul>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ background-position</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        .box6 {<br>
+                        &nbsp;&nbsp;background-image: url('https://picsum.photos/100');<br>
+                        &nbsp;&nbsp;background-repeat: no-repeat;<br>
+                        &nbsp;&nbsp;background-position: center;<br>
+                        &nbsp;&nbsp;height: 150px;<br>
+                        }
+                    </div>
+
+                    <h4>4.9.7. opacity – Độ mờ của phần tử</h4>
+                    <p>Định nghĩa: Thiết lập mức độ trong suốt của phần tử (bao gồm cả nền, chữ, border...).</p>
+                    <p><b>Giá trị:</b>
+                        Từ 0 (hoàn toàn trong suốt) đến 1 (rõ nét hoàn toàn).
+                    </p>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ opacity</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="box7"&gt;Mờ đi&lt;/div&gt;<br><br>
+                        <span class="comment">/* CSS */</span><br>
+                        .box7 {<br>
+                        &nbsp;&nbsp;background: green;<br>
+                        &nbsp;&nbsp;color: white;<br>
+                        &nbsp;&nbsp;opacity: 0.5;<br>
+                        &nbsp;&nbsp;padding: 20px;<br>
+                        }
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p> Bài 4: CSS Cơ bản &copy; GV: Nguyễn Đình Mạnh</p>
+        </footer>
+    </div>
+
+    <script>
+        // Xử lý điều hướng
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Xóa class active từ tất cả các link và section
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+
+                    // Thêm class active cho link được click
+                    this.classList.add('active');
+
+                    // Hiển thị section tương ứng
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+
+        // Hàm copy code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.parentElement;
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Đã copy!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Demo cú pháp CSS
+        function applySyntaxDemo() {
+            const demo = document.getElementById('syntaxDemo');
+            const result = document.getElementById('syntaxResult');
+            const output = document.getElementById('syntaxResultContent');
+
+            demo.style.cssText = `
+                background: #e3f2fd;
+                color: #1565c0;
+                padding: 20px;
+                border-radius: 8px;
+                border-left: 4px solid #2196f3;
+                font-weight: bold;
+            `;
+
+            result.classList.add('active');
+            output.textContent = `p {
+  background: #e3f2fd;
+  color: #1565c0;
+  padding: 20px;
+  border-radius: 8px;
+  border-left: 4px solid #2196f3;
+  font-weight: bold;
+}`;
+        }
+
+        // Demo bộ chọn CSS
+        function applySelectorDemo() {
+            const elements = document.querySelectorAll('.demo-element');
+            const classElement = document.querySelector('.demo-class');
+            const idElement = document.getElementById('demo-id');
+            const result = document.getElementById('selectorResult');
+            const output = document.getElementById('selectorResultContent');
+
+            elements.forEach(el => {
+                el.style.background = '#bbdefb';
+                el.style.border = '2px solid #2196f3';
+            });
+
+            classElement.style.background = '#f3e5f5';
+            classElement.style.border = '2px solid #9c27b0';
+
+            idElement.style.background = '#c8e6c9';
+            idElement.style.border = '2px solid #4caf50';
+
+            result.classList.add('active');
+            output.textContent = `/* Element selector */
+.demo-element {
+  background: #bbdefb;
+  border: 2px solid #2196f3;
+}
+
+/* Class selector */
+.demo-class {
+  background: #f3e5f5;
+  border: 2px solid #9c27b0;
+}
+
+/* ID selector */
+#demo-id {
+  background: #c8e6c9;
+  border: 2px solid #4caf50;
+}`;
+        }
+
+        // Test độ ưu tiên
+        function testPriority() {
+            const result = document.getElementById('priorityResult');
+            const output = document.getElementById('priorityResultContent');
+
+            result.classList.add('active');
+            output.innerHTML = `Thứ tự ưu tiên từ cao đến thấp:<br>
+1. <strong>Inline style</strong> (style="color: red;") - Ưu tiên cao nhất<br>
+2. <strong>ID selector</strong> (#id) - Chưa được áp dụng trong demo<br>
+3. <strong>Class selector</strong> (.demo-class) - Đã được áp dụng<br>
+4. <strong>Element selector</strong> (div, p) - Thấp nhất<br><br>
+<strong>Kết quả:</strong> Đoạn văn có màu <span style="color: red;">ĐỎ</span> vì inline style có độ ưu tiên cao nhất.`;
+        }
+    </script>
+</body>
+
+</html>

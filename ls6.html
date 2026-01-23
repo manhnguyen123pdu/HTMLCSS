@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHƯƠNG 6: RESPONSIVE WEB DESIGN</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            
+        }
+ html{
+            height: 100%;
+            overflow: hidden;
+        }
+        .container {
+           
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 80vh;
+        }
+
+        .sidebar {
+            max-height: 85vh;
+            overflow-y: scroll;
+            background: var(--light);
+            padding: 20px;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .nav-list {
+            list-style: none;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--secondary);
+        }
+
+        .main-content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        h4 {
+            color: var(--info);
+            margin: 20px 0 10px;
+        }
+
+        h5 {
+            color: var(--dark);
+            margin: 15px 0 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul,
+        ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.4;
+            border: 2px solid #444;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .class-name {
+            color: #4ec9b0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .interactive-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn-run {
+            background: var(--success);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-content {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+
+        .demo-box {
+            background: #f0f0f0;
+            border: 2px dashed #ccc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .box {
+            background: var(--secondary);
+            color: white;
+            padding: 30px;
+            margin: 10px 0;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+        }
+          footer p{
+            margin: 0;
+        }
+@media (max-width: 1400px){
+          .content-wrapper {
+             min-height: 75vh;
+        }
+        footer{
+            position: absolute;
+            bottom: 0;
+        }
+    }
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+        }
+
+        /* Responsive styles */
+        @media (max-width: 992px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .box {
+                padding: 20px;
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+            
+            header {
+                padding: 20px;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+            
+            .box {
+                padding: 15px;
+                font-size: 14px;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .box {
+                padding: 10px;
+                font-size: 12px;
+            }
+            
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-mobile-alt"></i> CHƯƠNG 6: RESPONSIVE WEB DESIGN</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <nav class="sidebar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#intro" class="nav-link active"><i class="fas fa-home"></i> Giới thiệu</a></li>
+                    <li class="nav-item"><a href="#importance" class="nav-link"><i class="fas fa-exclamation-triangle"></i> Tại sao Responsive quan trọng</a></li>
+                    <li class="nav-item"><a href="#comparison" class="nav-link"><i class="fas fa-balance-scale"></i> Responsive vs Adaptive</a></li>
+                    <li class="nav-item"><a href="#viewport" class="nav-link"><i class="fas fa-eye"></i> Thẻ Meta Viewport</a></li>
+                    <li class="nav-item"><a href="#notes" class="nav-link"><i class="fas fa-lightbulb"></i> Lưu ý thiết kế Responsive</a></li>
+                    <li class="nav-item"><a href="#media-queries" class="nav-link"><i class="fas fa-code"></i> Media Queries</a></li>
+                    <li class="nav-item"><a href="#breakpoints" class="nav-link"><i class="fas fa-columns"></i> Breakpoints & Mobile First</a></li>
+                    <li class="nav-item"><a href="#demo" class="nav-link"><i class="fas fa-desktop"></i> Demo Responsive</a></li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <!-- PHẦN GIỚI THIỆU -->
+                <section id="intro" class="section active">
+                    <h2><i class="fas fa-home"></i> RESPONSIVE WEB DESIGN LÀ GÌ?</h2>
+                    
+                    <h3>6.1 Khái niệm Responsive Web Design</h3>
+                    <p><strong>Định nghĩa:</strong> Responsive Web Design (RWD) là phong cách thiết kế giúp giao diện website có thể hiển thị và hoạt động tốt trên nhiều thiết bị khác nhau: từ điện thoại, máy tính bảng đến desktop.</p>
+                    <p>Nói cách khác, giao diện và bố cục của trang web sẽ linh hoạt thay đổi để phù hợp với kích thước màn hình.</p>
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Đặc điểm chính của Responsive Design:</h4>
+                        <ul>
+                            <li><strong>Fluid Grids:</strong> Sử dụng tỷ lệ phần trăm thay vì pixel cố định</li>
+                            <li><strong>Flexible Images:</strong> Hình ảnh tự động co giãn theo kích thước màn hình</li>
+                            <li><strong>Media Queries:</strong> Sử dụng CSS3 để áp dụng các style khác nhau cho các kích thước màn hình khác nhau</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- PHẦN TẠI SAO RESPONSIVE QUAN TRỌNG -->
+                <section id="importance" class="section">
+                    <h2><i class="fas fa-exclamation-triangle"></i> TẠI SAO RESPONSIVE LẠI QUAN TRỌNG?</h2>
+                    
+                    <h3>6.2 Sự cần thiết của thiết kế Responsive</h3>
+                    <p>Ngày nay, phần lớn lưu lượng truy cập web đến từ di động. Theo thống kê năm 2023:</p>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thiết bị</th>
+                                    <th>Tỷ lệ sử dụng</th>
+                                    <th>Xu hướng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Điện thoại di động</td>
+                                    <td>58.3%</td>
+                                    <td>Đang tăng</td>
+                                </tr>
+                                <tr>
+                                    <td>Máy tính để bàn</td>
+                                    <td>39.5%</td>
+                                    <td>Đang giảm</td>
+                                </tr>
+                                <tr>
+                                    <td>Máy tính bảng</td>
+                                    <td>2.2%</td>
+                                    <td>Ổn định</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h4>Lý do chính:</h4>
+                    <ul>
+                        <li><strong>Trải nghiệm người dùng:</strong> Website cần thân thiện với thiết bị màn hình nhỏ</li>
+                        <li><strong>SEO:</strong> Google ưu tiên xếp hạng các website responsive</li>
+                        <li><strong>Chi phí bảo trì:</strong> Chỉ cần duy trì một website thay vì nhiều phiên bản</li>
+                        <li><strong>Tốc độ phát triển:</strong> Tiết kiệm thời gian và công sức phát triển</li>
+                    </ul>
+                    
+                    <div class="note">
+                        <h4><i class="fas fa-exclamation-circle"></i> Hậu quả nếu website không responsive:</h4>
+                        <p>Nếu website không responsive, người dùng sẽ phải zoom và scroll rất nhiều, gây khó chịu khi sử dụng. Tỷ lệ thoát trang (bounce rate) sẽ cao, ảnh hưởng đến doanh thu và xếp hạng SEO.</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN SO SÁNH RESPONSIVE VS ADAPTIVE -->
+                <section id="comparison" class="section">
+                    <h2><i class="fas fa-balance-scale"></i> RESPONSIVE VS ADAPTIVE WEB DESIGN</h2>
+                    
+                    <h3>6.3 So sánh hai phương pháp thiết kế</h3>
+                    
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tiêu chí</th>
+                                    <th>Responsive</th>
+                                    <th>Adaptive</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Triển khai</strong></td>
+                                    <td>1 giao diện, thay đổi theo kích thước màn hình</td>
+                                    <td>Nhiều giao diện cụ thể cho từng thiết bị</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Chi phí</strong></td>
+                                    <td>Tiết kiệm hơn</td>
+                                    <td>Tăng vì phải thiết kế nhiều giao diện</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tốc độ</strong></td>
+                                    <td>Tốt nhưng vẫn tải toàn bộ resource</td>
+                                    <td>Nhanh trên thiết bị yếu do tối ưu riêng</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Bảo trì</strong></td>
+                                    <td>Dễ dàng, chỉ 1 codebase</td>
+                                    <td>Phức tạp, nhiều codebase cần đồng bộ</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Độ linh hoạt</strong></td>
+                                    <td>Rất linh hoạt, hỗ trợ mọi kích thước</td>
+                                    <td>Chỉ hỗ trợ các kích thước đã thiết kế</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Khi nào nên chọn phương pháp nào?</h4>
+                        <ul>
+                            <li><strong>Chọn Responsive:</strong> Cho hầu hết các website thông thường, blog, trang giới thiệu công ty</li>
+                            <li><strong>Chọn Adaptive:</strong> Cho các ứng dụng phức tạp, yêu cầu hiệu suất cao trên từng thiết bị cụ thể</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- PHẦN THẺ META VIEWPORT -->
+                <section id="viewport" class="section">
+                    <h2><i class="fas fa-eye"></i> THẺ META VIEWPORT</h2>
+                    
+                    <h3>6.5 Thẻ Meta Viewport - Nền tảng của Responsive</h3>
+                    <p>Thẻ meta viewport là thành phần QUAN TRỌNG NHẤT để website hiển thị đúng trên thiết bị di động.</p>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>HTML</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+                    </div>
+                    
+                    <h4>Giải thích các thuộc tính:</h4>
+                    <ul>
+                        <li><strong>width=device-width:</strong> Thiết lập chiều rộng trang bằng chiều rộng thiết bị</li>
+                        <li><strong>initial-scale=1:</strong> Thiết lập mức độ zoom ban đầu là 100%</li>
+                        <li><strong>maximum-scale=1:</strong> Ngăn người dùng phóng to trang (không nên dùng)</li>
+                        <li><strong>user-scalable=no:</strong> Ngăn người dùng zoom (không nên dùng)</li>
+                    </ul>
+                    
+                    <div class="note">
+                        <h4><i class="fas fa-exclamation-circle"></i> Lưu ý quan trọng:</h4>
+                        <p>Luôn luôn thêm thẻ meta viewport vào thẻ &lt;head&gt; của HTML. Không có thẻ này, website sẽ không hiển thị đúng trên thiết bị di động, ngay cả khi bạn đã viết CSS responsive.</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN LƯU Ý THIẾT KẾ RESPONSIVE -->
+                <section id="notes" class="section">
+                    <h2><i class="fas fa-lightbulb"></i> LƯU Ý KHI THIẾT KẾ RESPONSIVE</h2>
+                    
+                    <h3>6.6 Nguyên tắc và lưu ý quan trọng</h3>
+                    
+                    <h4>Những điều NÊN làm:</h4>
+                    <ul>
+                        <li>Sử dụng đơn vị tương đối (%, em, rem, vw, vh) thay vì pixel cố định</li>
+                        <li>Sử dụng Flexbox hoặc CSS Grid để tạo bố cục linh hoạt</li>
+                        <li>Tối ưu hình ảnh cho các kích thước màn hình khác nhau</li>
+                        <li>Thiết kế "Mobile First" - bắt đầu từ màn hình nhỏ nhất</li>
+                        <li>Kiểm tra trên nhiều thiết bị và trình duyệt thực tế</li>
+                    </ul>
+                    
+                    <h4>Những điều KHÔNG NÊN làm:</h4>
+                    <ul>
+                        <li>Tránh đặt chiều rộng cố định (px) vượt màn hình</li>
+                        <li>Tránh style chỉ hoạt động ở 1 loại màn hình</li>
+                        <li>Hạn chế sử dụng table cho bố cục chính</li>
+                        <li>Không ẩn nội dung quan trọng trên mobile</li>
+                        <li>Tránh pop-up chiếm toàn màn hình trên mobile</li>
+                    </ul>
+                    
+                    <div class="success-box">
+                        <h4><i class="fas fa-check-circle"></i> Mẹo thiết kế Responsive hiệu quả:</h4>
+                        <ol>
+                            <li>Bắt đầu với wireframe cho mobile trước</li>
+                            <li>Sử dụng hệ thống lưới (grid system) linh hoạt</li>
+                            <li>Ưu tiên nội dung quan trọng hiển thị đầu tiên trên mobile</li>
+                            <li>Kiểm tra khả năng tương tác bằng ngón tay (kích thước button ít nhất 44x44px)</li>
+                            <li>Tối ưu hiệu suất cho kết nối di động</li>
+                        </ol>
+                    </div>
+                </section>
+
+                <!-- PHẦN MEDIA QUERIES -->
+                <section id="media-queries" class="section">
+                    <h2><i class="fas fa-code"></i> MEDIA QUERIES TRONG CSS</h2>
+                    
+                    <h3>6.7 Cú pháp và ứng dụng Media Queries</h3>
+                    <p>Media Query là kỹ thuật CSS3 cho phép áp dụng các style khác nhau tùy thuộc vào đặc điểm của thiết bị (chiều rộng, chiều cao, hướng màn hình, v.v.).</p>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>CSS - Media Query cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">/* Áp dụng khi màn hình có chiều rộng tối đa 768px */</span><br>
+                        <span class="keyword">@media</span> only screen and (<span class="keyword">max-width</span>: 768px) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* CSS ở đây chỉ áp dụng cho màn hình ≤ 768px */</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;.container {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width: 100%;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;padding: 10px;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        }
+                    </div>
+                    
+                    <h4>Giải thích từng phần:</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thành phần</th>
+                                    <th>Ý nghĩa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>@media</strong></td>
+                                    <td>Bắt đầu một truy vấn điều kiện cho thiết bị (media query)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>only</strong></td>
+                                    <td>Giúp tránh một số lỗi trên trình duyệt cũ (IE), có thể bỏ cũng được</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>screen</strong></td>
+                                    <td>Áp dụng cho các thiết bị có màn hình (không áp dụng cho máy in, v.v.)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>(max-width: 768px)</strong></td>
+                                    <td>Áp dụng nếu chiều rộng màn hình ≤ 768px</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Thử nghiệm Media Query</h4>
+                        <p>Thay đổi kích thước cửa sổ trình duyệt để thấy sự thay đổi:</p>
+                        <div class="demo-box">
+                            <div id="mqDemo" class="box">
+                                <p id="mqText">Chiều rộng màn hình hiện tại: <span id="screenWidth">0</span>px</p>
+                                <p id="mqMessage" class="mq-message">Đang ở chế độ Desktop (≥ 992px)</p>
+                            </div>
+                        </div>
+                        <button class="btn" onclick="testMediaQuery()">
+                            <i class="fas fa-sync-alt"></i> Kiểm tra Media Query
+                        </button>
+                        <div class="result" id="mqResult">
+                            <strong>Thông tin Media Query:</strong>
+                            <div class="result-content" id="mqResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN BREAKPOINTS & MOBILE FIRST -->
+                <section id="breakpoints" class="section">
+                    <h2><i class="fas fa-columns"></i> BREAKPOINTS & MOBILE FIRST</h2>
+                    
+                    <h3>6.8 Breakpoints và triết lý Mobile First</h3>
+                    
+                    <h4>Các breakpoints thường dùng:</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Breakpoint</th>
+                                    <th>Loại thiết bị</th>
+                                    <th>Ứng dụng</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>&lt; 576px</td>
+                                    <td>Mobile (nhỏ)</td>
+                                    <td>Điện thoại di động</td>
+                                </tr>
+                                <tr>
+                                    <td>576px – 768px</td>
+                                    <td>Mobile (lớn)</td>
+                                    <td>Điện thoại phablet</td>
+                                </tr>
+                                <tr>
+                                    <td>768px – 992px</td>
+                                    <td>Tablet</td>
+                                    <td>Máy tính bảng</td>
+                                </tr>
+                                <tr>
+                                    <td>992px – 1200px</td>
+                                    <td>Desktop</td>
+                                    <td>Máy tính để bàn</td>
+                                </tr>
+                                <tr>
+                                    <td>&gt; 1200px</td>
+                                    <td>Large Desktop</td>
+                                    <td>Màn hình rộng</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <h4>Mobile First vs Desktop First:</h4>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>CSS - Mobile First Approach</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">/* Mobile First: Viết CSS cho mobile trước */</span><br>
+                        #box {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;width: 100%;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;padding: 10px;<br>
+                        }<br><br>
+                        <span class="keyword">@media</span> (min-width: 768px) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* Tablet */</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;#box {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width: 80%;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        }<br><br>
+                        <span class="keyword">@media</span> (min-width: 992px) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">/* Desktop */</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;#box {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width: 50%;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;padding: 20px;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        }
+                    </div>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>CSS - Desktop First Approach</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">/* Desktop First: Viết CSS cho desktop trước */</span><br>
+                        .box {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;font-size: 18px;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;width: 50%;<br>
+                        }<br><br>
+                        <span class="comment">/* Tablet */</span><br>
+                        <span class="keyword">@media</span> (max-width: 992px) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;.box {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-size: 16px;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width: 70%;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        }<br><br>
+                        <span class="comment">/* Mobile */</span><br>
+                        <span class="keyword">@media</span> (max-width: 768px) {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;.box {<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;font-size: 14px;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;width: 100%;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+                        }
+                    </div>
+                    
+                    <div class="success-box">
+                        <h4><i class="fas fa-check-circle"></i> Ưu điểm của Mobile First:</h4>
+                        <ul>
+                            <li>Tập trung vào nội dung cốt lõi</li>
+                            <li>Hiệu suất tốt hơn trên mobile (CSS ít phức tạp hơn)</li>
+                            <li>Dễ mở rộng lên desktop hơn là thu nhỏ từ desktop xuống mobile</li>
+                            <li>Phù hợp với xu hướng sử dụng mobile ngày càng tăng</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- PHẦN DEMO RESPONSIVE -->
+                <section id="demo" class="section">
+                    <h2><i class="fas fa-desktop"></i> DEMO RESPONSIVE</h2>
+                    
+                    <h3>Thử nghiệm Responsive Design</h3>
+                    
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-cogs"></i> Điều chỉnh kích thước container</h4>
+                        <div class="input-group">
+                            <label for="containerWidth">Chiều rộng container (px hoặc %):</label>
+                            <input type="text" id="containerWidth" value="100%">
+                        </div>
+                        <div class="input-group">
+                            <label for="containerPadding">Padding container (px):</label>
+                            <input type="number" id="containerPadding" value="20" min="0" max="100">
+                        </div>
+                        
+                        <button class="btn" onclick="updateContainer()">
+                            <i class="fas fa-paint-brush"></i> Áp dụng cho container
+                        </button>
+                        
+                        <h4 style="margin-top: 30px;">Demo Grid Responsive</h4>
+                        <p>Thay đổi kích thước cửa sổ để thấy sự thay đổi:</p>
+                        <div id="responsiveGrid" class="demo-box">
+                            <div class="grid-item" style="background: #3498db;">Item 1</div>
+                            <div class="grid-item" style="background: #2ecc71;">Item 2</div>
+                            <div class="grid-item" style="background: #e74c3c;">Item 3</div>
+                            <div class="grid-item" style="background: #f39c12;">Item 4</div>
+                        </div>
+                        
+                        <div class="result" id="demoResult">
+                            <strong>Thông tin hiển thị:</strong>
+                            <div class="result-content" id="demoResultContent"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="note">
+                        <h4><i class="fas fa-exclamation-circle"></i> Cách kiểm tra Responsive trên Chrome:</h4>
+                        <ol>
+                            <li>Mở Developer Tools (F12)</li>
+                            <li>Click nút "Toggle Device Toolbar" hoặc nhấn Ctrl + Shift + M</li>
+                            <li>Chọn thiết bị từ dropdown hoặc tùy chỉnh kích thước tùy ý</li>
+                            <li>Kiểm tra giao diện website ở các kích thước khác nhau</li>
+                        </ol>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>Responsive Web Design &copy; GV: Nguyễn Đình Mạnh</p>
+        </footer>
+    </div>
+
+    <script>
+        // Xử lý điều hướng
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Xóa class active từ tất cả các link và section
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+
+                    // Thêm class active cho link được click
+                    this.classList.add('active');
+
+                    // Hiển thị section tương ứng
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).classList.add('active');
+                    
+                    // Cập nhật chiều rộng màn hình
+                    updateScreenWidth();
+                });
+            });
+            
+            // Cập nhật chiều rộng màn hình ban đầu
+            updateScreenWidth();
+            
+            // Cập nhật grid responsive
+            updateGrid();
+            
+            // Thêm sự kiện resize
+            window.addEventListener('resize', function() {
+                updateScreenWidth();
+                updateGrid();
+            });
+        });
+
+        // Hàm copy code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.parentElement;
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Đã copy!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Cập nhật chiều rộng màn hình
+        function updateScreenWidth() {
+            const screenWidth = window.innerWidth;
+            document.getElementById('screenWidth').textContent = screenWidth;
+            
+            // Cập nhật thông báo Media Query
+            let mqMessage = '';
+            if (screenWidth < 576) {
+                mqMessage = 'Đang ở chế độ Mobile nhỏ (< 576px)';
+            } else if (screenWidth < 768) {
+                mqMessage = 'Đang ở chế độ Mobile lớn (576px - 768px)';
+            } else if (screenWidth < 992) {
+                mqMessage = 'Đang ở chế độ Tablet (768px - 992px)';
+            } else {
+                mqMessage = 'Đang ở chế độ Desktop (≥ 992px)';
+            }
+            
+            document.getElementById('mqMessage').textContent = mqMessage;
+        }
+
+        // Kiểm tra Media Query
+        function testMediaQuery() {
+            const result = document.getElementById('mqResult');
+            const output = document.getElementById('mqResultContent');
+            const screenWidth = window.innerWidth;
+
+            result.classList.add('active');
+
+            let outputText = `Chiều rộng màn hình hiện tại: ${screenWidth}px\n\n`;
+            outputText += `Breakpoints áp dụng:\n`;
+            
+            if (screenWidth < 576) {
+                outputText += `- Mobile nhỏ: < 576px (Áp dụng)\n`;
+            } else {
+                outputText += `- Mobile nhỏ: < 576px\n`;
+            }
+            
+            if (screenWidth >= 576 && screenWidth < 768) {
+                outputText += `- Mobile lớn: 576px - 768px (Áp dụng)\n`;
+            } else {
+                outputText += `- Mobile lớn: 576px - 768px\n`;
+            }
+            
+            if (screenWidth >= 768 && screenWidth < 992) {
+                outputText += `- Tablet: 768px - 992px (Áp dụng)\n`;
+            } else {
+                outputText += `- Tablet: 768px - 992px\n`;
+            }
+            
+            if (screenWidth >= 992) {
+                outputText += `- Desktop: ≥ 992px (Áp dụng)\n`;
+            } else {
+                outputText += `- Desktop: ≥ 992px\n`;
+            }
+
+            output.textContent = outputText;
+        }
+
+        // Cập nhật container
+        function updateContainer() {
+            const width = document.getElementById('containerWidth').value;
+            const padding = document.getElementById('containerPadding').value;
+            const container = document.querySelector('.container');
+            
+            container.style.width = width;
+            container.style.padding = padding + 'px';
+            
+            const result = document.getElementById('demoResult');
+            const output = document.getElementById('demoResultContent');
+            
+            result.classList.add('active');
+            output.textContent = `Đã cập nhật container:\n- Width: ${width}\n- Padding: ${padding}px`;
+        }
+
+        // Cập nhật grid responsive
+        function updateGrid() {
+            const grid = document.getElementById('responsiveGrid');
+            const screenWidth = window.innerWidth;
+            
+            // Xóa tất cả class cũ
+            grid.className = 'demo-box';
+            
+            // Thêm class mới dựa trên kích thước màn hình
+            if (screenWidth < 576) {
+                grid.classList.add('mobile-grid');
+                grid.innerHTML = `
+                    <div class="grid-item" style="background: #3498db;">Item 1 (Mobile)</div>
+                    <div class="grid-item" style="background: #2ecc71;">Item 2 (Mobile)</div>
+                    <div class="grid-item" style="background: #e74c3c;">Item 3 (Mobile)</div>
+                    <div class="grid-item" style="background: #f39c12;">Item 4 (Mobile)</div>
+                `;
+            } else if (screenWidth < 768) {
+                grid.classList.add('tablet-grid');
+                grid.innerHTML = `
+                    <div class="grid-item" style="background: #3498db;">Item 1 (Tablet)</div>
+                    <div class="grid-item" style="background: #2ecc71;">Item 2 (Tablet)</div>
+                    <div class="grid-item" style="background: #e74c3c;">Item 3 (Tablet)</div>
+                    <div class="grid-item" style="background: #f39c12;">Item 4 (Tablet)</div>
+                `;
+            } else {
+                grid.classList.add('desktop-grid');
+                grid.innerHTML = `
+                    <div class="grid-item" style="background: #3498db;">Item 1 (Desktop)</div>
+                    <div class="grid-item" style="background: #2ecc71;">Item 2 (Desktop)</div>
+                    <div class="grid-item" style="background: #e74c3c;">Item 3 (Desktop)</div>
+                    <div class="grid-item" style="background: #f39c12;">Item 4 (Desktop)</div>
+                `;
+            }
+            
+            // Thêm CSS cho grid
+            const style = document.createElement('style');
+            style.id = 'grid-style';
+            
+            if (document.getElementById('grid-style')) {
+                document.getElementById('grid-style').remove();
+            }
+            
+            style.textContent = `
+                .mobile-grid { display: flex; flex-direction: column; gap: 10px; }
+                .mobile-grid .grid-item { padding: 20px; border-radius: 8px; color: white; text-align: center; }
+                
+                .tablet-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; }
+                .tablet-grid .grid-item { padding: 30px; border-radius: 8px; color: white; text-align: center; }
+                
+                .desktop-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+                .desktop-grid .grid-item { padding: 40px; border-radius: 8px; color: white; text-align: center; }
+            `;
+            
+            document.head.appendChild(style);
+        }
+    </script>
+</body>
+</html>

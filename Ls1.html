@@ -1,0 +1,1002 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TỔNG QUAN VỀ WEB VÀ INTERNET</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        html, body{
+            height: 100%;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 80vh;
+        }
+
+        .sidebar {
+                max-height: 80vh;
+            overflow-y: scroll;
+            background: var(--light);
+            padding: 20px;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .nav-list {
+            list-style: none;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--secondary);
+        }
+
+        .main-content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        h4 {
+            color: var(--info);
+            margin: 20px 0 10px;
+        }
+
+        h5 {
+            color: var(--dark);
+            margin: 15px 0 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul,
+        ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.4;
+            border: 2px solid #444;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .class-name {
+            color: #4ec9b0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .interactive-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn-run {
+            background: var(--success);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-content {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+
+        .diagram {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .diagram img {
+            max-width: 100%;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .process-step {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .process-step h5 {
+            color: var(--secondary);
+            margin-top: 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+        }
+   @media (max-width: 1400px) {
+            .container {
+                height: 100%;
+                position: relative;
+            }
+
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                padding: 5px;
+            }
+
+            footer p {
+                margin: 0;
+            }
+        }
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-globe"></i> BÀI 1: TỔNG QUAN VỀ WEB VÀ INTERNET</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <nav class="sidebar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#intro" class="nav-link active"><i class="fas fa-home"></i> Giới thiệu</a></li>
+                    <li class="nav-item"><a href="#internet" class="nav-link"><i class="fas fa-network-wired"></i> Internet là gì?</a></li>
+                    <li class="nav-item"><a href="#web" class="nav-link"><i class="fas fa-globe-americas"></i> Web là gì?</a></li>
+                    <li class="nav-item"><a href="#comparison" class="nav-link"><i class="fas fa-balance-scale"></i> Phân biệt Internet & Web</a></li>
+                    <li class="nav-item"><a href="#client-server" class="nav-link"><i class="fas fa-exchange-alt"></i> Mô hình Client-Server</a></li>
+                    <li class="nav-item"><a href="#http" class="nav-link"><i class="fas fa-shield-alt"></i> HTTP & HTTPS</a></li>
+                    <li class="nav-item"><a href="#website-types" class="nav-link"><i class="fas fa-laptop"></i> Các loại Website</a></li>
+                    <li class="nav-item"><a href="#web-tech" class="nav-link"><i class="fas fa-code"></i> Công nghệ Web cơ bản</a></li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <!-- PHẦN GIỚI THIỆU -->
+                <section id="intro" class="section active">
+                    <h2><i class="fas fa-home"></i> GIỚI THIỆU </h2>
+
+                    <h3>1. Tổng quan về Web và Internet</h3>
+                    <p>Trong bài này, chúng ta sẽ tìm hiểu về các khái niệm cơ bản của Internet và World Wide Web (WWW), cách chúng hoạt động, và sự khác biệt giữa chúng. Đây là nền tảng để hiểu rõ hơn về cách các trang web được tạo ra và hoạt động.</p>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Mục tiêu học tập</h4>
+                        <ul>
+                            <li>Hiểu khái niệm và đặc điểm của Internet</li>
+                            <li>Phân biệt được Internet và Web</li>
+                            <li>Hiểu mô hình Client-Server</li>
+                            <li>Nắm được các giao thức HTTP và HTTPS</li>
+                            <li>Nhận biết các loại website khác nhau</li>
+                            <li>Làm quen với các công nghệ web cơ bản</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <h4><i class="fas fa-check-circle"></i> Kiến thức trọng tâm</h4>
+                        <p>Internet là hạ tầng mạng toàn cầu, trong khi Web là một dịch vụ chạy trên nền tảng Internet. Hiểu rõ sự khác biệt này giúp bạn có cái nhìn đúng đắn về cách thức hoạt động của các ứng dụng trực tuyến.</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN INTERNET LÀ GÌ -->
+                <section id="internet" class="section">
+                    <h2><i class="fas fa-network-wired"></i> INTERNET LÀ GÌ?</h2>
+
+                    <h3>1.1 Khái niệm Internet</h3>
+                    <p><strong>Định nghĩa:</strong> Internet (viết tắt của Interconnected Network) là một mạng lưới toàn cầu kết nối hàng triệu máy tính, thiết bị di động và hệ thống mạng nhỏ lại với nhau để chia sẻ thông tin.</p>
+
+                    <h4>Đặc điểm của Internet:</h4>
+                    <ul>
+                        <li><strong>Toàn cầu:</strong> Phạm vi rộng khắp thế giới</li>
+                        <li><strong>Phân tán:</strong> Không do một tổ chức nào kiểm soát hoàn toàn</li>
+                        <li><strong>Giao tiếp đa chiều:</strong> Người dùng có thể gửi, nhận, tìm kiếm và lưu trữ thông tin</li>
+                        <li><strong>Mở:</strong> Dựa trên các giao thức mở, cho phép bất kỳ ai cũng có thể kết nối</li>
+                    </ul>
+
+                    <h4>Ví dụ về ứng dụng Internet:</h4>
+                    <div class="process-step">
+                        <h5><i class="fas fa-search"></i> Truy cập Google</h5>
+                        <p>Bạn dùng trình duyệt để truy cập Google.com ⇒ đang sử dụng Internet.</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h5><i class="fas fa-envelope"></i> Gửi email</h5>
+                        <p>Gửi email qua Gmail ⇒ cũng là ứng dụng của Internet.</p>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-question-circle"></i> Kiểm tra kiến thức</h4>
+                        <p>Internet được định nghĩa là gì?</p>
+                        <div class="input-group">
+                            <select id="internetQuestion">
+                                <option value="">-- Chọn đáp án --</option>
+                                <option value="1">Một mạng cục bộ trong công ty</option>
+                                <option value="2">Một trang web phổ biến</option>
+                                <option value="3">Một mạng lưới toàn cầu kết nối các máy tính</option>
+                                <option value="4">Một loại trình duyệt web</option>
+                            </select>
+                        </div>
+                        <button class="btn" onclick="checkInternetAnswer()">
+                            <i class="fas fa-check"></i> Kiểm tra
+                        </button>
+                        <div class="result" id="internetResult">
+                            <strong>Kết quả:</strong>
+                            <div class="result-content" id="internetResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN WEB LÀ GÌ -->
+                <section id="web" class="section">
+                    <h2><i class="fas fa-globe-americas"></i> WEB LÀ GÌ?</h2>
+
+                    <h3>1.2 Khái niệm Web (World Wide Web)</h3>
+                    <p><strong>Định nghĩa:</strong> Web (World Wide Web - WWW) là một dịch vụ hoạt động trên nền Internet, cho phép người dùng truy cập và chia sẻ các trang web qua trình duyệt.</p>
+
+                    <div class="note">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Lưu ý quan trọng</h4>
+                        <p><strong>Internet là "hạ tầng", còn Web là "dịch vụ" chạy trên nền Internet.</strong> Nhiều người nhầm lẫn hai khái niệm này, nhưng chúng khác biệt về bản chất.</p>
+                    </div>
+
+                    <h4>Các thành phần của Web:</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thành phần</th>
+                                    <th>Giải thích ngắn gọn</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Website</strong></td>
+                                    <td>Tập hợp nhiều trang web (web pages)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Trang web (Web page)</strong></td>
+                                    <td>Tài liệu HTML hiển thị qua trình duyệt</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Trình duyệt (Browser)</strong></td>
+                                    <td>Công cụ truy cập web (Chrome, Firefox…)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>URL</strong></td>
+                                    <td>Địa chỉ trang web (VD: https://google.com)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Địa chỉ IP</strong></td>
+                                    <td>Là 1 dãy số cung cấp nhận dạng cho 1 thiết bị sử dụng internet (VD: 192.168.45.15)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tên miền (Domain name)</strong></td>
+                                    <td>Tên dễ nhớ đại diện cho địa chỉ IP (VD: google.com dễ nhớ hơn 142.250.66.14)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Web server</strong></td>
+                                    <td>Máy chủ lưu trữ và phục vụ các trang web</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>Ví dụ: Quy trình truy cập https://vnexpress.net</h4>
+                    <div class="process-step">
+                        <h5>Bước 1: Gửi yêu cầu DNS</h5>
+                        <p>Trình duyệt gửi yêu cầu đến DNS server để tìm địa chỉ IP ứng với tên miền "vnexpress.net"</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h5>Bước 2: Tìm địa chỉ IP</h5>
+                        <p>DNS server tìm địa chỉ IP (ví dụ: 111.65.250.10) tương ứng với tên miền vnexpress.net</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h5>Bước 3: Gửi yêu cầu và nhận nội dung</h5>
+                        <p>Trình duyệt gửi yêu cầu đến IP đó ⇒ Nhận nội dung và hiển thị trang web</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN PHÂN BIỆT INTERNET VÀ WEB -->
+                <section id="comparison" class="section">
+                    <h2><i class="fas fa-balance-scale"></i> PHÂN BIỆT INTERNET VÀ WEB</h2>
+
+                    <h3>1.3 So sánh Internet và Web (WWW)</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tiêu chí</th>
+                                    <th>Internet</th>
+                                    <th>Web (WWW)</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Là gì?</strong></td>
+                                    <td>Hạ tầng mạng toàn cầu</td>
+                                    <td>Dịch vụ chạy trên Internet</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Chức năng chính</strong></td>
+                                    <td>Truyền tải dữ liệu</td>
+                                    <td>Truy cập, chia sẻ nội dung</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Thành phần chính</strong></td>
+                                    <td>Máy chủ, router, giao thức mạng…</td>
+                                    <td>Trình duyệt, website, server web</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Ví dụ</strong></td>
+                                    <td>Email, FTP, chat, VoIP…</td>
+                                    <td>Truy cập báo điện tử, blog, mạng xã hội…</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Năm ra đời</strong></td>
+                                    <td>Cuối thập niên 1960</td>
+                                    <td>1989 (Tim Berners-Lee)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Phạm vi</strong></td>
+                                    <td>Rộng hơn (bao gồm nhiều dịch vụ)</td>
+                                    <td>Hẹp hơn (một dịch vụ trên Internet)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-lightbulb"></i> Hiểu đúng về mối quan hệ</h4>
+                        <p>Internet giống như một hệ thống đường cao tốc, còn Web là phương tiện giao thông chạy trên đó. Ngoài Web, còn nhiều dịch vụ khác cũng sử dụng Internet như email, FTP, VoIP, game online, v.v.</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN MÔ HÌNH CLIENT-SERVER -->
+                <section id="client-server" class="section">
+                    <h2><i class="fas fa-exchange-alt"></i> MÔ HÌNH CLIENT-SERVER</h2>
+
+                    <h3>1.4 Cách trang web hoạt động (Mô hình Client – Server)</h3>
+
+                    <h4>Quy trình hoạt động:</h4>
+                    <div class="process-step">
+                        <h5>Bước 1: Người dùng nhập URL</h5>
+                        <p>Người dùng nhập URL vào trình duyệt (Client)</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h5>Bước 2: Trình duyệt gửi yêu cầu</h5>
+                        <p>Trình duyệt gửi yêu cầu đến Web Server</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h5>Bước 3: Server xử lý yêu cầu</h5>
+                        <p>Web Server xử lý và gửi lại trang web (HTML, CSS, JS…)</p>
+                    </div>
+                    
+                    <div class="process-step">
+                        <h5>Bước 4: Hiển thị nội dung</h5>
+                        <p>Trình duyệt nhận và hiển thị nội dung cho người dùng xem</p>
+                    </div>
+
+                    <h4>Minh họa mô hình:</h4>
+                    <div class="diagram">
+                        <div style="text-align: center; background: #f0f8ff; padding: 20px; border-radius: 10px; border: 2px solid #3498db; width: 100%;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                                <div style="background: #3498db; color: white; padding: 15px; border-radius: 8px; min-width: 150px;">
+                                    <strong>Trình duyệt (Client)</strong>
+                                </div>
+                                <div style="font-size: 24px; color: #3498db;">
+                                    <i class="fas fa-exchange-alt"></i>
+                                </div>
+                                <div style="background: #e74c3c; color: white; padding: 15px; border-radius: 8px; min-width: 150px;">
+                                    <strong>Web Server</strong>
+                                </div>
+                            </div>
+                            <div style="display: flex; justify-content: space-between; font-size: 14px;">
+                                <div>Gửi yêu cầu (Request)</div>
+                                <div>Trả về nội dung (Response)</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN HTTP & HTTPS -->
+                <section id="http" class="section">
+                    <h2><i class="fas fa-shield-alt"></i> HTTP VÀ HTTPS</h2>
+
+                    <h3>1.5 Giao thức HTTP / HTTPS</h3>
+
+                    <h4>HTTP (Hypertext Transfer Protocol):</h4>
+                    <ul>
+                        <li>Là giao thức truyền dữ liệu giữa trình duyệt và web server</li>
+                        <li>Dữ liệu không được mã hóa</li>
+                        <li>Hoạt động trên cổng 80</li>
+                        <li>Không an toàn, dễ bị tấn công nghe lén (sniffing)</li>
+                    </ul>
+
+                    <h4>HTTPS (HTTP Secure):</h4>
+                    <ul>
+                        <li>Là HTTP có bảo mật, dùng chứng chỉ SSL/TLS để mã hóa dữ liệu</li>
+                        <li>Dữ liệu được mã hóa từ đầu đến cuối</li>
+                        <li>Hoạt động trên cổng 443</li>
+                        <li>An toàn hơn khi truy cập ngân hàng, thanh toán...</li>
+                        <li>Có biểu tượng ổ khóa trên thanh địa chỉ trình duyệt</li>
+                    </ul>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tiêu chí</th>
+                                    <th>HTTP</th>
+                                    <th>HTTPS</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Bảo mật</strong></td>
+                                    <td><span style="color: red;">Không an toàn</span></td>
+                                    <td><span style="color: green;">An toàn</span></td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Cổng mặc định</strong></td>
+                                    <td>80</td>
+                                    <td>443</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mã hóa</strong></td>
+                                    <td>Không</td>
+                                    <td>Có (SSL/TLS)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Tốc độ</strong></td>
+                                    <td>Nhanh hơn</td>
+                                    <td>Chậm hơn một chút</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>SEO</strong></td>
+                                    <td>Google ưu tiên thấp hơn</td>
+                                    <td>Google ưu tiên cao hơn</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-lock"></i> Kiểm tra bảo mật website</h4>
+                        <div class="input-group">
+                            <label for="urlCheck">Nhập URL để kiểm tra:</label>
+                            <input type="text" id="urlCheck" placeholder="https://example.com" value="https://google.com">
+                        </div>
+                        <button class="btn" onclick="checkURLSecurity()">
+                            <i class="fas fa-search"></i> Kiểm tra
+                        </button>
+                        <div class="result" id="securityResult">
+                            <strong>Kết quả:</strong>
+                            <div class="result-content" id="securityResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN CÁC LOẠI WEBSITE -->
+                <section id="website-types" class="section">
+                    <h2><i class="fas fa-laptop"></i> CÁC LOẠI WEBSITE</h2>
+
+                    <h3>1.6 Phân loại website</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Loại Website</th>
+                                    <th>Mô tả</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Website tĩnh</strong></td>
+                                    <td>Nội dung cố định, không thay đổi nhiều, thường dùng HTML/CSS thuần</td>
+                                    <td>Trang giới thiệu doanh nghiệp, portfolio cá nhân</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Website động</strong></td>
+                                    <td>Có tương tác, nội dung thay đổi liên tục, thường dùng database</td>
+                                    <td>Mạng xã hội (Facebook), trang thương mại điện tử</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Website thương mại điện tử</strong></td>
+                                    <td>Dùng để bán hàng trực tuyến, có giỏ hàng, thanh toán</td>
+                                    <td>Shopee, Tiki, Amazon</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Blog / Tin tức</strong></td>
+                                    <td>Cập nhật thông tin, bài viết thường xuyên</td>
+                                    <td>VnExpress, Medium, WordPress blog</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Website giáo dục</strong></td>
+                                    <td>Cung cấp khóa học, tài liệu học tập trực tuyến</td>
+                                    <td>Coursera, Udemy, các trang elearning</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Mạng xã hội</strong></td>
+                                    <td>Kết nối người dùng, chia sẻ thông tin, tương tác</td>
+                                    <td>Facebook, Twitter, Instagram</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Diễn đàn</strong></td>
+                                    <td>Nơi thảo luận, hỏi đáp về các chủ đề chuyên môn</td>
+                                    <td>GitHub Discussions, Reddit</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- PHẦN CÔNG NGHỆ WEB -->
+                <section id="web-tech" class="section">
+                    <h2><i class="fas fa-code"></i> CÔNG NGHỆ WEB CƠ BẢN</h2>
+
+                    <h3>1.7 Các công nghệ phát triển web cơ bản</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Công nghệ</th>
+                                    <th>Vai trò chi tiết</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>HTML</strong></td>
+                                    <td>Là ngôn ngữ đánh dấu giúp xây dựng cấu trúc và nội dung cho trang web. HTML định nghĩa các thành phần như tiêu đề, đoạn văn, hình ảnh, liên kết… Đây là phần "bộ xương" của website.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>CSS</strong></td>
+                                    <td>Dùng để trang trí và tạo kiểu dáng cho các thành phần HTML. CSS điều khiển màu sắc, font chữ, kích thước, bố cục, hiệu ứng chuyển động và làm cho website trở nên đẹp mắt, thân thiện.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>JavaScript</strong></td>
+                                    <td>Là ngôn ngữ lập trình chạy trên trình duyệt, giúp tạo tính năng tương tác và xử lý sự kiện. Ví dụ: nút bấm, form nhập liệu, popup, hiệu ứng động, hoặc gọi API để lấy dữ liệu mà không cần tải lại trang.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>PHP / Node.js</strong></td>
+                                    <td>Là các công nghệ phía server (máy chủ), chịu trách nhiệm xử lý logic nghiệp vụ, tương tác với cơ sở dữ liệu, quản lý phiên đăng nhập, gửi dữ liệu cho client.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>MySQL / MongoDB</strong></td>
+                                    <td>Là các hệ quản trị cơ sở dữ liệu dùng để lưu trữ, truy vấn và quản lý dữ liệu của website như thông tin người dùng, bài viết, sản phẩm.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>API</strong></td>
+                                    <td>Giao diện lập trình ứng dụng cho phép các ứng dụng khác nhau giao tiếp với nhau. RESTful API là phổ biến nhất trong phát triển web.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Framework</strong></td>
+                                    <td>Thư viện, công cụ hỗ trợ phát triển web nhanh hơn: React, Angular, Vue (front-end); Laravel, Express.js, Django (back-end).</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-sitemap"></i> Kiến trúc web hiện đại</h4>
+                        <p>Một website hiện đại thường có kiến trúc 3 lớp:</p>
+                        <ol>
+                            <li><strong>Front-end:</strong> Giao diện người dùng (HTML, CSS, JavaScript)</li>
+                            <li><strong>Back-end:</strong> Xử lý logic, kết nối database (PHP, Node.js, Python)</li>
+                            <li><strong>Database:</strong> Lưu trữ dữ liệu (MySQL, MongoDB, PostgreSQL)</li>
+                        </ol>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-gamepad"></i> Ôn tập kiến thức</h4>
+                        <p>Chọn công nghệ đóng vai trò "bộ xương" của website:</p>
+                        <div class="input-group">
+                            <select id="techQuestion">
+                                <option value="">-- Chọn đáp án --</option>
+                                <option value="1">CSS</option>
+                                <option value="2">JavaScript</option>
+                                <option value="3">HTML</option>
+                                <option value="4">MySQL</option>
+                            </select>
+                        </div>
+                        <button class="btn" onclick="checkTechAnswer()">
+                            <i class="fas fa-check"></i> Kiểm tra
+                        </button>
+                        <div class="result" id="techResult">
+                            <strong>Kết quả:</strong>
+                            <div class="result-content" id="techResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>Bài 1: Tổng quan về web và internet &copy; GV: Nguyễn Đình Mạnh</p>
+        </footer>
+    </div>
+
+    <script>
+        // Xử lý điều hướng
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Xóa class active từ tất cả các link và section
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+
+                    // Thêm class active cho link được click
+                    this.classList.add('active');
+
+                    // Hiển thị section tương ứng
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+
+        // Kiểm tra câu hỏi về Internet
+        function checkInternetAnswer() {
+            const answer = document.getElementById('internetQuestion').value;
+            const result = document.getElementById('internetResult');
+            const output = document.getElementById('internetResultContent');
+
+            result.classList.add('active');
+
+            if (answer === '3') {
+                output.textContent = '✓ Chính xác! Internet là một mạng lưới toàn cầu kết nối hàng triệu máy tính và thiết bị.';
+                output.style.color = 'green';
+            } else if (answer === '') {
+                output.textContent = 'Vui lòng chọn một đáp án!';
+                output.style.color = 'orange';
+            } else {
+                output.textContent = '✗ Chưa chính xác. Internet là một mạng lưới toàn cầu kết nối các máy tính, không phải mạng cục bộ hay trang web.';
+                output.style.color = 'red';
+            }
+        }
+
+        // Kiểm tra bảo mật URL
+        function checkURLSecurity() {
+            const url = document.getElementById('urlCheck').value;
+            const result = document.getElementById('securityResult');
+            const output = document.getElementById('securityResultContent');
+
+            result.classList.add('active');
+
+            if (!url) {
+                output.textContent = 'Vui lòng nhập URL để kiểm tra!';
+                output.style.color = 'orange';
+                return;
+            }
+
+            let securityStatus = '';
+            let color = '';
+
+            if (url.startsWith('https://')) {
+                securityStatus = '✓ URL này sử dụng HTTPS - Kết nối được mã hóa và an toàn.\n\n';
+                securityStatus += 'Thông tin chi tiết:\n';
+                securityStatus += '- Dữ liệu được mã hóa từ đầu đến cuối\n';
+                securityStatus += '- Chống nghe lén (sniffing)\n';
+                securityStatus += '- Có chứng chỉ SSL/TLS hợp lệ\n';
+                securityStatus += '- Google ưu tiên SEO cao hơn';
+                color = 'green';
+            } else if (url.startsWith('http://')) {
+                securityStatus = '⚠️ URL này sử dụng HTTP - Kết nối KHÔNG được mã hóa, không an toàn.\n\n';
+                securityStatus += 'Khuyến nghị:\n';
+                securityStatus += '- Không nên nhập thông tin nhạy cảm\n';
+                securityStatus += '- Nên sử dụng HTTPS nếu có thể\n';
+                securityStatus += '- Dữ liệu có thể bị đánh cắp bởi bên thứ ba';
+                color = 'red';
+            } else {
+                securityStatus = '⚠️ URL không đúng định dạng. Vui lòng nhập URL đầy đủ (bắt đầu bằng http:// hoặc https://)';
+                color = 'orange';
+            }
+
+            output.textContent = securityStatus;
+            output.style.color = color;
+        }
+
+        // Kiểm tra câu hỏi về công nghệ web
+        function checkTechAnswer() {
+            const answer = document.getElementById('techQuestion').value;
+            const result = document.getElementById('techResult');
+            const output = document.getElementById('techResultContent');
+
+            result.classList.add('active');
+
+            if (answer === '3') {
+                output.textContent = '✓ Chính xác! HTML là "bộ xương" của website, định nghĩa cấu trúc và nội dung trang web.\n\n';
+                output.textContent += 'Vai trò các công nghệ khác:\n';
+                output.textContent += '- CSS: Trang trí, tạo kiểu dáng\n';
+                output.textContent += '- JavaScript: Tạo tính tương tác\n';
+                output.textContent += '- MySQL: Lưu trữ dữ liệu';
+                output.style.color = 'green';
+            } else if (answer === '') {
+                output.textContent = 'Vui lòng chọn một đáp án!';
+                output.style.color = 'orange';
+            } else {
+                output.textContent = '✗ Chưa chính xác. HTML mới là "bộ xương" của website.\n\n';
+                output.textContent += 'Gợi ý:\n';
+                output.textContent += '- HTML: Cấu trúc nội dung\n';
+                output.textContent += '- CSS: Trang trí, giao diện\n';
+                output.textContent += '- JavaScript: Tính năng tương tác';
+                output.style.color = 'red';
+            }
+        }
+    </script>
+</body>
+
+</html>

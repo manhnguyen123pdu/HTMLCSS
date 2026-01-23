@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BÀI 3: HTML FORM</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html,
+        body {
+            height: 100%;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 82vh;
+        }
+
+        .sidebar {
+            max-height: 80vh;
+            overflow-y: scroll;
+            background: var(--light);
+            padding: 20px;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .nav-list {
+            list-style: none;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--secondary);
+        }
+
+        .main-content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 82vh;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        h4 {
+            color: var(--info);
+            margin: 20px 0 10px;
+        }
+
+        h5 {
+            color: var(--dark);
+            margin: 15px 0 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul,
+        ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.4;
+            border: 2px solid #444;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .class-name {
+            color: #4ec9b0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .interactive-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn-run {
+            background: var(--success);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-content {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+
+        .demo-form {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            margin: 20px 0;
+        }
+
+        .demo-form fieldset {
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .demo-form legend {
+            font-weight: bold;
+            padding: 0 10px;
+            color: var(--secondary);
+        }
+
+        .demo-form label {
+            display: inline-block;
+            margin-right: 15px;
+            margin-bottom: 10px;
+        }
+
+        .demo-form input[type="text"],
+        .demo-form input[type="password"],
+        .demo-form input[type="email"],
+        .demo-form input[type="number"],
+        .demo-form input[type="date"],
+        .demo-form select,
+        .demo-form textarea {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        .demo-form input[type="submit"],
+        .demo-form input[type="reset"] {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .demo-form input[type="reset"] {
+            background: #e74c3c;
+        }
+
+        .layout-demo {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .layout-demo div {
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .layout-header {
+            background: #3498db;
+            color: white;
+        }
+
+        .layout-nav {
+            background: #2ecc71;
+            color: white;
+        }
+
+        .layout-main {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .layout-section {
+            background: #f39c12;
+            color: white;
+        }
+
+        .layout-article {
+            background: #9b59b6;
+            color: white;
+        }
+
+        .layout-aside {
+            background: #1abc9c;
+            color: white;
+        }
+
+        .layout-footer {
+            background: #34495e;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+        }
+
+        .bt table tr td,
+        .bt table tr,
+        .bt table tr th,
+        .bt tr,
+        table {
+            border-collapse: inherit;
+            border: 1px solid black!important;
+            background-color: white;
+            color: black;
+        }
+
+        .bt {
+            background-color: white;
+
+        }
+
+        @media (max-width: 1400px) {
+            .container {
+                height: 100%;
+                position: relative;
+            }
+
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                padding: 5px;
+            }
+
+            footer p {
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-file-alt"></i> BÀI 3: HTML FORM</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <nav class="sidebar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#intro" class="nav-link active"><i class="fas fa-home"></i> Giới
+                            thiệu</a></li>
+                    <li class="nav-item"><a href="#form-basic" class="nav-link"><i class="fas fa-table"></i> Biểu mẫu
+                            (Form)</a></li>
+                    <li class="nav-item"><a href="#form-tag" class="nav-link"><i class="fas fa-code"></i> Thẻ
+                            &lt;form&gt;</a></li>
+                    <li class="nav-item"><a href="#input-tag" class="nav-link"><i class="fas fa-keyboard"></i> Thẻ
+                            &lt;input&gt;</a></li>
+                    <li class="nav-item"><a href="#label-textarea" class="nav-link"><i class="fas fa-tags"></i> Label &
+                            Textarea</a></li>
+                    <li class="nav-item"><a href="#select-option" class="nav-link"><i class="fas fa-list"></i> Select &
+                            Option</a></li>
+                    <li class="nav-item"><a href="#fieldset-legend" class="nav-link"><i class="fas fa-object-group"></i>
+                            Fieldset & Legend</a></li>
+                    <li class="nav-item"><a href="#full-example" class="nav-link"><i class="fas fa-laptop-code"></i> Ví
+                            dụ đầy đủ</a></li>
+                    <li class="nav-item"><a href="#layout-tags" class="nav-link"><i class="fas fa-layer-group"></i> Thẻ
+                            bố cục HTML</a></li>
+                    <li class="nav-item"><a href="#bt" class="nav-link"><i class="fas fa-layer-group"></i> Bài tập</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <!-- PHẦN GIỚI THIỆU -->
+                <section id="intro" class="section active">
+                    <h2><i class="fas fa-home"></i> GIỚI THIỆU </h2>
+
+                    <h3>3. HTML Form - Biểu mẫu trong HTML</h3>
+                    <p>Form (biểu mẫu) là thành phần quan trọng trong HTML, cho phép người dùng nhập liệu, gửi thông tin
+                        lên máy chủ. Form được sử dụng trong đăng ký, đăng nhập, tìm kiếm, liên hệ, và nhiều tương tác
+                        khác với website.</p>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Mục tiêu học tập</h4>
+                        <ul>
+                            <li>Hiểu cấu trúc và chức năng của biểu mẫu HTML</li>
+                            <li>Nắm vững các thẻ form cơ bản: form, input, label, textarea, select, option</li>
+                            <li>Biết cách sử dụng fieldset và legend để nhóm các phần tử form</li>
+                            <li>Phân biệt phương thức GET và POST</li>
+                            <li>Hiểu các thẻ bố cục ngữ nghĩa trong HTML5</li>
+                        </ul>
+                    </div>
+
+                    <div class="success-box">
+                        <h4><i class="fas fa-check-circle"></i> Kiến thức trọng tâm</h4>
+                        <p>Form HTML là cầu nối giữa người dùng và máy chủ. Một form được tạo đúng cách không chỉ giúp
+                            thu thập dữ liệu hiệu quả mà còn cải thiện trải nghiệm người dùng và khả năng tiếp cận
+                            (accessibility).</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN BIỂU MẪU FORM -->
+                <section id="form-basic" class="section">
+                    <h2><i class="fas fa-table"></i> BIỂU MẪU (FORM)</h2>
+
+                    <h3>3.1. Tổng quan về các thẻ Form</h3>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thẻ</th>
+                                    <th>Giải thích</th>
+                                    <th>Thuộc tính chính</th>
+                                    <th>Giá trị phổ biến</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>&lt;form&gt;</strong></td>
+                                    <td>Biểu mẫu nhập liệu</td>
+                                    <td>action, method, target, enctype</td>
+                                    <td>method="post"</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;input&gt;</strong></td>
+                                    <td>Ô nhập liệu</td>
+                                    <td>type, name, value, placeholder, required</td>
+                                    <td>type="text", "password", "submit", "radio", "checkbox", "date", "email", "file"
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;label&gt;</strong></td>
+                                    <td>Nhãn cho input</td>
+                                    <td>for</td>
+                                    <td>–</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;textarea&gt;</strong></td>
+                                    <td>Nhập nội dung nhiều dòng</td>
+                                    <td>name, rows, cols, placeholder</td>
+                                    <td>–</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;button&gt;</strong></td>
+                                    <td>Nút bấm</td>
+                                    <td>type, disabled, onclick</td>
+                                    <td>type="submit"</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;select&gt;</strong></td>
+                                    <td>Danh sách chọn</td>
+                                    <td>name, multiple</td>
+                                    <td>–</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;option&gt;</strong></td>
+                                    <td>Một lựa chọn</td>
+                                    <td>value, selected</td>
+                                    <td>–</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;fieldset&gt;</strong></td>
+                                    <td>Nhóm các input</td>
+                                    <td>disabled</td>
+                                    <td>–</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;legend&gt;</strong></td>
+                                    <td>Tiêu đề cho fieldset</td>
+                                    <td>–</td>
+                                    <td>–</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;datalist&gt;</strong></td>
+                                    <td>Gợi ý danh sách cho input</td>
+                                    <td>id (gắn với list của input)</td>
+                                    <td>–</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Lưu ý quan trọng</h4>
+                        <p><strong>action</strong>: Xác định địa chỉ URL mà dữ liệu của form sẽ được gửi tới khi người
+                            dùng submit (gửi) form.</p>
+                        <p><strong>method</strong>: Phương thức gửi dữ liệu (GET hoặc POST).</p>
+                        <p><strong>GET</strong>: Gửi dữ liệu qua URL, dữ liệu hiển thị trong thanh địa chỉ trình duyệt.
+                        </p>
+                        <p><strong>POST</strong>: Gửi dữ liệu ngầm, không hiển thị trên URL, an toàn hơn cho dữ liệu
+                            nhạy cảm.</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN THẺ FORM -->
+                <section id="form-tag" class="section">
+                    <h2><i class="fas fa-code"></i> THẺ &lt;form&gt; - TẠO BIỂU MẪU</h2>
+
+                    <h3>3.1.1. Thẻ &lt;form&gt;</h3>
+                    <p><strong>Công dụng:</strong> Tạo một biểu mẫu để người dùng nhập dữ liệu và gửi về server.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;form action="url_xử_lý" method="post/ get"&gt;<br>
+                        <span class="comment">&lt;!-- các input --&gt;</span><br>
+                        &lt;/form&gt;
+                    </div>
+
+                    <h4>Thuộc tính thường dùng:</h4>
+                    <ul>
+                        <li><strong>action</strong>: URL nhận dữ liệu khi form được submit</li>
+                        <li><strong>method</strong>: Gửi dữ liệu theo phương thức GET hoặc POST</li>
+                        <li><strong>target</strong>: Xác định nơi hiển thị phản hồi (_blank, _self, _parent, _top)</li>
+                        <li><strong>enctype</strong>: Kiểu mã hóa dữ liệu (quan trọng khi upload file)</li>
+                    </ul>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Thử nghiệm thuộc tính method</h4>
+                        <p>Chọn phương thức gửi dữ liệu:</p>
+                        <div class="input-group">
+                            <label><input type="radio" name="methodType" value="GET" checked> GET - Hiển thị dữ liệu
+                                trên URL</label>
+                            <label><input type="radio" name="methodType" value="POST"> POST - Gửi dữ liệu ngầm</label>
+                        </div>
+                        <button class="btn" onclick="testMethod()">
+                            <i class="fas fa-paper-plane"></i> Gửi dữ liệu mẫu
+                        </button>
+                        <div class="result" id="methodResult">
+                            <strong>Kết quả:</strong>
+                            <div class="result-content" id="methodResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN THẺ INPUT -->
+                <section id="input-tag" class="section">
+                    <h2><i class="fas fa-keyboard"></i> THẺ &lt;input&gt; - NHẬP DỮ LIỆU</h2>
+
+                    <h3>3.1.2. Thẻ &lt;input&gt;</h3>
+                    <p><strong>Cú pháp tổng quát:</strong></p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp thẻ input</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;input type="kiểu" name="tên" value="giá_trị_mặc_định" placeholder="Nội dung gợi ý"
+                        required&gt;
+                    </div>
+
+                    <h4>Thuộc tính chính:</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Ý nghĩa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>type</strong></td>
+                                    <td>Xác định loại dữ liệu nhập. VD: text, password, radio, checkbox, email, date,
+                                        file, submit, button, v.v.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>name</strong></td>
+                                    <td>Tên biến dùng để gửi dữ liệu lên server. Đây là khóa trong cặp name=value.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>value</strong></td>
+                                    <td>Giá trị mặc định của ô nhập (hiển thị sẵn trong input hoặc gắn với
+                                        radio/checkbox/submit).</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>required</strong></td>
+                                    <td>Bắt buộc phải nhập hoặc chọn trước khi gửi form. Trình duyệt sẽ cảnh báo nếu bỏ
+                                        trống.</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>placeholder</strong></td>
+                                    <td>Hiển thị nội dung gợi ý nhạt bên trong ô nhập khi chưa có dữ liệu.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h4>Các kiểu type phổ biến:</h4>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Loại type</th>
+                                    <th>Mô tả</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>text</strong></td>
+                                    <td>Ô nhập văn bản thông thường trên một dòng</td>
+                                    <td>&lt;input type="text" name="hoTen"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>password</strong></td>
+                                    <td>Ô nhập mật khẩu, các ký tự được "đeo mặt nạ"</td>
+                                    <td>&lt;input type="password" name="matKhau"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>email</strong></td>
+                                    <td>Nhập địa chỉ email, có kiểm tra định dạng</td>
+                                    <td>&lt;input type="email" name="email"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>number</strong></td>
+                                    <td>Nhập số</td>
+                                    <td>&lt;input type="number" name="tuoi"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>date</strong></td>
+                                    <td>Nhập ngày, giao diện lịch được hiển thị</td>
+                                    <td>&lt;input type="date" name="ngaySinh"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>checkbox</strong></td>
+                                    <td>Ô chọn nhiều lựa chọn, người dùng được phép bật hoặc tắt giá trị</td>
+                                    <td>&lt;input type="checkbox" name="soThich" value="Đọc sách"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>radio</strong></td>
+                                    <td>Ô chọn 1 trong nhiều giá trị</td>
+                                    <td>&lt;input type="radio" name="gioiTinh" value="Nam"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>file</strong></td>
+                                    <td>Nội dung là một file trong máy tính</td>
+                                    <td>&lt;input type="file" name="avatar"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>submit</strong></td>
+                                    <td>Một button sử dụng để gửi dữ liệu bên trong form</td>
+                                    <td>&lt;input type="submit" value="Gửi"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>reset</strong></td>
+                                    <td>Một button được sử dụng để reset dữ liệu trong form về dữ liệu mặc định</td>
+                                    <td>&lt;input type="reset" value="Xóa"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>color</strong></td>
+                                    <td>Chọn màu sắc</td>
+                                    <td>&lt;input type="color" name="mau"&gt;</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>range</strong></td>
+                                    <td>Thanh trượt chọn giá trị</td>
+                                    <td>&lt;input type="range" min="1" max="10"&gt;</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="demo-form">
+                        <h4>Demo các loại input:</h4>
+                        <form id="inputDemoForm">
+                            <label>Tên: <input type="text" placeholder="Nhập tên"></label><br><br>
+                            <label>Mật khẩu: <input type="password" placeholder="Nhập mật khẩu"></label><br><br>
+                            <label>Email: <input type="email" placeholder="example@email.com"></label><br><br>
+                            <label>Tuổi: <input type="number" min="1" max="120" value="18"></label><br><br>
+                            <label>Ngày sinh: <input type="date"></label><br><br>
+                            <label>Màu yêu thích: <input type="color" value="#3498db"></label><br><br>
+                            <label>Âm lượng: <input type="range" min="0" max="100" value="50"></label>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- PHẦN LABEL VÀ TEXTAREA -->
+                <section id="label-textarea" class="section">
+                    <h2><i class="fas fa-tags"></i> THẺ &lt;label&gt; VÀ &lt;textarea&gt;</h2>
+
+                    <h3>3.1.3. Thẻ &lt;label&gt; - Gắn nhãn mô tả cho input</h3>
+                    <p><strong>Công dụng:</strong> Thẻ &lt;label&gt; được dùng để tạo nhãn cho các thành phần như
+                        &lt;input&gt;, &lt;textarea&gt;, &lt;select&gt;, giúp người dùng biết nên nhập gì. Khi nhấp vào
+                        label, con trỏ sẽ tự động nhảy vào ô nhập liên kết (nếu dùng đúng for).</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ sử dụng label</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;label for="idInput"&gt;Họ tên:&lt;/label&gt;<br>
+                        &lt;input type="text" id="idInput" name="hoTen"&gt;
+                    </div>
+
+                    <p><strong>Giải thích:</strong> for="idInput" trỏ tới id của input tương ứng. Giúp cải thiện khả
+                        năng truy cập (accessibility) và tăng trải nghiệm người dùng.</p>
+
+                    <h3>3.1.4. Thẻ &lt;textarea&gt; - Ô nhập liệu nhiều dòng</h3>
+                    <p><strong>Công dụng:</strong> Dùng để cho phép người dùng nhập dữ liệu dạng văn bản nhiều dòng (như
+                        ý kiến, nhận xét...).</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ textarea</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;textarea name="ghiChu" rows="4" cols="30" placeholder="Ghi chú thêm..."&gt;&lt;/textarea&gt;
+                    </div>
+
+                    <p><strong>Giải thích:</strong> rows: số hàng, cols: số cột, placeholder: gợi ý nội dung nên nhập.
+                    </p>
+                </section>
+
+                <!-- PHẦN SELECT VÀ OPTION -->
+                <section id="select-option" class="section">
+                    <h2><i class="fas fa-list"></i> THẺ &lt;select&gt; VÀ &lt;option&gt;</h2>
+
+                    <h3>3.1.5. Thẻ &lt;select&gt; và &lt;option&gt; - Danh sách lựa chọn</h3>
+                    <p><strong>Công dụng:</strong> Tạo một danh sách xổ xuống cho người dùng chọn 1 trong nhiều tùy
+                        chọn.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ select và option</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;select id="browser-select" name="browser-select"&gt;<br>
+                        &nbsp;&nbsp;&lt;option value="Chrome"&gt;Chrome&lt;/option&gt;<br>
+                        &nbsp;&nbsp;&lt;option value="Firefox"&gt;Firefox&lt;/option&gt;<br>
+                        &nbsp;&nbsp;&lt;option value="Safari"&gt;Safari&lt;/option&gt;<br>
+                        &nbsp;&nbsp;&lt;option value="Edge"&gt;Edge&lt;/option&gt;<br>
+                        &nbsp;&nbsp;&lt;option value="Opera"&gt;Opera&lt;/option&gt;<br>
+                        &lt;/select&gt;
+                    </div>
+
+                    <p><strong>Giải thích:</strong>
+                    <ul>
+                        <li>&lt;option&gt; chứa từng lựa chọn.</li>
+                        <li>value: giá trị sẽ gửi khi submit form.</li>
+                        <li>selected: đặt mặc định lựa chọn nào đang được chọn.</li>
+                    </ul>
+                    </p>
+
+                    <div class="demo-form">
+                        <h4>Demo select </h4>
+                        <form>
+                            <label>Chọn trình duyệt (select):
+                                <select id="browser-select" name="browser-select">
+                                    <option value="">-- Chọn trình duyệt --</option>
+                                    <option value="Chrome">Chrome</option>
+                                    <option value="Firefox">Firefox</option>
+                                    <option value="Safari" selected>Safari</option>
+                                    <option value="Edge">Edge</option>
+                                    <option value="Opera">Opera</option>
+                                </select>
+                            </label><br><br>
+
+                            <!-- <label>Chọn trình duyệt (datalist): 
+                                <input list="browsers" name="browser" placeholder="Gõ hoặc chọn">
+                                <datalist id="browsers">
+                                    <option value="Chrome">
+                                    <option value="Firefox">
+                                    <option value="Safari">
+                                    <option value="Edge">
+                                    <option value="Opera">
+                                </datalist>
+                            </label> -->
+                        </form>
+                    </div>
+                </section>
+
+                <!-- PHẦN FIELDSET VÀ LEGEND -->
+                <section id="fieldset-legend" class="section">
+                    <h2><i class="fas fa-object-group"></i> THẺ &lt;fieldset&gt; VÀ &lt;legend&gt;</h2>
+
+                    <h3>3.1.6. Thẻ &lt;fieldset&gt; và &lt;legend&gt; - Nhóm các input có liên quan</h3>
+                    <p><strong>Công dụng:</strong> Dùng để nhóm các thành phần form lại với nhau, tạo khung viền và thêm
+                        tiêu đề phụ bằng &lt;legend&gt;.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ fieldset và legend</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;form action=""&gt;<br>
+                        &nbsp;&nbsp;&lt;fieldset&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;legend&gt;Thông tin cá nhân&lt;/legend&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;label for="ten"&gt;Tên:&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" id="ten" name="ten"&gt;<br>
+                        &nbsp;&nbsp;&lt;/fieldset&gt;<br>
+                        &lt;/form&gt;
+                    </div>
+
+                    <p><strong>Giải thích:</strong> &lt;fieldset&gt;: tạo khung bao. &lt;legend&gt;: tiêu đề của khung.
+                    </p>
+                </section>
+
+                <!-- PHẦN VÍ DỤ ĐẦY ĐỦ -->
+                <section id="full-example" class="section">
+                    <h2><i class="fas fa-laptop-code"></i> VÍ DỤ ĐẦY ĐỦ VỀ MỘT FORM HOÀN CHỈNH</h2>
+
+                    <h3>3.1.7. Ví dụ đầy đủ về một Form hoàn chỉnh</h3>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Form hoàn chỉnh</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;form action="/submit" method="post"&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Thông tin cá nhân --&gt;</span><br>
+                        &lt;fieldset&gt;<br>
+                        &lt;legend&gt;Thông tin cá nhân&lt;/legend&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Nhập họ tên --&gt;</span><br>
+                        &lt;label for="ten"&gt;Họ tên:&lt;/label&gt;<br>
+                        &lt;input type="text" id="ten" name="ten" placeholder="Nhập họ tên"&gt;&lt;br&gt;&lt;br&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Nhập mật khẩu --&gt;</span><br>
+                        &lt;label for="mk"&gt;Mật khẩu:&lt;/label&gt;<br>
+                        &lt;input type="password" id="mk" name="mk"&gt;&lt;br&gt;&lt;br&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Chọn giới tính --&gt;</span><br>
+                        &lt;label&gt;Giới tính:&lt;/label&gt;<br>
+                        &lt;input type="radio" id="nam" name="gt" value="Nam"&gt;<br>
+                        &lt;label for="nam"&gt;Nam&lt;/label&gt;<br>
+                        &lt;input type="radio" id="nu" name="gt" value="Nữ"&gt;<br>
+                        &lt;label for="nu"&gt;Nữ&lt;/label&gt;&lt;br&gt;&lt;br&gt;<br>
+                        &lt;/fieldset&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Sở thích và ghi chú --&gt;</span><br>
+                        &lt;fieldset&gt;<br>
+                        &lt;legend&gt;Sở thích &amp; Ghi chú&lt;/legend&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Chọn sở thích --&gt;</span><br>
+                        &lt;label&gt;Sở thích:&lt;/label&gt;<br>
+                        &lt;input type="checkbox" id="nhac" name="st" value="Nghe nhạc"&gt;<br>
+                        &lt;label for="nhac"&gt;Nghe nhạc&lt;/label&gt;<br>
+                        &lt;input type="checkbox" id="dulich" name="st" value="Du lịch"&gt;<br>
+                        &lt;label for="dulich"&gt;Du lịch&lt;/label&gt;&lt;br&gt;&lt;br&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Ghi chú --&gt;</span><br>
+                        &lt;label for="note"&gt;Ghi chú:&lt;/label&gt;&lt;br&gt;<br>
+                        &lt;textarea id="note" name="note" rows="4" cols="40" placeholder="Nhập ghi
+                        chú..."&gt;&lt;/textarea&gt;&lt;br&gt;&lt;br&gt;<br>
+                        &lt;/fieldset&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Nút gửi và xóa --&gt;</span><br>
+                        &lt;input type="submit" value="Gửi"&gt;<br>
+                        &lt;input type="reset" value="Xóa"&gt;<br>
+                        <br>
+                        &lt;/form&gt;
+                    </div>
+
+                    <div class="demo-form">
+                        <h4>Demo form hoàn chỉnh:</h4>
+                        <form id="fullFormDemo" action="#" method="post">
+                            <fieldset>
+                                <legend>Thông tin cá nhân</legend>
+                                <label for="fullName">Họ tên:</label>
+                                <input type="text" id="fullName" name="fullName" placeholder="Nhập họ tên"><br><br>
+
+                                <label for="password">Mật khẩu:</label>
+                                <input type="password" id="password" name="password"><br><br>
+
+                                <label>Giới tính:</label>
+                                <input type="radio" id="male" name="gender" value="Nam">
+                                <label for="male">Nam</label>
+                                <input type="radio" id="female" name="gender" value="Nữ">
+                                <label for="female">Nữ</label><br><br>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend>Sở thích & Ghi chú</legend>
+                                <label>Sở thích:</label>
+                                <input type="checkbox" id="music" name="hobby" value="Nghe nhạc">
+                                <label for="music">Nghe nhạc</label>
+                                <input type="checkbox" id="travel" name="hobby" value="Du lịch">
+                                <label for="travel">Du lịch</label><br><br>
+
+                                <label for="note">Ghi chú:</label><br>
+                                <textarea id="note" name="note" rows="4" cols="40"
+                                    placeholder="Nhập ghi chú..."></textarea><br><br>
+                            </fieldset>
+
+                            <input type="submit" value="Gửi">
+                            <input type="reset" value="Xóa">
+                        </form>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-lightbulb"></i> Ghi chú về form:</h4>
+                        <table>
+                            <tr>
+                                <th>Thuộc tính</th>
+                                <th>Ý nghĩa</th>
+                            </tr>
+                            <tr>
+                                <td><strong>action</strong></td>
+                                <td>URL xử lý dữ liệu sau khi submit</td>
+                            </tr>
+                            <tr>
+                                <td><strong>method</strong></td>
+                                <td>Cách gửi dữ liệu: GET hoặc POST</td>
+                            </tr>
+                        </table>
+                        <p><strong>GET:</strong> Dữ liệu hiển thị trên URL. Dễ test và chia sẻ, nhưng không an toàn. Phù
+                            hợp tìm kiếm, lọc dữ liệu.</p>
+                        <p><strong>POST:</strong> Dữ liệu gửi ngầm, an toàn hơn. Dùng cho đăng nhập, đăng ký, gửi thông
+                            tin nhạy cảm.</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN THẺ BỐ CỤC HTML -->
+                <section id="layout-tags" class="section">
+                    <h2><i class="fas fa-layer-group"></i> THẺ BỐ CỤC TRANG TRONG HTML</h2>
+
+                    <h3>3.2. Thẻ bố cục trang trong HTML (HTML Layout Tags)</h3>
+                    <p>Trong HTML5, để thiết kế bố cục (layout) của một trang web rõ ràng, có cấu trúc, ta dùng các thẻ
+                        ngữ nghĩa (semantic tags). Những thẻ này giúp chia trang thành các khu vực như: đầu trang, thân
+                        trang, menu, nội dung chính, thanh bên, chân trang…</p>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thẻ</th>
+                                    <th>Ý nghĩa</th>
+                                    <th>Mô tả</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>&lt;div&gt;</strong></td>
+                                    <td>Chia khối</td>
+                                    <td>Chứa khối nội dung (không ngữ nghĩa)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;header&gt;</strong></td>
+                                    <td>Phần đầu trang</td>
+                                    <td>Thường chứa logo, tiêu đề, thanh điều hướng</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;nav&gt;</strong></td>
+                                    <td>Điều hướng</td>
+                                    <td>Chứa menu hoặc liên kết đến các trang khác</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;main&gt;</strong></td>
+                                    <td>Nội dung chính</td>
+                                    <td>Phần nội dung chính, chỉ nên dùng 1 lần</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;section&gt;</strong></td>
+                                    <td>Khu vực nội dung</td>
+                                    <td>Một phần nội dung riêng biệt (thường có tiêu đề)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;article&gt;</strong></td>
+                                    <td>Bài viết</td>
+                                    <td>Một bài viết độc lập có thể tách ra riêng</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;aside&gt;</strong></td>
+                                    <td>Thanh bên</td>
+                                    <td>Nội dung phụ như quảng cáo, bài liên quan</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>&lt;footer&gt;</strong></td>
+                                    <td>Chân trang</td>
+                                    <td>Thông tin liên hệ, bản quyền, mạng xã hội</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="layout-demo">
+                        <h4>Minh họa bố cục trang web:</h4>
+                        <div class="layout-header">&lt;header&gt; - Phần đầu trang</div>
+                        <div class="layout-nav">&lt;nav&gt; - Thanh điều hướng</div>
+                        <div class="layout-main">&lt;main&gt; - Nội dung chính
+                            <div class="layout-section">&lt;section&gt; - Khu vực 1</div>
+                            <div class="layout-article">&lt;article&gt; - Bài viết</div>
+                            <div class="layout-section">&lt;section&gt; - Khu vực 2</div>
+                        </div>
+                        <div class="layout-aside">&lt;aside&gt; - Thanh bên</div>
+                        <div class="layout-footer">&lt;footer&gt; - Chân trang</div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cấu trúc bố cục HTML5 cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;!DOCTYPE html&gt;<br>
+                        &lt;html lang="vi"&gt;<br>
+                        &lt;head&gt;<br>
+                        &nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                        &nbsp;&nbsp;&lt;title&gt;Trang web mẫu&lt;/title&gt;<br>
+                        &lt;/head&gt;<br>
+                        &lt;body&gt;<br>
+                        &nbsp;&nbsp;&lt;header&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Tiêu đề trang&lt;/h1&gt;<br>
+                        &nbsp;&nbsp;&lt;/header&gt;<br>
+                        <br>
+                        &nbsp;&nbsp;&lt;nav&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="#"&gt;Trang chủ&lt;/a&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="#"&gt;Giới thiệu&lt;/a&gt;<br>
+                        &nbsp;&nbsp;&lt;/nav&gt;<br>
+                        <br>
+                        &nbsp;&nbsp;&lt;main&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;section&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h2&gt;Nội dung chính&lt;/h2&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/section&gt;<br>
+                        <br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;aside&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Nội dung bên&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/aside&gt;<br>
+                        &nbsp;&nbsp;&lt;/main&gt;<br>
+                        <br>
+                        &nbsp;&nbsp;&lt;footer&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Bản quyền © 2023&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&lt;/footer&gt;<br>
+                        &lt;/body&gt;<br>
+                        &lt;/html&gt;
+                    </div>
+                </section>
+
+                <section class="section bt" id="bt">
+
+                    <h1>Hội chợ Công nghệ & Thiết bị Thông minh 2024</h1>
+
+                    <img src="https://images.unsplash.com/photo-1518770660439-4636190af475" alt="Technology Expo"
+                        width="800">
+
+                    <div class="info">
+                        <p><span class="label">Thời gian:</span> <span class="value">15/11/2024 – 09:00</span></p>
+                        <p><span class="label">Địa điểm:</span> <span class="value">Trung tâm Hội chợ SECC – Quận
+                                7</span></p>
+                    </div>
+
+                    <hr>
+
+                    <h3>Giới thiệu</h3>
+                    <pre>
+Hội chợ Công nghệ & Thiết bị Thông minh 2024 là sự kiện thường niên
+quy tụ các doanh nghiệp công nghệ trong và ngoài nước.
+Sự kiện mang đến cơ hội trải nghiệm, mua sắm và kết nối
+các sản phẩm công nghệ tiên tiến nhất hiện nay.
+    </pre>
+
+                    <table cellpadding="10" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th rowspan="2">Gian hàng</th>
+                                <th rowspan="2">Đối tượng</th>
+                                <th colspan="3">Quyền lợi</th>
+                                <th rowspan="2">Phí tham gia (VNĐ)</th>
+                                <th rowspan="2">Ghi chú</th>
+                            </tr>
+                            <tr>
+                                <th>Bàn trưng bày</th>
+                                <th>Backdrop</th>
+                                <th>Quảng bá</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            <tr>
+                                <td rowspan="2">Tiêu chuẩn</td>
+                                <td>Cá nhân</td>
+                                <td rowspan="4">Có</td>
+                                <td rowspan="2">Không</td>
+                                <td rowspan="2">Có</td>
+                                <td>2.000.000</td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td>Sinh viên</td>
+                                <td rowspan="2">1.000.000</td>
+                                <td rowspan="2">
+                                    <ul>
+                                        <li>Giảm 50% cho SV</li>
+                                        <li>Hỗ trợ kỹ thuật</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Doanh nghiệp</td>
+                                <td rowspan="2">Tổ chức</td>
+                                <td>5.000.000</td>
+                                <td>Được quảng bá trên website</td>
+                            </tr>
+
+                            <tr>
+                                <td>Gian lớn</td>
+                                <td>8.000.000</td>
+                                <td>Vị trí trung tâm</td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>
+                                <td colspan="2">VIP Sponsor</td>
+                                <td colspan="3">Gian riêng + quảng bá truyền thông</td>
+                                <td>20.000.000</td>
+                                <td>Logo xuất hiện toàn sự kiện</td>
+                            </tr>
+                        </tbody>
+
+                        <tfoot>
+                            <tr>
+                                <td colspan="7" style="text-align:center; font-style:italic;">
+                                    * Phí đã bao gồm điện, wifi và nhân sự hỗ trợ
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <br><br>
+
+                    <form action="#" method="post" style="width:700px;">
+                        <fieldset>
+                            <legend>🔹 Thông tin đăng ký</legend>
+
+                            <label>Tên đơn vị / cá nhân:</label><br>
+                            <input type="text" name="name" required><br><br>
+
+                            <label>Email liên hệ:</label><br>
+                            <input type="email" name="email" required><br><br>
+
+                            <label>Số điện thoại:</label><br>
+                            <input type="tel" name="phone" pattern="[0-9]{10}" required><br><br>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>🔹 Lựa chọn gian hàng</legend>
+
+                            <label>Loại gian:</label><br>
+                            <select name="booth" required>
+                                <option value="">-- Chọn --</option>
+                                <option value="standard">Tiêu chuẩn</option>
+                                <option value="company">Doanh nghiệp</option>
+                                <option value="large">Gian lớn</option>
+                                <option value="vip">VIP Sponsor</option>
+                            </select><br><br>
+
+                            <label>Dịch vụ thêm:</label><br>
+                            <input type="checkbox" name="service" value="electric"> Điện công suất cao<br>
+                            <input type="checkbox" name="service" value="screen"> Màn hình LED<br>
+                            <input type="checkbox" name="service" value="banner"> Banner quảng cáo<br><br>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend>🔹 Xác nhận</legend>
+
+                            <label>Ghi chú:</label><br>
+                            <textarea rows="4" cols="50" placeholder="Yêu cầu đặc biệt nếu có..."></textarea><br><br>
+
+                            <input type="checkbox" required>
+                            <label>Tôi đồng ý với điều khoản tham gia hội chợ</label><br><br>
+
+                            <button type="submit">Gửi đăng ký</button>
+                            <button type="reset">Làm lại</button>
+                        </fieldset>
+                    </form>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>BÀI 3: HTML FORM &copy; GV: Nguyễn Đình Mạnh</p>
+        </footer>
+    </div>
+
+    <script>
+        // Xử lý điều hướng
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Xóa class active từ tất cả các link và section
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+
+                    // Thêm class active cho link được click
+                    this.classList.add('active');
+
+                    // Hiển thị section tương ứng
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+
+        // Hàm copy code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.parentElement;
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Đã copy!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Kiểm tra phương thức GET/POST
+        function testMethod() {
+            const methodType = document.querySelector('input[name="methodType"]:checked').value;
+            const result = document.getElementById('methodResult');
+            const output = document.getElementById('methodResultContent');
+
+            result.classList.add('active');
+
+            if (methodType === 'GET') {
+                output.textContent = 'Phương thức GET:\n';
+                output.textContent += '- Dữ liệu được gửi qua URL\n';
+                output.textContent += '- Hiển thị trên thanh địa chỉ trình duyệt\n';
+                output.textContent += '- Không an toàn cho dữ liệu nhạy cảm\n';
+                output.textContent += '- Giới hạn độ dài URL (khoảng 2048 ký tự)\n';
+                output.textContent += '- Phù hợp cho tìm kiếm, lọc dữ liệu';
+                output.style.color = 'blue';
+            } else {
+                output.textContent = 'Phương thức POST:\n';
+                output.textContent += '- Dữ liệu được gửi ngầm (không hiển thị trên URL)\n';
+                output.textContent += '- An toàn hơn cho dữ liệu nhạy cảm\n';
+                output.textContent += '- Không giới hạn độ dài dữ liệu\n';
+                output.textContent += '- Phù hợp cho đăng nhập, đăng ký, upload file\n';
+                output.textContent += '- Cần xử lý trên server';
+                output.style.color = 'green';
+            }
+        }
+
+        // Xử lý form demo
+        document.getElementById('fullFormDemo').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const formData = new FormData(this);
+            let output = 'Dữ liệu form sẽ được gửi:\n\n';
+
+            for (let pair of formData.entries()) {
+                output += `${pair[0]}: ${pair[1]}\n`;
+            }
+
+            alert(output + '\n(Trong thực tế, dữ liệu sẽ được gửi đến server xử lý)');
+        });
+    </script>
+</body>
+
+</html>

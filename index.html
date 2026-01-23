@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML-CSS - MỤC LỤC BÀI HỌC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        /* ===== RESET & GLOBAL ===== */
+        :root {
+            --neon-blue: #0066ff;
+            --neon-purple: #8a2be2;
+            --neon-pink: #ff1493;
+            --neon-green: #00cc66;
+            --neon-yellow: #ffcc00;
+            --neon-red: #ff3333;
+            --light-bg: #f8f9fa;
+            --light-card: #ffffff;
+            --light-border: #e0e0e0;
+            --light-text: #1a1a1a;
+            --light-subtext: #666666;
+            --glow-blue: 0 0 20px rgba(0, 102, 255, 0.5);
+            --glow-purple: 0 0 20px rgba(138, 43, 226, 0.5);
+            --glow-pink: 0 0 20px rgba(255, 20, 147, 0.5);
+            --glow-green: 0 0 20px rgba(0, 204, 102, 0.5);
+            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --transition-slow: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, 
+                #f5f7ff 0%, 
+                #eef2ff 25%, 
+                #e6ebff 50%, 
+                #dee3ff 75%, 
+                #d6dcff 100%);
+            color: var(--light-text);
+            font-family: 'Exo 2', sans-serif;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -3;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 102, 255, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 80% 70%, rgba(138, 43, 226, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 40% 80%, rgba(255, 20, 147, 0.08) 0%, transparent 50%);
+            animation: pulse 20s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.05); }
+            100% { opacity: 0.3; transform: scale(1); }
+        }
+
+        /* ===== CONTAINER ===== */
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ===== HEADER ===== */
+        .main-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            padding: 40px 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 102, 255, 0.1) 25%, 
+                rgba(138, 43, 226, 0.15) 50%, 
+                rgba(0, 102, 255, 0.1) 75%, 
+                transparent 100%);
+            border-radius: 30px;
+            border: 2px solid rgba(0, 102, 255, 0.2);
+            box-shadow: 
+                0 0 40px rgba(0, 102, 255, 0.15),
+                inset 0 0 40px rgba(0, 102, 255, 0.08);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .main-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.3), 
+                transparent);
+            animation: shine 3s infinite linear;
+        }
+
+        @keyframes shine {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+
+        .title-glitch {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4.5rem;
+            font-weight: 900;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            position: relative;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, 
+                var(--neon-blue), 
+                var(--neon-purple), 
+                var(--neon-pink), 
+                var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: glitch 5s infinite;
+            text-shadow: 
+                0 0 10px rgba(0, 102, 255, 0.3),
+                0 0 20px rgba(138, 43, 226, 0.3),
+                0 0 30px rgba(255, 20, 147, 0.2);
+        }
+
+        @keyframes glitch {
+            0%, 100% { transform: translateX(0); }
+            10% { transform: translateX(-2px) translateY(2px); }
+            20% { transform: translateX(2px) translateY(-2px); }
+            30% { transform: translateX(-1px) translateY(1px); }
+            40% { transform: translateX(1px) translateY(-1px); }
+            50% { transform: translateX(0); }
+        }
+
+        .subtitle {
+            font-family:  'Exo 2', sans-serif;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            color: var(--neon-purple);
+            max-width: 800px;
+            margin: 0 auto;
+            text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        }
+
+        /* ===== STATS PANEL ===== */
+        .stats-panel {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 60px;
+        }
+
+        .stat-card {
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.9), 
+                rgba(240, 240, 255, 0.9));
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid var(--light-border);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                var(--neon-blue), 
+                var(--neon-purple));
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px) rotateX(5deg);
+            box-shadow: 
+                0 15px 40px rgba(0, 0, 0, 0.15),
+                0 0 30px rgba(0, 102, 255, 0.2);
+        }
+
+        .stat-number {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), 
+                var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            line-height: 1;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(0, 102, 255, 0.3);
+        }
+
+        .stat-label {
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.1rem;
+            color: var(--light-subtext);
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* ===== FILTER SECTION ===== */
+        .filter-section {
+            background: rgba(255, 255, 255, 0.85);
+            border-radius: 25px;
+            padding: 30px;
+            margin-bottom: 50px;
+            border: 1px solid rgba(0, 102, 255, 0.15);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.1),
+                inset 0 0 30px rgba(0, 102, 255, 0.05);
+            backdrop-filter: blur(10px);
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 15px 30px;
+            background: linear-gradient(145deg, 
+                rgba(240, 240, 255, 0.9), 
+                rgba(230, 230, 255, 0.9));
+            border: 2px solid transparent;
+            border-radius: 50px;
+            color: var(--neon-blue);
+            font-family:  'Exo 2', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-tab::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(0, 102, 255, 0.15), 
+                transparent);
+            transition: var(--transition);
+        }
+
+        .filter-tab:hover::before {
+            left: 100%;
+        }
+
+        .filter-tab.active {
+            background: linear-gradient(145deg, 
+                rgba(0, 102, 255, 0.15), 
+                rgba(138, 43, 226, 0.15));
+            border-color: var(--neon-blue);
+            color: var(--light-text);
+            box-shadow: var(--glow-blue);
+        }
+
+        .search-container {
+            position: relative;
+            margin-top: 25px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 20px 30px 20px 70px;
+            background: rgba(255, 255, 255, 0.9);
+            border: 2px solid rgba(0, 102, 255, 0.2);
+            border-radius: 50px;
+            color: var(--light-text);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: var(--glow-blue);
+            background: white;
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 30px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-blue);
+            font-size: 1.5rem;
+        }
+
+        /* ===== LESSONS GRID ===== */
+        .lessons-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 40px;
+            margin-bottom: 80px;
+        }
+
+        .lesson-card {
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.9), 
+                rgba(240, 240, 255, 0.9));
+            border-radius: 25px;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0, 102, 255, 0.15);
+            transition: var(--transition-slow);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            min-height: 350px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+        }
+
+        .lesson-card:nth-child(odd) {
+            border-color: rgba(138, 43, 226, 0.15);
+        }
+
+        .lesson-card:nth-child(even) {
+            border-color: rgba(0, 204, 102, 0.15);
+        }
+
+        .lesson-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), 
+                var(--neon-purple), 
+                var(--neon-pink), 
+                var(--neon-green));
+            border-radius: 27px;
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .lesson-card:hover::before {
+            opacity: 1;
+            animation: rotate 3s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { filter: hue-rotate(0deg); }
+            100% { filter: hue-rotate(360deg); }
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-20px) rotateX(10deg) scale(1.02);
+            box-shadow: 
+                0 30px 60px rgba(0, 0, 0, 0.15),
+                0 0 50px rgba(0, 102, 255, 0.2),
+                0 0 100px rgba(138, 43, 226, 0.15);
+        }
+
+        .lesson-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            position: relative;
+        }
+
+        .lesson-icon-wrapper {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(145deg, 
+                rgba(0, 102, 255, 0.1), 
+                rgba(138, 43, 226, 0.1));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            border: 2px solid rgba(0, 102, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0, 102, 255, 0.1);
+        }
+
+        .lesson-icon-wrapper::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, 
+                transparent 30%, 
+                rgba(255, 255, 255, 0.4) 50%, 
+                transparent 70%);
+            animation: shine-icon 2s infinite linear;
+        }
+
+        @keyframes shine-icon {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .lesson-icon {
+            font-size: 2.5rem;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), 
+                var(--neon-green));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            position: relative;
+            z-index: 1;
+        }
+
+        .lesson-number {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, 
+                var(--neon-purple), 
+                var(--neon-pink));
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            box-shadow: 0 0 20px rgba(138, 43, 226, 0.4);
+            animation: pulse-number 2s infinite alternate;
+        }
+
+        @keyframes pulse-number {
+            0% { transform: scale(1); box-shadow: 0 0 20px rgba(138, 43, 226, 0.4); }
+            100% { transform: scale(1.1); box-shadow: 0 0 30px rgba(138, 43, 226, 0.6); }
+        }
+
+        .lesson-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            background: linear-gradient(45deg, 
+                var(--neon-blue), 
+                #333333);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 10px;
+            line-height: 1.3;
+        }
+
+        .lesson-description {
+            color: var(--light-subtext);
+            font-family: 'Exo 2', sans-serif;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .lesson-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .lesson-tag {
+            padding: 8px 18px;
+            background: linear-gradient(145deg, 
+                rgba(0, 102, 255, 0.1), 
+                rgba(138, 43, 226, 0.1));
+            border-radius: 20px;
+            color: var(--neon-blue);
+            font-family:  'Exo 2', sans-serif;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: 1px solid rgba(0, 102, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .lesson-tag:hover {
+            background: linear-gradient(145deg, 
+                rgba(0, 102, 255, 0.2), 
+                rgba(138, 43, 226, 0.2));
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 102, 255, 0.15);
+        }
+
+        .lesson-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .lesson-duration {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--neon-green);
+            font-family:  'Exo 2', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .start-lesson-btn {
+            padding: 15px 35px;
+            background: linear-gradient(145deg, 
+                var(--neon-blue), 
+                var(--neon-purple));
+            border: none;
+            border-radius: 50px;
+            color: white;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            box-shadow: 0 10px 30px rgba(0, 102, 255, 0.2);
+        }
+
+        .start-lesson-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 255, 255, 0.4), 
+                transparent);
+            transition: var(--transition);
+        }
+
+        .start-lesson-btn:hover::before {
+            left: 100%;
+        }
+
+        .start-lesson-btn:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 
+                0 15px 40px rgba(0, 102, 255, 0.3),
+                0 0 30px rgba(138, 43, 226, 0.2);
+        }
+
+        /* ===== STATUS INDICATOR ===== */
+        .status-indicator {
+            position: absolute;
+            top: 25px;
+            right: 25px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite alternate;
+        }
+
+        .status-dot.completed {
+            background: var(--neon-green);
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+
+        .status-dot.current {
+            background: var(--neon-yellow);
+            box-shadow: 0 0 10px var(--neon-yellow);
+        }
+
+        .status-dot.upcoming {
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+
+        @keyframes pulse-dot {
+            0% { opacity: 0.7; transform: scale(1); }
+            100% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* ===== FOOTER ===== */
+        .main-footer {
+            text-align: center;
+            padding: 40px;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(0, 102, 255, 0.1) 25%, 
+                rgba(138, 43, 226, 0.15) 50%, 
+                rgba(0, 102, 255, 0.1) 75%, 
+                transparent 100%);
+            border-radius: 30px;
+            margin-top: 50px;
+            border: 2px solid rgba(0, 102, 255, 0.15);
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-text {
+            font-family: ' Exo 2', sans-serif;
+            font-size: 1.2rem;
+            color: var(--neon-purple);
+            letter-spacing: 2px;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        .footer-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, 
+                rgba(0, 102, 255, 0.1) 0%, 
+                transparent 70%);
+            filter: blur(40px);
+            animation: rotate-glow 20s infinite linear;
+        }
+/* ===== LESSON CARD HOVER EFFECTS ===== */
+.lesson-card {
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 0.9), 
+        rgba(240, 240, 255, 0.9));
+    border-radius: 25px;
+    padding: 40px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 102, 255, 0.15);
+    transition: var(--transition-slow);
+    transform-style: preserve-3d;
+    perspective: 1000px;
+    min-height: 350px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+}
+
+.lesson-card:nth-child(odd) {
+    border-color: rgba(138, 43, 226, 0.15);
+}
+
+.lesson-card:nth-child(even) {
+    border-color: rgba(0, 204, 102, 0.15);
+}
+
+.lesson-card::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    background: linear-gradient(45deg, 
+        rgba(0, 102, 255, 0.3), 
+        rgba(138, 43, 226, 0.3), 
+        rgba(0, 204, 102, 0.3));
+    border-radius: 27px;
+    z-index: -1;
+    opacity: 0;
+    transition: var(--transition);
+}
+
+.lesson-card:hover::before {
+    opacity: 0.8;
+    animation: rotate-hover 3s linear infinite;
+}
+
+@keyframes rotate-hover {
+    0% { filter: hue-rotate(0deg); }
+    100% { filter: hue-rotate(360deg); }
+}
+
+.lesson-card:hover {
+    transform: translateY(-15px) rotateX(5deg) scale(1.01);
+    box-shadow: 
+        0 25px 50px rgba(0, 102, 255, 0.15),
+        0 0 40px rgba(138, 43, 226, 0.1),
+        0 0 60px rgba(0, 204, 102, 0.1);
+    background: linear-gradient(145deg, 
+        rgba(255, 255, 255, 1), 
+        rgba(245, 245, 255, 1));
+}
+
+/* Hover effect cho các phần tử bên trong card */
+.lesson-card:hover .lesson-icon-wrapper {
+    transform: scale(1.05) rotate(5deg);
+    box-shadow: 0 15px 30px rgba(0, 102, 255, 0.2);
+}
+
+.lesson-card:hover .lesson-title {
+    background: linear-gradient(45deg, 
+        var(--neon-blue), 
+        var(--neon-purple));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+.lesson-card:hover .lesson-tag {
+    background: linear-gradient(145deg, 
+        rgba(0, 102, 255, 0.15), 
+        rgba(138, 43, 226, 0.15));
+    border-color: rgba(0, 102, 255, 0.3);
+}
+
+.lesson-card:hover .lesson-number {
+    transform: scale(1.1);
+    box-shadow: 0 0 25px rgba(138, 43, 226, 0.5);
+}
+        @keyframes rotate-glow {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1400px) {
+            .lessons-grid {
+                grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+            }
+        }
+
+        @media (max-width: 1200px) {
+            .stats-panel {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .lessons-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .title-glitch {
+                font-size: 3rem;
+            }
+            
+            .stats-panel {
+                grid-template-columns: 1fr;
+            }
+            
+            .filter-tabs {
+                justify-content: center;
+            }
+            
+            .lesson-card {
+                padding: 30px;
+            }
+            
+            .lesson-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .lesson-icon-wrapper {
+                margin-bottom: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .title-glitch {
+                font-size: 2.2rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .lesson-card {
+                padding: 25px;
+            }
+            
+            .start-lesson-btn {
+                padding: 12px 25px;
+                font-size: 1rem;
+            }
+        }
+
+        /* ===== CUSTOM SCROLLBAR ===== */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(240, 240, 255, 0.8);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--neon-blue), var(--neon-purple));
+            border-radius: 6px;
+            border: 2px solid rgba(240, 240, 255, 0.8);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(var(--neon-purple), var(--neon-pink));
+        }
+
+        /* ===== PARTICLE BACKGROUND ===== */
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--neon-blue);
+            border-radius: 50%;
+            animation: float 20s infinite linear;
+            opacity: 0.15;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.1;
+            }
+            25% {
+                transform: translate(100px, 100px) rotate(90deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translate(200px, 0) rotate(180deg);
+                opacity: 0.1;
+            }
+            75% {
+                transform: translate(100px, -100px) rotate(270deg);
+                opacity: 0.2;
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+                opacity: 0.1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="bg-animation"></div>
+    
+    <!-- Particles -->
+    <div class="particles" id="particles"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="main-header">
+            <h1 class="title-glitch">HTML - CSS</h1>
+            <!-- <p class="subtitle">10 BUỔI HỌC PHỨC TẠP • THIẾT KẾ CẦU KỲ • HIỆU ỨNG TUYỆT ĐỈNH</p> -->
+        </header>
+
+        <!-- Stats Panel -->
+        <div class="stats-panel">
+            <div class="stat-card">
+                <div class="stat-number">10</div>
+                <div class="stat-label">BUỔI HỌC</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number">2</div>
+                <div class="stat-label">BÀI TẬP</div>
+            </div>
+           
+            <div class="stat-card">
+                <div class="stat-number">01</div>
+                <div class="stat-label">DỰ ÁN LỚN</div>
+            </div>
+        </div>
+
+        <!-- Filter Section -->
+        <div class="filter-section">
+            <div class="filter-tabs">
+                <button class="filter-tab active" data-filter="all">
+                    <i class="fas fa-layer-group"></i> TẤT CẢ BÀI HỌC
+                </button>
+                <!-- <button class="filter-tab" data-filter="completed">
+                    <i class="fas fa-check-circle"></i> ĐÃ HOÀN THÀNH
+                </button>
+                <button class="filter-tab" data-filter="current">
+                    <i class="fas fa-play-circle"></i> ĐANG HỌC
+                </button>
+                <button class="filter-tab" data-filter="upcoming">
+                    <i class="fas fa-clock"></i> SẮP DIỄN RA
+                </button> -->
+            </div>
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" id="searchInput" placeholder="TÌM KIẾM BÀI HỌC...">
+            </div>
+        </div>
+
+        <!-- Lessons Grid -->
+        <div class="lessons-grid" id="lessonsGrid">
+            <!-- Lessons will be dynamically inserted -->
+        </div>
+
+        <!-- Footer -->
+        <footer class="main-footer">
+            <div class="footer-glow"></div>
+            <p class="footer-text">
+              GV: NGUYỄN ĐÌNH MẠNH
+            </p>
+        </footer>
+    </div>
+
+    <script>
+        // Lessons Data
+        const lessons = [
+            {
+                id: 1,
+                title: "GIỚI THIỆU FRONTEND & CÔNG CỤ",
+                description: "Khám phá môi trường phát triển web hiện đại với VS Code, Chrome DevTools, và các công cụ tiên tiến nhất.",
+                icon: "fas fa-tools",
+                duration: "120 m",
+                tags: ["Công Cụ", "Môi Trường", "DevTools", "VS Code"],
+                status: "completed",
+                link: "ls1.html",
+                color: "blue"
+            },
+            {
+                id: 2,
+                title: "HTML CƠ BẢN",
+                description: "Làm chủ ngôn ngữ đánh dấu siêu văn bản với các thẻ cơ bản và kỹ thuật semantic markup.",
+                icon: "fab fa-html5",
+                duration: "120 m",
+                tags: ["HTML", "Semantic", "Thẻ", "Cấu Trúc"],
+                status: "completed",
+                link: "ls2.html",
+                color: "green"
+            },
+            {
+                id: 3,
+                title: "HTML NÂNG CAO & GIT",
+                description: "Thẻ form phức tạp, table nâng cao, và làm chủ hệ thống quản lý phiên bản Git.",
+                icon: "fab fa-git-alt",
+                duration: "120 m",
+                tags: ["HTML", "Git", "Form", "Table", "Nâng Cao"],
+                status: "completed",
+                link: "ls3.html",
+                color: "purple"
+            },
+            {
+                id: 4,
+                title: "CSS CƠ BẢN",
+                description: "Styling website với CSS3, box model, và các thuộc tính thiết kế hiện đại.",
+                icon: "fab fa-css3-alt",
+                duration: "120 m",
+                tags: ["CSS", "Styling", "Box Model", "Design"],
+                status: "completed",
+                link: "ls4.html",
+                color: "pink"
+            },
+            {
+                id: 5,
+                title: "CSS NÂNG CAO",
+                description: "Flexbox, Grid, Position, và các kỹ thuật layout phức tạp cho thiết kế hiện đại.",
+                icon: "fas fa-layer-group",
+                duration: "120 m",
+                tags: ["CSS", "Flexbox", "Grid", "Layout", "Nâng Cao"],
+                status: "current",
+                link: "ls5.html",
+                color: "blue"
+            },
+            {
+                id: 6,
+                title: "THỰC HÀNH 1",
+                description: "Xây dựng website hoàn chỉnh với các kỹ thuật đã học, từ concept đến implementation.",
+                icon: "fas fa-code",
+                duration: "120 m",
+                tags: ["Thực Hành", "Project", "Website", "Ứng Dụng"],
+                status: "current",
+                link: "buoi.html",
+                color: "green"
+            },
+            {
+                id: 7,
+                title: "SỬ DỤNG BOOTSTRAP",
+                description: "Framework CSS mạnh mẽ với grid system, components, và utilities cho phát triển nhanh.",
+                icon: "fab fa-bootstrap",
+                duration: "120 m",
+                tags: ["Bootstrap", "Framework", "Components", "Grid"],
+                status: "upcoming",
+                link: "buoi7.html",
+                color: "purple"
+            },
+            {
+                id: 8,
+                title: "THIẾT KẾ RESPONSIVE",
+                description: "Media Queries, breakpoints, và các kỹ thuật thiết kế đáp ứng cho mọi thiết bị.",
+                icon: "fas fa-mobile-alt",
+                duration: "120 m",
+                tags: ["Responsive", "Media Queries", "Mobile", "Adaptive"],
+                status: "upcoming",
+                link: "ls6.html",
+                color: "pink"
+            },
+            {
+                id: 9,
+                title: "THỰC HÀNH 2",
+                description: "Xây dựng responsive website với Bootstrap và các kỹ thuật nâng cao.",
+                icon: "fas fa-laptop-code",
+                duration: "120 m",
+                tags: ["Thực Hành", "Bootstrap", "Responsive", "Project"],
+                status: "upcoming",
+                link: "buoi9.html",
+                color: "blue"
+            },
+            {
+                id: 10,
+                title: "DỰ ÁN 1 - LANDING PAGE",
+                description: "Thực hành xây dựng landing page cá nhân hoàn chỉnh với tất cả kỹ thuật đã học.",
+                icon: "fas fa-project-diagram",
+                duration: "120 m",
+                tags: ["Dự Án", "Landing Page", "Portfolio", "Final"],
+                status: "upcoming",
+                link: "buoi10.html",
+                color: "green"
+            }
+        ];
+
+        // DOM Elements
+        const lessonsGrid = document.getElementById('lessonsGrid');
+        const searchInput = document.getElementById('searchInput');
+        const filterTabs = document.querySelectorAll('.filter-tab');
+
+        // Create particles
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            for (let i = 0; i < 50; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                
+                // Random properties
+                const size = Math.random() * 10 + 2;
+                const color = getRandomColor();
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 5;
+                
+                // Set styles
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.background = color;
+                particle.style.top = `${Math.random() * 100}%`;
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.animationDuration = `${duration}s`;
+                particle.style.animationDelay = `${delay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        function getRandomColor() {
+            const colors = [
+                'var(--neon-blue)',
+                'var(--neon-purple)',
+                'var(--neon-pink)',
+                'var(--neon-green)',
+                'var(--neon-yellow)',
+                'var(--neon-red)'
+            ];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        // Render lessons
+        function renderLessons(lessonsToRender) {
+            lessonsGrid.innerHTML = '';
+            
+            lessonsToRender.forEach(lesson => {
+                const lessonCard = document.createElement('div');
+                lessonCard.className = 'lesson-card';
+                lessonCard.setAttribute('data-status', lesson.status);
+                
+                lessonCard.innerHTML = `
+                    <div class="status-indicator">
+                        <div class="status-dot ${lesson.status}"></div>
+                    </div>
+                    <div class="lesson-number">${lesson.id.toString().padStart(2, '0')}</div>
+                    <div class="lesson-header">
+                        <div class="lesson-icon-wrapper">
+                            <i class="${lesson.icon} lesson-icon"></i>
+                        </div>
+                        <div>
+                            <h3 class="lesson-title">${lesson.title}</h3>
+                            <p class="lesson-description">${lesson.description}</p>
+                        </div>
+                    </div>
+                    <div class="lesson-tags">
+                        ${lesson.tags.map(tag => `<span class="lesson-tag">${tag}</span>`).join('')}
+                    </div>
+                    <div class="lesson-footer">
+                        <div class="lesson-duration">
+                            <i class="far fa-clock"></i>
+                            <span>${lesson.duration}</span>
+                        </div>
+                        <a href="${lesson.link}" class="start-lesson-btn">
+                            ${lesson.status === 'completed' ? 
+                                '<i class="fas fa-redo"></i> VÀO HỌC' : 
+                                lesson.status === 'current' ? 
+                                '<i class="fas fa-play"></i> VÀO HỌC' : 
+                                '<i class="fas fa-rocket"></i> VÀO HỌC'}
+                        </a>
+                    </div>
+                `;
+                
+                lessonsGrid.appendChild(lessonCard);
+                
+                // Add entrance animation
+                setTimeout(() => {
+                    lessonCard.style.opacity = '1';
+                    lessonCard.style.transform = 'translateY(0)';
+                }, lesson.id * 100);
+            });
+        }
+
+        // Filter lessons
+        function filterLessons() {
+            const searchTerm = searchInput.value.toLowerCase();
+            const activeFilter = document.querySelector('.filter-tab.active').getAttribute('data-filter');
+            
+            const filteredLessons = lessons.filter(lesson => {
+                const matchesSearch = lesson.title.toLowerCase().includes(searchTerm) ||
+                                     lesson.description.toLowerCase().includes(searchTerm) ||
+                                     lesson.tags.some(tag => tag.toLowerCase().includes(searchTerm));
+                
+                let matchesFilter = true;
+                if (activeFilter === 'completed') matchesFilter = lesson.status === 'completed';
+                else if (activeFilter === 'current') matchesFilter = lesson.status === 'current';
+                else if (activeFilter === 'upcoming') matchesFilter = lesson.status === 'upcoming';
+                
+                return matchesSearch && matchesFilter;
+            });
+            
+            renderLessons(filteredLessons);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Create particles
+            createParticles();
+            
+            // Initial render
+            renderLessons(lessons);
+            
+            // Event listeners
+            searchInput.addEventListener('input', filterLessons);
+            
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    filterLessons();
+                });
+            });
+            
+            // Add hover effect to stat cards
+            const statCards = document.querySelectorAll('.stat-card');
+            statCards.forEach(card => {
+                card.addEventListener('mousemove', function(e) {
+                    const rect = this.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    
+                    const rotateY = (x - centerX) / 20;
+                    const rotateX = (centerY - y) / 20;
+                    
+                    this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(-10px)';
+                });
+            });
+            
+            // Add glow effect to header
+            const header = document.querySelector('.main-header');
+            setInterval(() => {
+                const intensity = Math.random() * 0.5 + 0.5;
+                header.style.boxShadow = `
+                    0 0 ${40 * intensity}px rgba(0, 102, 255, ${0.15 * intensity}),
+                    inset 0 0 ${40 * intensity}px rgba(0, 102, 255, ${0.08 * intensity})
+                `;
+            }, 2000);
+        });
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                searchInput.focus();
+            }
+            
+            // Navigation with numbers
+            if (e.key >= '1' && e.key <= '9') {
+                const lessonIndex = parseInt(e.key) - 1;
+                if (lessons[lessonIndex]) {
+                    window.location.href = lessons[lessonIndex].link;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

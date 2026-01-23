@@ -1,0 +1,2384 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHƯƠNG 7: BOOTSTRAP</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 80vh;
+        }
+
+        .sidebar {
+            background: var(--light);
+            padding: 20px;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .nav-list {
+            list-style: none;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--secondary);
+        }
+
+        .main-content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        h4 {
+            color: var(--info);
+            margin: 20px 0 10px;
+        }
+
+        h5 {
+            color: var(--dark);
+            margin: 15px 0 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul,
+        ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.4;
+            border: 2px solid #444;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .class-name {
+            color: #4ec9b0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .interactive-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn-run {
+            background: var(--success);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-content {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: var(--primary);
+            color: white;
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+        }
+
+        .bootstrap-demo {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #dee2e6;
+        }
+
+        .bootstrap-demo h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .grid-visual {
+            background: #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        .grid-col {
+            background: #6c757d;
+            color: white;
+            padding: 10px;
+            border-radius: 4px;
+            text-align: center;
+            margin: 5px 0;
+            border: 1px solid #495057;
+        }
+
+        .color-palette {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .color-item {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .demo-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .utility-demo {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border: 1px solid #dee2e6;
+        }
+
+        .device-sizes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .device-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            border-top: 4px solid var(--secondary);
+        }
+
+        .component-preview {
+            background: white;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-layer-group"></i> CHƯƠNG 7: BOOTSTRAP</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <nav class="sidebar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#intro" class="nav-link active"><i class="fas fa-info-circle"></i> Giới thiệu Bootstrap</a></li>
+                    <li class="nav-item"><a href="#installation" class="nav-link"><i class="fas fa-download"></i> Cài đặt Bootstrap</a></li>
+                    <li class="nav-item"><a href="#grid" class="nav-link"><i class="fas fa-th"></i> Grid System</a></li>
+                    <li class="nav-item"><a href="#buttons" class="nav-link"><i class="fas fa-square"></i> Buttons</a></li>
+                    <li class="nav-item"><a href="#forms" class="nav-link"><i class="fas fa-edit"></i> Forms</a></li>
+                    <li class="nav-item"><a href="#tables" class="nav-link"><i class="fas fa-table"></i> Tables</a></li>
+                    <li class="nav-item"><a href="#alerts" class="nav-link"><i class="fas fa-exclamation-triangle"></i> Alerts</a></li>
+                    <li class="nav-item"><a href="#cards" class="nav-link"><i class="fas fa-id-card"></i> Cards</a></li>
+                    <li class="nav-item"><a href="#modal" class="nav-link"><i class="fas fa-window-maximize"></i> Modal</a></li>
+                    <li class="nav-item"><a href="#utilities" class="nav-link"><i class="fas fa-tools"></i> Utilities</a></li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <!-- PHẦN GIỚI THIỆU -->
+                <section id="intro" class="section active">
+                    <h2><i class="fas fa-info-circle"></i> Giới thiệu Bootstrap</h2>
+
+                    <p><strong>Bootstrap</strong> là một framework CSS phổ biến giúp xây dựng giao diện web nhanh chóng và đồng nhất. Nó bao gồm các class CSS dựng sẵn, thành phần UI, và plugin JavaScript để tạo bố cục, định dạng văn bản, biểu mẫu, nút, bảng, thanh điều hướng, v.v.</p>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-check-circle"></i> Lợi ích của Bootstrap:</h4>
+                        <ul>
+                            <li><strong>Responsive Design:</strong> Tự động điều chỉnh trên mọi thiết bị</li>
+                            <li><strong>Tiết kiệm thời gian:</strong> Có sẵn các component đẹp mắt</li>
+                            <li><strong>Đồng nhất:</strong> Giao diện nhất quán trên toàn bộ trang web</li>
+                            <li><strong>Dễ sử dụng:</strong> Chỉ cần thêm class vào HTML</li>
+                            <li><strong>Cross-browser:</strong> Hoạt động tốt trên mọi trình duyệt</li>
+                            <li><strong>Cộng đồng lớn:</strong> Nhiều tài liệu và hỗ trợ</li>
+                        </ul>
+                    </div>
+
+                    <div class="bootstrap-demo">
+                        <h4><i class="fas fa-eye"></i> Bootstrap trong thực tế:</h4>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Twitter</h5>
+                                        <p class="card-text">Sử dụng Bootstrap làm framework chính</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Spotify</h5>
+                                        <p class="card-text">Các trang admin sử dụng Bootstrap</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">NASA</h5>
+                                        <p class="card-text">Website chính thức sử dụng Bootstrap</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-lightbulb"></i> Lưu ý:</h4>
+                        <p>Bootstrap hiện tại đang ở phiên bản 5.x với nhiều cải tiến so với phiên bản trước:</p>
+                        <ul>
+                            <li><strong>Không còn jQuery</strong> - sử dụng vanilla JavaScript</li>
+                            <li><strong>Hỗ trợ RTL</strong> (Right-to-Left) tốt hơn</li>
+                            <li><strong>Custom properties</strong> (CSS variables) cho dễ tùy chỉnh</li>
+                            <li><strong>Utility API</strong> mạnh mẽ</li>
+                            <li><strong>Forms</strong> được thiết kế lại hoàn toàn</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- PHẦN CÀI ĐẶT -->
+                <section id="installation" class="section">
+                    <h2><i class="fas fa-download"></i> 7.1. CÀI ĐẶT BOOTSTRAP</h2>
+
+                    <h3>Cách 1: Sử dụng CDN (nhanh và phổ biến)</h3>
+                    <p>Chèn 2 đoạn sau vào thẻ <code>&lt;head&gt;</code> và trước thẻ đóng <code>&lt;/body&gt;</code>:</p>
+                    
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cài đặt Bootstrap qua CDN</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- CSS Bootstrap --&gt;</span><br>
+                        &lt;link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- JS Bootstrap (kèm Popper nếu cần dropdown, modal) --&gt;</span><br>
+                        &lt;script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Ưu điểm CDN:</h4>
+                        <ul>
+                            <li><strong>Không cần tải file về</strong></li>
+                            <li><strong>Nhanh chóng</strong> - file được cache từ máy chủ gần nhất</li>
+                            <li><strong>Luôn cập nhật</strong> phiên bản mới nhất</li>
+                            <li><strong>Phù hợp</strong> cho học tập và phát triển nhanh</li>
+                        </ul>
+                    </div>
+
+                    <h3>Cách 2: Tải về từ trang chủ</h3>
+                    <p>Vào trang: <a href="https://getbootstrap.com" target="_blank">https://getbootstrap.com</a> → Download → Tải file .zip → dùng file <code>bootstrap.min.css</code> và <code>bootstrap.bundle.min.js</code>.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cài đặt Bootstrap tải về</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- CSS Bootstrap (tải về) --&gt;</span><br>
+                        &lt;link href="css/bootstrap.min.css" rel="stylesheet"&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- JS Bootstrap (tải về) --&gt;</span><br>
+                        &lt;script src="js/bootstrap.bundle.min.js"&gt;&lt;/script&gt;
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Ưu điểm tải về:</h4>
+                        <ul>
+                            <li><strong>Làm việc offline</strong> - không cần internet</li>
+                            <li><strong>Toàn quyền kiểm soát</strong> - có thể chỉnh sửa file</li>
+                            <li><strong>Tốt cho production</strong> - không phụ thuộc vào bên thứ ba</li>
+                            <li><strong>Tùy chỉnh</strong> trước khi build</li>
+                        </ul>
+                    </div>
+
+                    <h3>Cấu trúc file Bootstrap</h3>
+                    <div class="bootstrap-demo">
+<pre>
+bootstrap/
+├── css/
+│   ├── bootstrap.min.css      (CSS chính - đã nén)
+│   └── bootstrap.css          (CSS chính - chưa nén)
+├── js/
+│   ├── bootstrap.bundle.min.js (JS + Popper - đã nén)
+│   └── bootstrap.bundle.js     (JS + Popper - chưa nén)
+└── scss/                       (Source SCSS - nếu cần tùy chỉnh)
+</pre>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Kiểm tra Bootstrap</h4>
+                        <p>Nhấn nút dưới đây để kiểm tra xem Bootstrap đã được tải thành công chưa:</p>
+                        <button class="btn btn-primary" onclick="checkBootstrap()">
+                            <i class="fas fa-check"></i> Kiểm tra Bootstrap
+                        </button>
+                        <div class="result mt-3" id="bootstrapCheckResult">
+                            <strong>Kết quả:</strong>
+                            <div class="result-content" id="bootstrapCheckResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN GRID SYSTEM -->
+                <section id="grid" class="section">
+                    <h2><i class="fas fa-th"></i> 7.2. CẤU TRÚC GRID HỆ THỐNG 12 CỘT</h2>
+
+                    <h3>Mục đích:</h3>
+                    <p>Chia bố cục trang web thành nhiều cột theo tỷ lệ phần trăm (12 phần). Có thể dễ dàng tạo layout responsive (tự điều chỉnh trên mọi thiết bị).</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Grid System cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="container"&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="row"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-6"&gt;Cột 6&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-6"&gt;Cột 6&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <div class="bootstrap-demo">
+                        <h4><i class="fas fa-eye"></i> Demo Grid System:</h4>
+                        <div class="container">
+                            <div class="row mb-2">
+                                <div class="col-6">
+                                    <div class="grid-col">Cột 6</div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="grid-col">Cột 6</div>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <div class="col-4">
+                                    <div class="grid-col">Cột 4</div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="grid-col">Cột 4</div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="grid-col">Cột 4</div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-3">
+                                    <div class="grid-col">Cột 3</div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="grid-col">Cột 3</div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="grid-col">Cột 3</div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="grid-col">Cột 3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Các class chính:</h3>
+                    <div class="table-container">
+                        <table class="table table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Ý nghĩa</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>.container</code></td>
+                                    <td>Khối bao ngoài có khoảng lề đều</td>
+                                    <td><code>&lt;div class="container"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.container-fluid</code></td>
+                                    <td>Container chiếm toàn bộ chiều rộng</td>
+                                    <td><code>&lt;div class="container-fluid"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.row</code></td>
+                                    <td>Hàng chứa các cột</td>
+                                    <td><code>&lt;div class="row"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.col</code></td>
+                                    <td>Cột tự động chia đều</td>
+                                    <td><code>&lt;div class="col"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.col-*</code></td>
+                                    <td>Cột với kích thước cố định</td>
+                                    <td><code>.col-6, .col-4</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.col-sm-*</code></td>
+                                    <td>Cột responsive cho màn hình nhỏ</td>
+                                    <td><code>.col-sm-6</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.col-md-*</code></td>
+                                    <td>Cột responsive cho màn hình trung bình</td>
+                                    <td><code>.col-md-4</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.col-lg-*</code></td>
+                                    <td>Cột responsive cho màn hình lớn</td>
+                                    <td><code>.col-lg-3</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Kích thước thiết bị (Breakpoints):</h3>
+                    <div class="device-sizes">
+                        <div class="device-card">
+                            <h5><i class="fas fa-mobile-alt"></i> Extra Small</h5>
+                            <p class="text-muted">Mặc định</p>
+                            <p><strong>&lt;576px</strong></p>
+                            <p>Smartphone nhỏ</p>
+                        </div>
+                        <div class="device-card">
+                            <h5><i class="fas fa-tablet-alt"></i> Small (sm)</h5>
+                            <p class="text-muted"><code>.col-sm-*</code></p>
+                            <p><strong>≥576px</strong></p>
+                            <p>Smartphone lớn</p>
+                        </div>
+                        <div class="device-card">
+                            <h5><i class="fas fa-laptop"></i> Medium (md)</h5>
+                            <p class="text-muted"><code>.col-md-*</code></p>
+                            <p><strong>≥768px</strong></p>
+                            <p>Tablet</p>
+                        </div>
+                        <div class="device-card">
+                            <h5><i class="fas fa-desktop"></i> Large (lg)</h5>
+                            <p class="text-muted"><code>.col-lg-*</code></p>
+                            <p><strong>≥992px</strong></p>
+                            <p>Desktop</p>
+                        </div>
+                        <div class="device-card">
+                            <h5><i class="fas fa-tv"></i> Extra Large (xl)</h5>
+                            <p class="text-muted"><code>.col-xl-*</code></p>
+                            <p><strong>≥1200px</strong></p>
+                            <p>Desktop lớn</p>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Grid Responsive</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- Responsive Grid Example --&gt;</span><br>
+                        &lt;div class="container"&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="row"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">&lt;!-- Trên mobile: 12 cột, tablet: 6 cột, desktop: 4 cột --&gt;</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-12 col-md-6 col-lg-4"&gt;Column 1&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-12 col-md-6 col-lg-4"&gt;Column 2&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-12 col-md-6 col-lg-4"&gt;Column 3&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Thử nghiệm Grid System</h4>
+                        <p>Chọn số cột để xem cách hoạt động:</p>
+                        <div class="input-group">
+                            <label for="gridColumns">Số cột trên desktop:</label>
+                            <select id="gridColumns" class="form-select">
+                                <option value="2">2 cột</option>
+                                <option value="3" selected>3 cột</option>
+                                <option value="4">4 cột</option>
+                                <option value="6">6 cột</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="testGridSystem()">
+                            <i class="fas fa-th"></i> Tạo Grid
+                        </button>
+                        <div class="result mt-3" id="gridResult">
+                            <strong>Demo Grid:</strong>
+                            <div class="mt-3" id="gridDemo"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content mt-2" id="gridCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN BUTTONS -->
+                <section id="buttons" class="section">
+                    <h2><i class="fas fa-square"></i> 7.3. NÚT (BUTTON)</h2>
+
+                    <h3>Class chính:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Button Classes</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;button class="btn btn-primary"&gt;Nút chính&lt;/button&gt;<br>
+                        &lt;button class="btn btn-success"&gt;Thành công&lt;/button&gt;
+                    </div>
+
+                    <h3>Các loại button:</h3>
+                    <div class="demo-buttons">
+                        <button class="btn btn-primary">Primary</button>
+                        <button class="btn btn-secondary">Secondary</button>
+                        <button class="btn btn-success">Success</button>
+                        <button class="btn btn-danger">Danger</button>
+                        <button class="btn btn-warning">Warning</button>
+                        <button class="btn btn-info">Info</button>
+                        <button class="btn btn-light">Light</button>
+                        <button class="btn btn-dark">Dark</button>
+                        <button class="btn btn-link">Link</button>
+                    </div>
+
+                    <div class="code-block mt-3">
+                        <div class="code-header">
+                            <span>Outline Buttons</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;button class="btn btn-outline-primary"&gt;Primary&lt;/button&gt;<br>
+                        &lt;button class="btn btn-outline-success"&gt;Success&lt;/button&gt;
+                    </div>
+
+                    <div class="demo-buttons mt-3">
+                        <button class="btn btn-outline-primary">Primary</button>
+                        <button class="btn btn-outline-secondary">Secondary</button>
+                        <button class="btn btn-outline-success">Success</button>
+                        <button class="btn btn-outline-danger">Danger</button>
+                        <button class="btn btn-outline-warning">Warning</button>
+                        <button class="btn btn-outline-info">Info</button>
+                        <button class="btn btn-outline-dark">Dark</button>
+                    </div>
+
+                    <h3>Kích thước button:</h3>
+                    <div class="demo-buttons">
+                        <button class="btn btn-primary btn-lg">Large Button</button>
+                        <button class="btn btn-primary">Normal Button</button>
+                        <button class="btn btn-primary btn-sm">Small Button</button>
+                    </div>
+
+                    <div class="code-block mt-3">
+                        <div class="code-header">
+                            <span>Button Sizes</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;button class="btn btn-primary btn-lg"&gt;Large&lt;/button&gt;<br>
+                        &lt;button class="btn btn-primary"&gt;Normal&lt;/button&gt;<br>
+                        &lt;button class="btn btn-primary btn-sm"&gt;Small&lt;/button&gt;
+                    </div>
+
+                    <h3>Button group:</h3>
+                    <div class="btn-group mb-3" role="group">
+                        <button type="button" class="btn btn-primary">Left</button>
+                        <button type="button" class="btn btn-primary">Middle</button>
+                        <button type="button" class="btn btn-primary">Right</button>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Button Group</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="btn-group" role="group"&gt;<br>
+                        &nbsp;&nbsp;&lt;button type="button" class="btn btn-primary"&gt;Left&lt;/button&gt;<br>
+                        &nbsp;&nbsp;&lt;button type="button" class="btn btn-primary"&gt;Middle&lt;/button&gt;<br>
+                        &nbsp;&nbsp;&lt;button type="button" class="btn btn-primary"&gt;Right&lt;/button&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo button tùy chỉnh</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="buttonType" class="form-label">Loại button:</label>
+                                    <select id="buttonType" class="form-select">
+                                        <option value="primary">Primary</option>
+                                        <option value="secondary">Secondary</option>
+                                        <option value="success">Success</option>
+                                        <option value="danger">Danger</option>
+                                        <option value="warning">Warning</option>
+                                        <option value="info">Info</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="buttonSize" class="form-label">Kích thước:</label>
+                                    <select id="buttonSize" class="form-select">
+                                        <option value="lg">Large</option>
+                                        <option value="">Normal</option>
+                                        <option value="sm">Small</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="buttonText" class="form-label">Nội dung:</label>
+                            <input type="text" id="buttonText" class="form-control" value="Click me!">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-check-label">
+                                <input type="checkbox" id="buttonOutline" class="form-check-input"> Outline style
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" onclick="createCustomButton()">
+                            <i class="fas fa-magic"></i> Tạo Button
+                        </button>
+                        <div class="result mt-3" id="buttonResult">
+                            <strong>Kết quả:</strong>
+                            <div class="mt-2" id="buttonDemo"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content mt-2" id="buttonCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN FORMS -->
+                <section id="forms" class="section">
+                    <h2><i class="fas fa-edit"></i> 7.4. FORM - BIỂU MẪU</h2>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Form cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;form&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="mb-3"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;label for="email" class="form-label"&gt;Email&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="email" class="form-control" id="email" placeholder="Nhập email"&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;button type="submit" class="btn btn-primary"&gt;Gửi&lt;/button&gt;<br>
+                        &lt;/form&gt;
+                    </div>
+
+                    <div class="component-preview">
+                        <h4>Demo Form:</h4>
+                        <form>
+                            <div class="mb-3">
+                                <label for="exampleEmail" class="form-label">Email address</label>
+                                <input type="email" class="form-control" id="exampleEmail" placeholder="name@example.com">
+                                <div class="form-text">We'll never share your email with anyone else.</div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="examplePassword" class="form-label">Password</label>
+                                <input type="password" class="form-control" id="examplePassword">
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleTextarea" class="form-label">Message</label>
+                                <textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleSelect" class="form-label">Select option</label>
+                                <select class="form-select" id="exampleSelect">
+                                    <option selected>Open this select menu</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </div>
+                            <div class="mb-3 form-check">
+                                <input type="checkbox" class="form-check-input" id="exampleCheck">
+                                <label class="form-check-label" for="exampleCheck">Check me out</label>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </form>
+                    </div>
+
+                    <h3>Class phổ biến:</h3>
+                    <div class="table-container">
+                        <table class="table table-bordered">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Ý nghĩa</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>.form-control</code></td>
+                                    <td>Định dạng input, textarea</td>
+                                    <td><code>&lt;input class="form-control"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.form-label</code></td>
+                                    <td>Định dạng label</td>
+                                    <td><code>&lt;label class="form-label"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.form-select</code></td>
+                                    <td>Định dạng select dropdown</td>
+                                    <td><code>&lt;select class="form-select"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.form-check</code></td>
+                                    <td>Wrapper cho checkbox/radio</td>
+                                    <td><code>&lt;div class="form-check"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.form-check-input</code></td>
+                                    <td>Định dạng checkbox/radio</td>
+                                    <td><code>&lt;input class="form-check-input"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.form-check-label</code></td>
+                                    <td>Label cho checkbox/radio</td>
+                                    <td><code>&lt;label class="form-check-label"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.form-text</code></td>
+                                    <td>Văn bản phụ dưới input</td>
+                                    <td><code>&lt;div class="form-text"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>.mb-3</code></td>
+                                    <td>Margin bottom (spacing)</td>
+                                    <td><code>&lt;div class="mb-3"&gt;</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>Form layout:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Form Layout với Grid</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;form&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="row"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-6 mb-3"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label class="form-label"&gt;First name&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" class="form-control"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-md-6 mb-3"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label class="form-label"&gt;Last name&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="text" class="form-control"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &lt;/form&gt;
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo form đăng ký</h4>
+                        <div class="mb-3">
+                            <label for="formType" class="form-label">Loại form:</label>
+                            <select id="formType" class="form-select">
+                                <option value="login">Đăng nhập</option>
+                                <option value="register" selected>Đăng ký</option>
+                                <option value="contact">Liên hệ</option>
+                            </select>
+                        </div>
+                        <button class="btn btn-primary" onclick="createCustomForm()">
+                            <i class="fas fa-file-alt"></i> Tạo Form
+                        </button>
+                        <div class="result mt-3" id="formResult">
+                            <strong>Demo Form:</strong>
+                            <div class="mt-3" id="formDemo"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content mt-2" id="formCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN TABLES -->
+                <section id="tables" class="section">
+                    <h2><i class="fas fa-table"></i> 7.5. BẢNG (TABLE)</h2>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Bảng cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;table class="table"&gt;<br>
+                        &nbsp;&nbsp;&lt;thead&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;#&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Tên&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;/thead&gt;<br>
+                        &nbsp;&nbsp;&lt;tbody&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;1&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Nguyễn Văn A&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;/tbody&gt;<br>
+                        &lt;/table&gt;
+                    </div>
+
+                    <h3>Class mở rộng:</h3>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Class</th>
+                                    <th>Ý nghĩa</th>
+                                    <th>Kết quả</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>.table-striped</code></td>
+                                    <td>Hàng kẻ sọc</td>
+                                    <td>👉</td>
+                                </tr>
+                                <tr>
+                                    <td><code>.table-bordered</code></td>
+                                    <td>Có viền</td>
+                                    <td>👉</td>
+                                </tr>
+                                <tr>
+                                    <td><code>.table-hover</code></td>
+                                    <td>Hiệu ứng hover</td>
+                                    <td>👉 (di chuột vào)</td>
+                                </tr>
+                                <tr>
+                                    <td><code>.table-dark</code></td>
+                                    <td>Nền tối</td>
+                                    <td>👉</td>
+                                </tr>
+                                <tr>
+                                    <td><code>.table-responsive</code></td>
+                                    <td>Responsive trên mobile</td>
+                                    <td>Cuộn ngang khi cần</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="component-preview">
+                        <h4>Demo các loại bảng:</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <h5>Table Striped</h5>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tên</th>
+                                            <th>Điểm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Nguyễn Văn A</td>
+                                            <td>9.5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Trần Thị B</td>
+                                            <td>8.0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Lê Văn C</td>
+                                            <td>7.5</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <h5>Table Bordered & Hover</h5>
+                                <table class="table table-bordered table-hover">
+                                    <thead class="table-primary">
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Tên</th>
+                                            <th>Điểm</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>Nguyễn Văn A</td>
+                                            <td>9.5</td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>Trần Thị B</td>
+                                            <td>8.0</td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>Lê Văn C</td>
+                                            <td>7.5</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Bảng với nhiều class</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;table class="table table-striped table-bordered table-hover"&gt;<br>
+                        &nbsp;&nbsp;&lt;thead class="table-dark"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;#&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Tên&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Điểm&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;/thead&gt;<br>
+                        &nbsp;&nbsp;&lt;tbody&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;1&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Nguyễn Văn A&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;9.5&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;/tbody&gt;<br>
+                        &lt;/table&gt;
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo bảng dữ liệu</h4>
+                        <div class="mb-3">
+                            <label class="form-check-label me-3">
+                                <input type="checkbox" id="striped" class="form-check-input" checked> Striped
+                            </label>
+                            <label class="form-check-label me-3">
+                                <input type="checkbox" id="bordered" class="form-check-input" checked> Bordered
+                            </label>
+                            <label class="form-check-label me-3">
+                                <input type="checkbox" id="hover" class="form-check-input" checked> Hover
+                            </label>
+                            <label class="form-check-label">
+                                <input type="checkbox" id="darkHeader" class="form-check-input"> Dark Header
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" onclick="createCustomTable()">
+                            <i class="fas fa-table"></i> Tạo Bảng
+                        </button>
+                        <div class="result mt-3" id="tableResult">
+                            <strong>Demo Bảng:</strong>
+                            <div class="mt-3" id="tableDemo"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content mt-2" id="tableCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN ALERTS -->
+                <section id="alerts" class="section">
+                    <h2><i class="fas fa-exclamation-triangle"></i> 7.6. ALERT - THÔNG BÁO</h2>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Alert cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="alert alert-success" role="alert"&gt;<br>
+                        &nbsp;&nbsp;Đăng ký thành công!<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <h3>Các loại alert:</h3>
+                    <div class="mb-3">
+                        <div class="alert alert-primary" role="alert">
+                            A simple primary alert—check it out!
+                        </div>
+                        <div class="alert alert-secondary" role="alert">
+                            A simple secondary alert—check it out!
+                        </div>
+                        <div class="alert alert-success" role="alert">
+                            A simple success alert—check it out!
+                        </div>
+                        <div class="alert alert-danger" role="alert">
+                            A simple danger alert—check it out!
+                        </div>
+                        <div class="alert alert-warning" role="alert">
+                            A simple warning alert—check it out!
+                        </div>
+                        <div class="alert alert-info" role="alert">
+                            A simple info alert—check it out!
+                        </div>
+                        <div class="alert alert-light" role="alert">
+                            A simple light alert—check it out!
+                        </div>
+                        <div class="alert alert-dark" role="alert">
+                            A simple dark alert—check it out!
+                        </div>
+                    </div>
+
+                    <h3>Alert với link:</h3>
+                    <div class="alert alert-primary" role="alert">
+                        A simple primary alert with <a href="#" class="alert-link">an example link</a>.
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Alert với link</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="alert alert-primary" role="alert"&gt;<br>
+                        &nbsp;&nbsp;A simple primary alert with &lt;a href="#" class="alert-link"&gt;an example link&lt;/a&gt;.<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <h3>Alert có thể đóng:</h3>
+                    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                        <strong>Holy guacamole!</strong> You should check in on some of those fields below.
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Dismissible Alert</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="alert alert-warning alert-dismissible fade show" role="alert"&gt;<br>
+                        &nbsp;&nbsp;&lt;strong&gt;Holy guacamole!&lt;/strong&gt; You should check in on some of those fields below.<br>
+                        &nbsp;&nbsp;&lt;button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"&gt;&lt;/button&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo alert tùy chỉnh</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="alertType" class="form-label">Loại alert:</label>
+                                <select id="alertType" class="form-select">
+                                    <option value="primary">Primary</option>
+                                    <option value="success" selected>Success</option>
+                                    <option value="danger">Danger</option>
+                                    <option value="warning">Warning</option>
+                                    <option value="info">Info</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="alertMessage" class="form-label">Nội dung:</label>
+                                <input type="text" id="alertMessage" class="form-control" value="Thao tác thành công!">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-check-label me-3">
+                                <input type="checkbox" id="dismissible" class="form-check-input"> Có thể đóng
+                            </label>
+                            <label class="form-check-label">
+                                <input type="checkbox" id="hasLink" class="form-check-input"> Có link
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" onclick="createCustomAlert()">
+                            <i class="fas fa-bell"></i> Tạo Alert
+                        </button>
+                        <div class="result mt-3" id="alertResult">
+                            <strong>Demo Alert:</strong>
+                            <div class="mt-3" id="alertDemo"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content mt-2" id="alertCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN CARDS -->
+                <section id="cards" class="section">
+                    <h2><i class="fas fa-id-card"></i> 7.7. CARD – KHỐI NỘI DUNG</h2>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Card cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="card" style="width: 18rem;"&gt;<br>
+                        &nbsp;&nbsp;&lt;img src="img.jpg" class="card-img-top" alt="..."&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="card-body"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h5 class="card-title"&gt;Tiêu đề&lt;/h5&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p class="card-text"&gt;Mô tả ngắn...&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;a href="#" class="btn btn-primary"&gt;Xem thêm&lt;/a&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <div class="component-preview">
+                        <h4>Demo Card:</h4>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card">
+                                    <div class="card-header">
+                                        Featured
+                                    </div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Special title treatment</h5>
+                                        <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+                                        <a href="#" class="btn btn-primary">Go somewhere</a>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        2 days ago
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card text-bg-primary">
+                                    <div class="card-header">Header</div>
+                                    <div class="card-body">
+                                        <h5 class="card-title">Primary card title</h5>
+                                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Card với Grid:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Card Grid Layout</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="row"&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="col-sm-6 col-md-4 col-lg-3 mb-3"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="card"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="card-body"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h5 class="card-title"&gt;Card title&lt;/h5&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p class="card-text"&gt;Card content&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        <span class="comment">&lt;!-- Thêm nhiều card khác --&gt;</span><br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo card sản phẩm</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="cardTitle" class="form-label">Tiêu đề:</label>
+                                <input type="text" id="cardTitle" class="form-control" value="Sản phẩm nổi bật">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="cardColor" class="form-label">Màu nền:</label>
+                                <select id="cardColor" class="form-select">
+                                    <option value="">Default</option>
+                                    <option value="primary">Primary</option>
+                                    <option value="success">Success</option>
+                                    <option value="danger">Danger</option>
+                                    <option value="warning">Warning</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardText" class="form-label">Nội dung:</label>
+                            <textarea id="cardText" class="form-control" rows="3">Đây là mô tả sản phẩm với nhiều tính năng nổi bật.</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-check-label me-3">
+                                <input type="checkbox" id="cardImage" class="form-check-input" checked> Có hình ảnh
+                            </label>
+                            <label class="form-check-label me-3">
+                                <input type="checkbox" id="cardFooter" class="form-check-input"> Có footer
+                            </label>
+                            <label class="form-check-label">
+                                <input type="checkbox" id="cardButton" class="form-check-input" checked> Có button
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" onclick="createCustomCard()">
+                            <i class="fas fa-id-card"></i> Tạo Card
+                        </button>
+                        <div class="result mt-3" id="cardResult">
+                            <strong>Demo Card:</strong>
+                            <div class="mt-3" id="cardDemo"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content mt-2" id="cardCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN MODAL -->
+                <section id="modal" class="section">
+                    <h2><i class="fas fa-window-maximize"></i> 7.8. MODAL – HỘP THOẠI</h2>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Modal cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- Nút mở --&gt;</span><br>
+                        &lt;button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#myModal"&gt;<br>
+                        &nbsp;&nbsp;Mở Modal<br>
+                        &lt;/button&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Modal --&gt;</span><br>
+                        &lt;div class="modal fade" id="myModal" tabindex="-1"&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="modal-dialog"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-content"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-header"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h5 class="modal-title"&gt;Thông báo&lt;/h5&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button type="button" class="btn-close" data-bs-dismiss="modal"&gt;&lt;/button&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-body"&gt;Nội dung ở đây&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <div class="component-preview">
+                        <h4>Demo Modal:</h4>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                            Launch demo modal
+                        </button>
+
+                        <!-- Modal -->
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        This is a Bootstrap modal. You can put any content here.
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h3>Các kích thước modal:</h3>
+                    <div class="demo-buttons">
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalSmall">
+                            Small Modal
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalLarge">
+                            Large Modal
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalExtraLarge">
+                            Extra Large Modal
+                        </button>
+                    </div>
+
+                    <!-- Small Modal -->
+                    <div class="modal fade" id="modalSmall" tabindex="-1">
+                        <div class="modal-dialog modal-sm">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Small Modal</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    This is a small modal.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Large Modal -->
+                    <div class="modal fade" id="modalLarge" tabindex="-1">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Large Modal</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    This is a large modal.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Extra Large Modal -->
+                    <div class="modal fade" id="modalExtraLarge" tabindex="-1">
+                        <div class="modal-dialog modal-xl">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Extra Large Modal</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                </div>
+                                <div class="modal-body">
+                                    This is an extra large modal.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="code-block mt-3">
+                        <div class="code-header">
+                            <span>Modal Sizes</span>                        <span class="comment">&lt;!-- Small Modal --&gt;</span><br>
+                        &lt;div class="modal-dialog <span class="class-name">modal-sm</span>"&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Large Modal --&gt;</span><br>
+                        &lt;div class="modal-dialog <span class="class-name">modal-lg</span>"&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Extra Large Modal --&gt;</span><br>
+                        &lt;div class="modal-dialog <span class="class-name">modal-xl</span>"&gt;
+                    </div>
+
+                    <h3>Modal có form:</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Modal với Form</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="modal fade" id="formModal"&gt;<br>
+                        &nbsp;&nbsp;&lt;div class="modal-dialog"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-content"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-header"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h5 class="modal-title"&gt;Đăng nhập&lt;/h5&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;button type="button" class="btn-close" data-bs-dismiss="modal"&gt;&lt;/button&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="modal-body"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;form&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="mb-3"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;label class="form-label"&gt;Email&lt;/label&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;input type="email" class="form-control"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/form&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/div&gt;<br>
+                        &nbsp;&nbsp;&lt;/div&gt;<br>
+                        &lt;/div&gt;
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo modal tùy chỉnh</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="modalTitle" class="form-label">Tiêu đề:</label>
+                                <input type="text" id="modalTitle" class="form-control" value="Xác nhận hành động">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="modalSize" class="form-label">Kích thước:</label>
+                                <select id="modalSize" class="form-select">
+                                    <option value="">Default</option>
+                                    <option value="modal-sm">Small</option>
+                                    <option value="modal-lg">Large</option>
+                                    <option value="modal-xl">Extra Large</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="modalContent" class="form-label">Nội dung:</label>
+                            <textarea id="modalContent" class="form-control" rows="3">Bạn có chắc chắn muốn thực hiện hành động này?</textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-check-label me-3">
+                                <input type="checkbox" id="modalHeader" class="form-check-input" checked> Có header
+                            </label>
+                            <label class="form-check-label me-3">
+                                <input type="checkbox" id="modalFooter" class="form-check-input" checked> Có footer
+                            </label>
+                            <label class="form-check-label">
+                                <input type="checkbox" id="modalForm" class="form-check-input"> Có form
+                            </label>
+                        </div>
+                        <button class="btn btn-primary" onclick="createCustomModal()">
+                            <i class="fas fa-window-maximize"></i> Tạo Modal
+                        </button>
+                        <div class="result mt-3" id="modalResult">
+                            <strong>Demo Modal:</strong>
+                            <div class="mt-3" id="modalDemo"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content mt-2" id="modalCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN UTILITIES -->
+                <section id="utilities" class="section">
+                    <h2><i class="fas fa-tools"></i> 7.9. UTILITIES - TIỆN ÍCH</h2>
+
+                    <h3>Spacing (Margin & Padding):</h3>
+                    <div class="utility-demo">
+                        <p>Class: <code>{property}{sides}-{size}</code></p>
+                        <ul>
+                            <li><strong>property:</strong> m (margin), p (padding)</li>
+                            <li><strong>sides:</strong> t (top), b (bottom), s (start/left), e (end/right), x (left+right), y (top+bottom), blank (all)</li>
+                            <li><strong>size:</strong> 0-5, auto</li>
+                        </ul>
+                        
+                        <div class="demo-buttons">
+                            <button class="btn btn-primary m-1">m-1</button>
+                            <button class="btn btn-primary m-2">m-2</button>
+                            <button class="btn btn-primary m-3">m-3</button>
+                            <button class="btn btn-primary m-4">m-4</button>
+                            <button class="btn btn-primary m-5">m-5</button>
+                        </div>
+                        
+                        <div class="demo-buttons mt-3">
+                            <button class="btn btn-primary p-1">p-1</button>
+                            <button class="btn btn-primary p-2">p-2</button>
+                            <button class="btn btn-primary p-3">p-3</button>
+                            <button class="btn btn-primary p-4">p-4</button>
+                            <button class="btn btn-primary p-5">p-5</button>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Spacing Examples</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- Margin top 3 --&gt;</span><br>
+                        &lt;div class="mt-3"&gt;Content&lt;/div&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Padding bottom 4 --&gt;</span><br>
+                        &lt;div class="pb-4"&gt;Content&lt;/div&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Margin x-axis 2 --&gt;</span><br>
+                        &lt;div class="mx-2"&gt;Content&lt;/div&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Padding all sides 3 --&gt;</span><br>
+                        &lt;div class="p-3"&gt;Content&lt;/div&gt;
+                    </div>
+
+                    <h3>Text & Colors:</h3>
+                    <div class="utility-demo">
+                        <p>Text colors:</p>
+                        <div class="demo-buttons">
+                            <span class="text-primary">text-primary</span>
+                            <span class="text-success">text-success</span>
+                            <span class="text-danger">text-danger</span>
+                            <span class="text-warning bg-dark">text-warning</span>
+                            <span class="text-info bg-dark">text-info</span>
+                        </div>
+                        
+                        <p class="mt-3">Background colors:</p>
+                        <div class="demo-buttons">
+                            <span class="bg-primary text-white p-2">bg-primary</span>
+                            <span class="bg-success text-white p-2">bg-success</span>
+                            <span class="bg-danger text-white p-2">bg-danger</span>
+                            <span class="bg-warning text-dark p-2">bg-warning</span>
+                            <span class="bg-info text-dark p-2">bg-info</span>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Text & Color Utilities</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;p class="text-primary"&gt;Primary text&lt;/p&gt;<br>
+                        &lt;p class="text-success"&gt;Success text&lt;/p&gt;<br>
+                        &lt;div class="bg-primary text-white p-3"&gt;Primary background&lt;/div&gt;<br>
+                        &lt;div class="bg-success text-white p-3"&gt;Success background&lt;/div&gt;
+                    </div>
+
+                    <h3>Borders:</h3>
+                    <div class="utility-demo">
+                        <div class="demo-buttons">
+                            <div class="border p-3 m-2">border</div>
+                            <div class="border-top p-3 m-2">border-top</div>
+                            <div class="border-end p-3 m-2">border-end</div>
+                            <div class="border border-primary p-3 m-2">border-primary</div>
+                            <div class="border border-success p-3 m-2">border-success</div>
+                        </div>
+                        
+                        <div class="demo-buttons mt-3">
+                            <div class="border rounded p-3 m-2">rounded</div>
+                            <div class="border rounded-circle p-3 m-2" style="width: 80px; height: 80px; line-height: 50px; text-align: center;">circle</div>
+                            <div class="border rounded-pill p-3 m-2">rounded-pill</div>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Border Utilities</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="border"&gt;Default border&lt;/div&gt;<br>
+                        &lt;div class="border border-primary"&gt;Primary border&lt;/div&gt;<br>
+                        &lt;div class="border rounded"&gt;Rounded border&lt;/div&gt;<br>
+                        &lt;div class="border rounded-circle"&gt;Circle&lt;/div&gt;<br>
+                        &lt;div class="border rounded-pill"&gt;Pill shape&lt;/div&gt;
+                    </div>
+
+                    <h3>Display & Visibility:</h3>
+                    <div class="utility-demo">
+                        <div class="demo-buttons">
+                            <div class="d-inline p-2 bg-primary text-white">d-inline</div>
+                            <div class="d-inline p-2 bg-dark text-white">d-inline</div>
+                        </div>
+                        
+                        <div class="demo-buttons mt-3">
+                            <div class="d-block p-2 bg-primary text-white mb-2">d-block</div>
+                            <div class="d-block p-2 bg-dark text-white">d-block</div>
+                        </div>
+                        
+                        <div class="demo-buttons mt-3">
+                            <div class="d-none d-md-block p-2 bg-warning text-dark">Visible on medium+</div>
+                            <div class="d-md-none p-2 bg-info text-dark">Hidden on medium+</div>
+                        </div>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Display Utilities</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;div class="d-inline"&gt;Inline&lt;/div&gt;<br>
+                        &lt;div class="d-block"&gt;Block&lt;/div&gt;<br>
+                        &lt;div class="d-flex"&gt;Flex&lt;/div&gt;<br>
+                        &lt;div class="d-none"&gt;Hidden&lt;/div&gt;<br>
+                        &lt;div class="d-none d-md-block"&gt;Hidden on mobile&lt;/div&gt;
+                    </div>
+
+                    <h3>Flexbox:</h3>
+                    <div class="utility-demo">
+                        <div class="d-flex p-2 bg-light">
+                            <div class="p-2 bg-primary text-white">Flex item 1</div>
+                            <div class="p-2 bg-dark text-white">Flex item 2</div>
+                            <div class="p-2 bg-primary text-white">Flex item 3</div>
+                        </div>
+                        
+                        <div class="d-flex justify-content-between p-2 bg-light mt-3">
+                            <div class="p-2 bg-primary text-white">Justify between</div>
+                            <div class="p-2 bg-dark text-white">Justify between</div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center p-2 bg-light mt-3" style="height: 100px;">
+                            <div class="p-2 bg-primary text-white">Align center</div>
+                            <div class="p-2 bg-dark text-white">Align center</div>
+                        </div>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Thử nghiệm Utilities</h4>
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <label for="utilType" class="form-label">Loại utility:</label>
+                                <select id="utilType" class="form-select">
+                                    <option value="spacing">Spacing</option>
+                                    <option value="colors">Colors</option>
+                                    <option value="borders">Borders</option>
+                                    <option value="display">Display</option>
+                                    <option value="flex">Flexbox</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="utilClass" class="form-label">Class:</label>
+                                <input type="text" id="utilClass" class="form-control" placeholder="Ví dụ: mt-3, text-primary...">
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <label for="utilContent" class="form-label">Nội dung:</label>
+                                <input type="text" id="utilContent" class="form-control" value="Demo content">
+                            </div>
+                        </div>
+                        <button class="btn btn-primary" onclick="testUtility()">
+                            <i class="fas fa-cogs"></i> Áp dụng Utility
+                        </button>
+                        <div class="result mt-3" id="utilityResult">
+                            <strong>Kết quả:</strong>
+                            <div class="mt-3" id="utilityDemo"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content mt-2" id="utilityCode"></div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>&copy; 2023 Tài liệu Bootstrap | Chương 7 - Hướng dẫn Bootstrap từ cơ bản đến nâng cao</p>
+        </footer>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Chuyển đổi phần hiển thị
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // Xóa active class cũ
+                document.querySelectorAll('.nav-link').forEach(el => el.classList.remove('active'));
+                document.querySelectorAll('.section').forEach(el => el.classList.remove('active'));
+                
+                // Thêm active class mới
+                this.classList.add('active');
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).classList.add('active');
+            });
+        });
+
+        // Sao chép code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.parentElement;
+            const code = codeBlock.innerText.replace('Copy\n', '');
+            navigator.clipboard.writeText(code);
+            
+            // Hiển thị thông báo
+            const originalText = button.textContent;
+            button.textContent = 'Đã copy!';
+            button.style.background = 'var(--success)';
+            
+            setTimeout(() => {
+                button.textContent = originalText;
+                button.style.background = '#555';
+            }, 2000);
+        }
+
+        // Kiểm tra Bootstrap
+        function checkBootstrap() {
+            const result = document.getElementById('bootstrapCheckResult');
+            const content = document.getElementById('bootstrapCheckResultContent');
+            
+            const bootstrapLoaded = typeof bootstrap !== 'undefined';
+            const bootstrapCss = getComputedStyle(document.documentElement).fontFamily.includes('Bootstrap');
+            
+            let message = '';
+            if (bootstrapLoaded && bootstrapCss) {
+                message = '✅ Bootstrap đã được tải thành công!\n';
+                message += `- Version JS: ${bootstrap.Tooltip?.VERSION || '5.x'}\n`;
+                message += '- CSS: Đã tải\n';
+                message += '- JS: Đã tải\n';
+                message += 'Bạn có thể sử dụng tất cả components của Bootstrap.';
+            } else if (bootstrapLoaded) {
+                message = '⚠️ Bootstrap JS đã tải nhưng CSS có thể chưa tải đúng cách.';
+            } else {
+                message = '❌ Bootstrap chưa được tải. Vui lòng kiểm tra lại CDN.';
+            }
+            
+            content.textContent = message;
+            result.classList.add('active');
+        }
+
+        // Test Grid System
+        function testGridSystem() {
+            const columns = parseInt(document.getElementById('gridColumns').value);
+            const gridDemo = document.getElementById('gridDemo');
+            const gridCode = document.getElementById('gridCode');
+            const result = document.getElementById('gridResult');
+            
+            const colClass = `col-md-${12/columns}`;
+            let demoHTML = '<div class="container"><div class="row">';
+            let codeHTML = '&lt;div class="container"&gt;\n  &lt;div class="row"&gt;';
+            
+            for (let i = 1; i <= columns; i++) {
+                demoHTML += `
+                    <div class="${colClass}">
+                        <div class="grid-col">Cột ${i}</div>
+                    </div>
+                `;
+                codeHTML += `\n    &lt;div class="${colClass}"&gt;Cột ${i}&lt;/div&gt;`;
+            }
+            
+            demoHTML += '</div></div>';
+            codeHTML += '\n  &lt;/div&gt;\n&lt;/div&gt;';
+            
+            gridDemo.innerHTML = demoHTML;
+            gridCode.textContent = codeHTML;
+            result.classList.add('active');
+        }
+
+        // Tạo button tùy chỉnh
+        function createCustomButton() {
+            const type = document.getElementById('buttonType').value;
+            const size = document.getElementById('buttonSize').value;
+            const text = document.getElementById('buttonText').value;
+            const outline = document.getElementById('buttonOutline').checked;
+            
+            const buttonDemo = document.getElementById('buttonDemo');
+            const buttonCode = document.getElementById('buttonCode');
+            const result = document.getElementById('buttonResult');
+            
+            const sizeClass = size ? ` btn-${size}` : '';
+            const typeClass = outline ? ` btn-outline-${type}` : ` btn-${type}`;
+            
+            const buttonHTML = `<button class="btn${typeClass}${sizeClass}">${text}</button>`;
+            const codeHTML = `&lt;button class="btn${typeClass}${sizeClass}"&gt;${text}&lt;/button&gt;`;
+            
+            buttonDemo.innerHTML = buttonHTML;
+            buttonCode.textContent = codeHTML;
+            result.classList.add('active');
+        }
+
+        // Tạo form tùy chỉnh
+        function createCustomForm() {
+            const type = document.getElementById('formType').value;
+            const formDemo = document.getElementById('formDemo');
+            const formCode = document.getElementById('formCode');
+            const result = document.getElementById('formResult');
+            
+            let formHTML = '';
+            let codeHTML = '';
+            
+            if (type === 'login') {
+                formHTML = `
+                    <form>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label" for="remember">Nhớ tài khoản</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                    </form>
+                `;
+                
+                codeHTML = `&lt;form&gt;
+  &lt;div class="mb-3"&gt;
+    &lt;label for="email" class="form-label"&gt;Email&lt;/label&gt;
+    &lt;input type="email" class="form-control" id="email" placeholder="name@example.com"&gt;
+  &lt;/div&gt;
+  &lt;div class="mb-3"&gt;
+    &lt;label for="password" class="form-label"&gt;Mật khẩu&lt;/label&gt;
+    &lt;input type="password" class="form-control" id="password"&gt;
+  &lt;/div&gt;
+  &lt;div class="mb-3 form-check"&gt;
+    &lt;input type="checkbox" class="form-check-input" id="remember"&gt;
+    &lt;label class="form-check-label" for="remember"&gt;Nhớ tài khoản&lt;/label&gt;
+  &lt;/div&gt;
+  &lt;button type="submit" class="btn btn-primary"&gt;Đăng nhập&lt;/button&gt;
+&lt;/form&gt;`;
+            } else if (type === 'register') {
+                formHTML = `
+                    <form>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="firstName" class="form-label">Họ</label>
+                                <input type="text" class="form-control" id="firstName">
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="lastName" class="form-label">Tên</label>
+                                <input type="text" class="form-control" id="lastName">
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control" id="password">
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirmPassword" class="form-label">Xác nhận mật khẩu</label>
+                            <input type="password" class="form-control" id="confirmPassword">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Đăng ký</button>
+                    </form>
+                `;
+            } else if (type === 'contact') {
+                formHTML = `
+                    <form>
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Họ tên</label>
+                            <input type="text" class="form-control" id="name">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email">
+                        </div>
+                        <div class="mb-3">
+                            <label for="subject" class="form-label">Chủ đề</label>
+                            <input type="text" class="form-control" id="subject">
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Nội dung</label>
+                            <textarea class="form-control" id="message" rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Gửi liên hệ</button>
+                    </form>
+                `;
+            }
+            
+            formDemo.innerHTML = formHTML;
+            formCode.textContent = codeHTML;
+            result.classList.add('active');
+        }
+
+        // Tạo bảng tùy chỉnh
+        function createCustomTable() {
+            const striped = document.getElementById('striped').checked;
+            const bordered = document.getElementById('bordered').checked;
+            const hover = document.getElementById('hover').checked;
+            const darkHeader = document.getElementById('darkHeader').checked;
+            
+            const tableDemo = document.getElementById('tableDemo');
+            const tableCode = document.getElementById('tableCode');
+            const result = document.getElementById('tableResult');
+            
+            let tableClasses = 'table';
+            if (striped) tableClasses += ' table-striped';
+            if (bordered) tableClasses += ' table-bordered';
+            if (hover) tableClasses += ' table-hover';
+            
+            let headerClass = darkHeader ? ' table-dark' : ' table-primary';
+            
+            const tableHTML = `
+                <table class="${tableClasses}">
+                    <thead class="${headerClass}">
+                        <tr>
+                            <th>#</th>
+                            <th>Tên</th>
+                            <th>Email</th>
+                            <th>Điểm</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                            <td>Nguyễn Văn A</td>
+                            <td>a@example.com</td>
+                            <td>9.5</td>
+                        </tr>
+                        <tr>
+                            <td>2</td>
+                            <td>Trần Thị B</td>
+                            <td>b@example.com</td>
+                            <td>8.0</td>
+                        </tr>
+                        <tr>
+                            <td>3</td>
+                            <td>Lê Văn C</td>
+                            <td>c@example.com</td>
+                            <td>7.5</td>
+                        </tr>
+                    </tbody>
+                </table>
+            `;
+            
+            tableDemo.innerHTML = tableHTML;
+            tableCode.textContent = tableHTML.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            result.classList.add('active');
+        }
+
+        // Tạo alert tùy chỉnh
+        function createCustomAlert() {
+            const type = document.getElementById('alertType').value;
+            const message = document.getElementById('alertMessage').value;
+            const dismissible = document.getElementById('dismissible').checked;
+            const hasLink = document.getElementById('hasLink').checked;
+            
+            const alertDemo = document.getElementById('alertDemo');
+            const alertCode = document.getElementById('alertCode');
+            const result = document.getElementById('alertResult');
+            
+            let alertHTML = '';
+            let codeHTML = '';
+            
+            if (dismissible) {
+                alertHTML = `
+                    <div class="alert alert-${type} alert-dismissible fade show" role="alert">
+                        ${message}${hasLink ? ' <a href="#" class="alert-link">Xem thêm</a>' : ''}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                `;
+                codeHTML = `&lt;div class="alert alert-${type} alert-dismissible fade show" role="alert"&gt;
+  ${message}${hasLink ? ' &lt;a href="#" class="alert-link"&gt;Xem thêm&lt;/a&gt;' : ''}
+  &lt;button type="button" class="btn-close" data-bs-dismiss="alert"&gt;&lt;/button&gt;
+&lt;/div&gt;`;
+            } else {
+                alertHTML = `
+                    <div class="alert alert-${type}" role="alert">
+                        ${message}${hasLink ? ' <a href="#" class="alert-link">Xem thêm</a>' : ''}
+                    </div>
+                `;
+                codeHTML = `&lt;div class="alert alert-${type}" role="alert"&gt;
+  ${message}${hasLink ? ' &lt;a href="#" class="alert-link"&gt;Xem thêm&lt;/a&gt;' : ''}
+&lt;/div&gt;`;
+            }
+            
+            alertDemo.innerHTML = alertHTML;
+            alertCode.textContent = codeHTML;
+            result.classList.add('active');
+        }
+
+        // Tạo card tùy chỉnh
+        function createCustomCard() {
+            const title = document.getElementById('cardTitle').value;
+            const color = document.getElementById('cardColor').value;
+            const text = document.getElementById('cardText').value;
+            const hasImage = document.getElementById('cardImage').checked;
+            const hasFooter = document.getElementById('cardFooter').checked;
+            const hasButton = document.getElementById('cardButton').checked;
+            
+            const cardDemo = document.getElementById('cardDemo');
+            const cardCode = document.getElementById('cardCode');
+            const result = document.getElementById('cardResult');
+            
+            let cardHTML = '';
+            let colorClass = color ? ` text-bg-${color}` : '';
+            
+            cardHTML = `<div class="card${colorClass}" style="max-width: 400px;">`;
+            
+            if (hasImage) {
+                cardHTML += `
+                    <img src="https://via.placeholder.com/400x200" class="card-img-top" alt="...">
+                `;
+            }
+            
+            cardHTML += `
+                <div class="card-body">
+                    <h5 class="card-title">${title}</h5>
+                    <p class="card-text">${text}</p>
+            `;
+            
+            if (hasButton) {
+                cardHTML += `<a href="#" class="btn btn-primary">Xem chi tiết</a>`;
+            }
+            
+            cardHTML += `</div>`;
+            
+            if (hasFooter) {
+                cardHTML += `
+                    <div class="card-footer text-muted">
+                        Cập nhật 2 ngày trước
+                    </div>
+                `;
+            }
+            
+            cardHTML += `</div>`;
+            
+            cardDemo.innerHTML = cardHTML;
+            cardCode.textContent = cardHTML.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            result.classList.add('active');
+        }
+
+        // Tạo modal tùy chỉnh
+        function createCustomModal() {
+            const title = document.getElementById('modalTitle').value;
+            const size = document.getElementById('modalSize').value;
+            const content = document.getElementById('modalContent').value;
+            const hasHeader = document.getElementById('modalHeader').checked;
+            const hasFooter = document.getElementById('modalFooter').checked;
+            const hasForm = document.getElementById('modalForm').checked;
+            
+            const modalDemo = document.getElementById('modalDemo');
+            const modalCode = document.getElementById('modalCode');
+            const result = document.getElementById('modalResult');
+            
+            let modalHTML = '';
+            let sizeClass = size ? ` ${size}` : '';
+            
+            // Button để mở modal
+            modalHTML = `
+                <button type="button" class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#customModal">
+                    Mở Modal
+                </button>
+                <br>
+            `;
+            
+            // Modal HTML
+            modalHTML += `
+                <div class="modal fade" id="customModal" tabindex="-1">
+                    <div class="modal-dialog${sizeClass}">
+                        <div class="modal-content">
+            `;
+            
+            if (hasHeader) {
+                modalHTML += `
+                    <div class="modal-header">
+                        <h5 class="modal-title">${title}</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                    </div>
+                `;
+            }
+            
+            modalHTML += '<div class="modal-body">';
+            
+            if (hasForm) {
+                modalHTML += `
+                    <form>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" placeholder="name@example.com">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mật khẩu</label>
+                            <input type="password" class="form-control">
+                        </div>
+                    </form>
+                `;
+            } else {
+                modalHTML += `<p>${content}</p>`;
+            }
+            
+            modalHTML += '</div>';
+            
+            if (hasFooter) {
+                modalHTML += `
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                        <button type="button" class="btn btn-primary">Lưu thay đổi</button>
+                    </div>
+                `;
+            }
+            
+            modalHTML += `
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modalDemo.innerHTML = modalHTML;
+            modalCode.textContent = modalHTML.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            result.classList.add('active');
+            
+            // Khởi tạo lại modal sau khi thêm vào DOM
+            setTimeout(() => {
+                if (typeof bootstrap !== 'undefined') {
+                    const modalElement = document.getElementById('customModal');
+                    if (modalElement) {
+                        new bootstrap.Modal(modalElement);
+                    }
+                }
+            }, 100);
+        }
+
+        // Test utilities
+        function testUtility() {
+            const utilType = document.getElementById('utilType').value;
+            const utilClass = document.getElementById('utilClass').value;
+            const utilContent = document.getElementById('utilContent').value;
+            
+            const utilityDemo = document.getElementById('utilityDemo');
+            const utilityCode = document.getElementById('utilityCode');
+            const result = document.getElementById('utilityResult');
+            
+            let demoHTML = '';
+            let codeHTML = '';
+            
+            if (utilClass) {
+                demoHTML = `<div class="${utilClass}">${utilContent}</div>`;
+                codeHTML = `&lt;div class="${utilClass}"&gt;${utilContent}&lt;/div&gt;`;
+            } else {
+                // Hiển thị ví dụ mặc định
+                switch(utilType) {
+                    case 'spacing':
+                        demoHTML = `<div class="mt-3 p-3 bg-light">mt-3 p-3 bg-light</div>`;
+                        codeHTML = `&lt;div class="mt-3 p-3 bg-light"&gt;Content&lt;/div&gt;`;
+                        break;
+                    case 'colors':
+                        demoHTML = `<div class="text-primary bg-dark p-3">text-primary bg-dark</div>`;
+                        codeHTML = `&lt;div class="text-primary bg-dark p-3"&gt;Content&lt;/div&gt;`;
+                        break;
+                    case 'borders':
+                        demoHTML = `<div class="border border-primary rounded p-3">border border-primary rounded</div>`;
+                        codeHTML = `&lt;div class="border border-primary rounded p-3"&gt;Content&lt;/div&gt;`;
+                        break;
+                    case 'display':
+                        demoHTML = `<div class="d-inline-block p-3 bg-primary text-white">d-inline-block</div>`;
+                        codeHTML = `&lt;div class="d-inline-block p-3 bg-primary text-white"&gt;Content&lt;/div&gt;`;
+                        break;
+                    case 'flex':
+                        demoHTML = `<div class="d-flex justify-content-between p-3 bg-light">
+                            <div class="p-2 bg-primary text-white">Item 1</div>
+                            <div class="p-2 bg-dark text-white">Item 2</div>
+                        </div>`;
+                        codeHTML = `&lt;div class="d-flex justify-content-between p-3 bg-light"&gt;
+  &lt;div class="p-2 bg-primary text-white"&gt;Item 1&lt;/div&gt;
+  &lt;div class="p-2 bg-dark text-white"&gt;Item 2&lt;/div&gt;
+&lt;/div&gt;`;
+                        break;
+                }
+            }
+            
+            utilityDemo.innerHTML = demoHTML;
+            utilityCode.textContent = codeHTML;
+            result.classList.add('active');
+        }
+
+        // Khởi tạo demo khi trang load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Thêm các ví dụ ban đầu
+            testGridSystem();
+            createCustomButton();
+            createCustomForm();
+            createCustomTable();
+            createCustomAlert();
+            createCustomCard();
+            createCustomModal();
+            testUtility();
+            
+            // Ẩn tất cả kết quả
+            document.querySelectorAll('.result').forEach(el => {
+                el.classList.remove('active');
+            });
+        });
+    </script>
+</body>
+</html>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&

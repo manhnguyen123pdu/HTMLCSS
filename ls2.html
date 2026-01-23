@@ -1,0 +1,2286 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài 2: GIỚI THIỆU VỀ HTML</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html {
+            height: 100%;
+        }
+
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --info: #17a2b8;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+            height: 100%;
+        }
+
+        .container {
+            max-width: 1250px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            min-height: 80vh;
+        }
+
+        .sidebar {
+            max-height: 85vh;
+            overflow-y: scroll;
+            background: var(--light);
+            padding: 20px;
+            border-right: 3px solid var(--secondary);
+        }
+
+        .nav-list {
+            list-style: none;
+            position: sticky;
+            top: 20px;
+        }
+
+        .nav-item {
+            margin-bottom: 5px;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 15px;
+            background: white;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            background: var(--secondary);
+            color: white;
+            transform: translateX(5px);
+            border-color: var(--secondary);
+        }
+
+        .main-content {
+            padding: 30px;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        h3 {
+            color: var(--accent);
+            margin: 25px 0 15px;
+            padding-left: 15px;
+            border-left: 4px solid var(--accent);
+        }
+
+        h4 {
+            color: var(--info);
+            margin: 20px 0 10px;
+        }
+
+        h5 {
+            color: var(--dark);
+            margin: 15px 0 8px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        ul,
+        ol {
+            margin: 15px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow-x: auto;
+            font-family: 'Consolas', 'Monaco', monospace;
+            line-height: 1.4;
+            border: 2px solid #444;
+        }
+
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .copy-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+        }
+
+        .keyword {
+            color: #569cd6;
+        }
+
+        .string {
+            color: #ce9178;
+        }
+
+        .comment {
+            color: #6a9955;
+        }
+
+        .number {
+            color: #b5cea8;
+        }
+
+        .class-name {
+            color: #4ec9b0;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        th {
+            background: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .note {
+            background: #fff3cd;
+            border-left: 4px solid var(--warning);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .info-box {
+            background: #d1ecf1;
+            border-left: 4px solid var(--info);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .success-box {
+            background: #d4edda;
+            border-left: 4px solid var(--success);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 0 8px 8px 0;
+        }
+
+        .interactive-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            border: 2px solid #e9ecef;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .input-group input,
+        .input-group select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        .btn {
+            background: var(--secondary);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin: 5px;
+        }
+
+        .btn-run {
+            background: var(--success);
+        }
+
+        .result {
+            margin-top: 20px;
+            padding: 20px;
+            border-radius: 8px;
+            background: white;
+            border-left: 4px solid var(--warning);
+            display: none;
+        }
+
+        .result.active {
+            display: block;
+        }
+
+        .result-content {
+            font-family: 'Consolas', 'Monaco', monospace;
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-top: 10px;
+            border: 1px solid #e9ecef;
+            white-space: pre-wrap;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            background: var(--primary);
+            color: white;
+        }
+        .bt table tr td, .bt table tr, .bt table tr th,.bt tr, table{
+            border:  1px solid black;
+            background-color: white;
+        }
+        @media (max-width: 1400px) {
+            .container {
+                height: 100%;
+                position: relative;
+            }
+
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                padding: 5px;
+            }
+
+            footer p {
+                margin: 0;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                border-right: none;
+                border-bottom: 3px solid var(--secondary);
+            }
+        }
+
+        .html-tag {
+            background: #e9f7fe;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            border-left: 4px solid var(--info);
+            font-family: 'Consolas', monospace;
+        }
+
+        .example-box {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+
+        .example-box h4 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+
+        .html-structure {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border: 2px dashed #4ec9b0;
+        }
+
+        .html-element {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+            gap: 10px;
+        }
+
+        .tag-bracket {
+            color: #569cd6;
+            font-weight: bold;
+        }
+
+        .tag-name {
+            color: #d16969;
+            font-weight: bold;
+        }
+
+        .tag-content {
+            color: #333;
+            margin: 0 10px;
+        }
+
+        .folder-structure {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Consolas', monospace;
+            line-height: 1.8;
+        }
+
+        .folder-structure .file {
+            color: #569cd6;
+        }
+
+        .folder-structure .folder {
+            color: #ce9178;
+        }
+
+        .visual-hierarchy {
+            background: #f0f8ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .hierarchy-level {
+            margin: 15px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .hierarchy-level::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: var(--secondary);
+        }
+
+        .tag-demo {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background: white;
+        }
+
+        .tag-demo h4 {
+            color: var(--primary);
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .tool-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .tool-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            border-top: 4px solid var(--success);
+        }
+
+        .tool-card h5 {
+            margin-top: 0;
+            color: var(--primary);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-code"></i> BÀI 2: GIỚI THIỆU VỀ HTML</h1>
+        </header>
+
+        <div class="content-wrapper">
+            <nav class="sidebar">
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#what-is-html" class="nav-link active"><i
+                                class="fas fa-question-circle"></i> HTML là gì?</a></li>
+                    <li class="nav-item"><a href="#file-structure" class="nav-link"><i class="fas fa-folder-open"></i>
+                            Cấu trúc file</a></li>
+                    <li class="nav-item"><a href="#dev-tools" class="nav-link"><i class="fas fa-tools"></i> Công cụ phát
+                            triển</a></li>
+                    <li class="nav-item"><a href="#basic-structure" class="nav-link"><i class="fas fa-sitemap"></i> Cấu
+                            trúc HTML cơ bản</a></li>
+                    <li class="nav-item"><a href="#html-tags" class="nav-link"><i class="fas fa-tags"></i> Thẻ HTML</a>
+                    </li>
+                    <li class="nav-item"><a href="#text-tags" class="nav-link"><i class="fas fa-heading"></i> Thẻ văn
+                            bản & tiêu đề</a></li>
+                    <li class="nav-item"><a href="#link-image" class="nav-link"><i class="fas fa-link"></i> Liên kết &
+                            Hình ảnh</a></li>
+                    <li class="nav-item"><a href="#list-tags" class="nav-link"><i class="fas fa-list"></i> Thẻ danh
+                            sách</a></li>
+                    <li class="nav-item"><a href="#table-tags" class="nav-link"><i class="fas fa-table"></i> Bảng dữ
+                            liệu</a></li>
+                    <li class="nav-item"><a href="#bt" class="nav-link"><i class="fas fa-table"></i> Bài tập</a></li>
+                </ul>
+            </nav>
+
+            <main class="main-content">
+                <!-- PHẦN HTML LÀ GÌ -->
+                <section id="what-is-html" class="section active">
+                    <h2><i class="fas fa-question-circle"></i> 2.1. HTML LÀ GÌ?</h2>
+
+                    <h3>Định nghĩa:</h3>
+                    <p><strong>HTML (HyperText Markup Language)</strong> là ngôn ngữ đánh dấu siêu văn bản, được dùng để
+                        xây dựng cấu trúc cơ bản của một trang web.</p>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Giải thích chi tiết:</h4>
+                        <ul>
+                            <li><strong>"HyperText"</strong> nghĩa là văn bản có thể chứa liên kết (hyperlink).</li>
+                            <li><strong>"Markup Language"</strong> là ngôn ngữ sử dụng thẻ (tag) để đánh dấu phần tử.
+                            </li>
+                            <li><strong>HTML là xương sống</strong> của mọi trang web.</li>
+                            <li>HTML xác định cấu trúc và nội dung, CSS định dạng giao diện, JavaScript thêm tương tác.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="html-structure">
+                        <h4><i class="fas fa-sitemap"></i> Vai trò của HTML trong phát triển web:</h4>
+                        <div class="html-element">
+                            <span class="tag-bracket">&lt;</span><span class="tag-name">HTML</span><span
+                                class="tag-bracket">&gt;</span>
+                            <span class="tag-content">Xây dựng cấu trúc và nội dung</span>
+                        </div>
+                        <div class="html-element">
+                            <span class="tag-bracket">&lt;</span><span class="tag-name">CSS</span><span
+                                class="tag-bracket">&gt;</span>
+                            <span class="tag-content">Định dạng và bố cục giao diện</span>
+                        </div>
+                        <div class="html-element">
+                            <span class="tag-bracket">&lt;</span><span class="tag-name">JavaScript</span><span
+                                class="tag-bracket">&gt;</span>
+                            <span class="tag-content">Thêm tương tác và chức năng</span>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-lightbulb"></i> Lưu ý quan trọng:</h4>
+                        <p>HTML <strong>KHÔNG phải là ngôn ngữ lập trình</strong> mà là ngôn ngữ đánh dấu. Nó không có
+                            khả năng thực hiện các phép toán hay xử lý logic phức tạp như các ngôn ngữ lập trình.</p>
+                    </div>
+                </section>
+
+                <!-- PHẦN CẤU TRÚC TỔ CHỨC FILE -->
+                <section id="file-structure" class="section">
+                    <h2><i class="fas fa-folder-open"></i> 2.2. CẤU TRÚC TỔ CHỨC FILE</h2>
+
+                    <h3>Tổ chức file trong dự án web</h3>
+                    <p>Khi làm web, chúng ta thường tách riêng HTML, CSS và JavaScript thành các file riêng để dễ quản
+                        lý và bảo trì.</p>
+
+                    <div class="folder-structure">
+                        <h4>📁 Ví dụ cấu trúc thư mục dự án:</h4>
+                        <div class="folder">project/</div>
+                        <div class="file">&nbsp;&nbsp;│── index.html</div>
+                        <div class="comment">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Trang HTML
+                            chính)</div>
+                        <div class="file">&nbsp;&nbsp;│── style.css</div>
+                        <div class="comment">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(File CSS cho
+                            giao diện)</div>
+                        <div class="file">&nbsp;&nbsp;│── script.js</div>
+                        <div class="comment">&nbsp;&nbsp;│&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(File
+                            JavaScript cho tương tác)</div>
+                        <div class="folder">&nbsp;&nbsp;└── images/</div>
+                        <div class="comment">
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(Thư mục ảnh)</div>
+                        <div class="file">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│── logo.png</div>
+                        <div class="file">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;│── banner.jpg</div>
+                        <div class="file">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;└── avatar.jpg</div>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Lợi ích của việc tách file:</h4>
+                        <ul>
+                            <li><strong>Dễ bảo trì:</strong> Mỗi file chỉ làm một việc duy nhất</li>
+                            <li><strong>Tái sử dụng:</strong> CSS và JavaScript có thể dùng chung cho nhiều trang</li>
+                            <li><strong>Phân công công việc:</strong> Designer làm CSS, Developer làm JavaScript</li>
+                            <li><strong>Tối ưu hiệu suất:</strong> Trình duyệt có thể cache từng loại file riêng</li>
+                            <li><strong>Dễ đọc và debug:</strong> Code được tổ chức khoa học</li>
+                        </ul>
+                    </div>
+
+                    <div class="example-box">
+                        <h4><i class="fas fa-code"></i> Kết nối các file với nhau:</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>index.html - Kết nối CSS và JavaScript</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            &lt;!DOCTYPE html&gt;<br>
+                            &lt;html&gt;<br>
+                            &lt;head&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Trang web của tôi&lt;/title&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">&lt;!-- Kết nối file CSS --&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;link rel="stylesheet" href="style.css"&gt;<br>
+                            &lt;/head&gt;<br>
+                            &lt;body&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Xin chào!&lt;/h1&gt;<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="comment">&lt;!-- Kết nối file JavaScript
+                                --&gt;</span><br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&lt;script src="script.js"&gt;&lt;/script&gt;<br>
+                            &lt;/body&gt;<br>
+                            &lt;/html&gt;
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN CÔNG CỤ PHÁT TRIỂN -->
+                <section id="dev-tools" class="section">
+                    <h2><i class="fas fa-tools"></i> 2.3. CÔNG CỤ PHÁT TRIỂN</h2>
+
+                    <h3>Chuẩn bị môi trường phát triển</h3>
+                    <p>Để học HTML & CSS hiệu quả, cần chuẩn bị môi trường phát triển phù hợp.</p>
+
+                    <div class="tool-list">
+                        <div class="tool-card">
+                            <h5><i class="fas fa-edit"></i> Trình soạn thảo code</h5>
+                            <p><strong>Visual Studio Code</strong> (miễn phí, mạnh mẽ, nhiều tiện ích)</p>
+                            <p><strong>Alternatives:</strong> Sublime Text, Atom, Notepad++</p>
+                        </div>
+
+                        <div class="tool-card">
+                            <h5><i class="fas fa-globe"></i> Trình duyệt web</h5>
+                            <p><strong>Google Chrome</strong> (DevTools mạnh mẽ)</p>
+                            <p><strong>Firefox, Edge, Safari</strong> (test đa trình duyệt)</p>
+                        </div>
+
+                        <div class="tool-card">
+                            <h5><i class="fas fa-download"></i> Phiên bản mới nhất</h5>
+                            <p>Luôn cập nhật phiên bản mới nhất của trình duyệt và editor để có đầy đủ tính năng và bảo
+                                mật.</p>
+                        </div>
+                    </div>
+
+                    <h3>Tiện ích VS Code nên cài đặt</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Tiện ích</th>
+                                    <th>Chức năng</th>
+                                    <th>Lợi ích</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Live Server</strong></td>
+                                    <td>Tự động tải lại trang khi lưu file</td>
+                                    <td>Tiết kiệm thời gian refresh thủ công</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Prettier</strong></td>
+                                    <td>Tự động căn chỉnh code đẹp</td>
+                                    <td>Code nhất quán, dễ đọc</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Auto Rename Tag</strong></td>
+                                    <td>Tự động đổi tên thẻ đóng khi đổi thẻ mở</td>
+                                    <td>Tránh lỗi thiếu thẻ đóng</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>HTML CSS Support</strong></td>
+                                    <td>Gợi ý code HTML/CSS</td>
+                                    <td>Viết code nhanh hơn</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Color Highlight</strong></td>
+                                    <td>Hiển thị màu trực tiếp trong code</td>
+                                    <td>Dễ dàng chọn màu</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Cách cài đặt tiện ích trong VS Code:</h4>
+                        <ol>
+                            <li>Mở VS Code</li>
+                            <li>Nhấn <code>Ctrl+Shift+X</code> (Windows) hoặc <code>Cmd+Shift+X</code> (Mac)</li>
+                            <li>Tìm tên tiện ích trong ô tìm kiếm</li>
+                            <li>Nhấn <strong>Install</strong> để cài đặt</li>
+                            <li>Khởi động lại VS Code nếu cần</li>
+                        </ol>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Kiểm tra công cụ của bạn</h4>
+                        <p>Bạn đã cài đặt những công cụ nào?</p>
+                        <div class="input-group">
+                            <label><input type="checkbox" id="vscode"> Visual Studio Code</label>
+                            <label><input type="checkbox" id="chrome"> Google Chrome</label>
+                            <label><input type="checkbox" id="live-server"> Live Server (VS Code extension)</label>
+                            <label><input type="checkbox" id="prettier"> Prettier (VS Code extension)</label>
+                        </div>
+                        <button class="btn" onclick="checkTools()">
+                            <i class="fas fa-check"></i> Kiểm tra
+                        </button>
+                        <div class="result" id="toolsResult">
+                            <strong>Kết quả:</strong>
+                            <div class="result-content" id="toolsResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN CẤU TRÚC HTML CƠ BẢN -->
+                <section id="basic-structure" class="section">
+                    <h2><i class="fas fa-sitemap"></i> 2.4. CẤU TRÚC CƠ BẢN CỦA TÀI LIỆU HTML</h2>
+
+                    <h3>Cấu trúc chuẩn của trang HTML</h3>
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>index.html - Cấu trúc cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;!DOCTYPE html&gt;<br>
+                        &lt;html lang="vi"&gt;<br>
+                        &nbsp;&nbsp;&lt;head&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta charset="UTF-8"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width,
+                        initial-scale=1.0"&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;title&gt;Trang đầu tiên của tôi&lt;/title&gt;<br>
+                        &nbsp;&nbsp;&lt;/head&gt;<br>
+                        &nbsp;&nbsp;&lt;body&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;h1&gt;Xin chào thế giới!&lt;/h1&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;p&gt;Đây là một đoạn văn bản đầu tiên.&lt;/p&gt;<br>
+                        &nbsp;&nbsp;&lt;/body&gt;<br>
+                        &lt;/html&gt;
+                    </div>
+
+                    <h3>Giải thích các thẻ cơ bản</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thẻ</th>
+                                    <th>Ý nghĩa</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>&lt;!DOCTYPE html&gt;</code></td>
+                                    <td>Khai báo tài liệu HTML5</td>
+                                    <td>Bắt buộc có ở đầu mọi file HTML</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;html&gt;</code></td>
+                                    <td>Thẻ bao toàn bộ tài liệu HTML</td>
+                                    <td>Root element của trang</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;head&gt;</code></td>
+                                    <td>Chứa thông tin cấu hình trang (title, CSS, charset...)</td>
+                                    <td>Không hiển thị trực tiếp trên trang</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;title&gt;</code></td>
+                                    <td>Tiêu đề trang (hiển thị ở tab trình duyệt)</td>
+                                    <td>Quan trọng cho SEO</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;body&gt;</code></td>
+                                    <td>Nội dung chính hiển thị trên trang</td>
+                                    <td>Chứa tất cả nội dung người dùng thấy</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;meta charset&gt;</code></td>
+                                    <td>Xác định bảng mã ký tự (UTF-8)</td>
+                                    <td>Hiển thị tiếng Việt đúng</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;meta viewport&gt;</code></td>
+                                    <td>Thiết lập hiển thị trên mobile</td>
+                                    <td>Responsive design</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="visual-hierarchy">
+                        <h4><i class="fas fa-project-diagram"></i> Cấu trúc phân cấp của HTML:</h4>
+                        <div class="hierarchy-level"><code>&lt;html&gt;</code> (Cấp 1 - Gốc)</div>
+                        <div class="hierarchy-level">&nbsp;&nbsp;<code>&lt;head&gt;</code> (Cấp 2 - Thông tin trang)
+                        </div>
+                        <div class="hierarchy-level">&nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;title&gt;</code> (Cấp 3 - Tiêu
+                            đề)</div>
+                        <div class="hierarchy-level">&nbsp;&nbsp;<code>&lt;body&gt;</code> (Cấp 2 - Nội dung)</div>
+                        <div class="hierarchy-level">&nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;h1&gt;</code> (Cấp 3 - Tiêu đề
+                            chính)</div>
+                        <div class="hierarchy-level">&nbsp;&nbsp;&nbsp;&nbsp;<code>&lt;p&gt;</code> (Cấp 3 - Đoạn văn)
+                        </div>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo trang HTML đầu tiên</h4>
+                        <p>Nhập tiêu đề và nội dung để tạo trang HTML đầu tiên của bạn:</p>
+                        <div class="input-group">
+                            <label for="pageTitle">Tiêu đề trang (title):</label>
+                            <input type="text" id="pageTitle" value="Trang đầu tiên của tôi">
+                        </div>
+                        <div class="input-group">
+                            <label for="pageHeading">Tiêu đề nội dung (h1):</label>
+                            <input type="text" id="pageHeading" value="Xin chào thế giới!">
+                        </div>
+                        <div class="input-group">
+                            <label for="pageContent">Nội dung (p):</label>
+                            <textarea id="pageContent" rows="3">Đây là một đoạn văn bản đầu tiên.</textarea>
+                        </div>
+                        <button class="btn" onclick="createFirstPage()">
+                            <i class="fas fa-code"></i> Tạo trang HTML
+                        </button>
+                        <div class="result" id="firstPageResult">
+                            <strong>Trang HTML của bạn:</strong>
+                            <div class="result-content" id="firstPageResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN THẺ HTML -->
+                <section id="html-tags" class="section">
+                    <h2><i class="fas fa-tags"></i> 2.5. THẺ (TAG) TRONG HTML</h2>
+
+                    <h3>Cú pháp chung của thẻ HTML</h3>
+                    <div class="html-tag">
+                        <code>&lt;tên-thẻ&gt; Nội dung &lt;/tên-thẻ&gt;</code>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Đặc điểm của thẻ HTML:</h4>
+                        <ul>
+                            <li>Thẻ được bao quanh bởi dấu <code>&lt; &gt;</code></li>
+                            <li>Thường có thẻ mở và thẻ đóng</li>
+                            <li>Thẻ đóng có dấu <code>/</code> trước tên thẻ</li>
+                            <li>Thẻ có thể có thuộc tính (attributes)</li>
+                            <li>Thẻ có thể lồng nhau (nested tags)</li>
+                        </ul>
+                    </div>
+
+                    <h3>Hai loại thẻ chính</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Loại thẻ</th>
+                                    <th>Ví dụ</th>
+                                    <th>Đặc điểm</th>
+                                    <th>Giải thích</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Thẻ mở & đóng</strong></td>
+                                    <td><code>&lt;p&gt;Đoạn văn&lt;/p&gt;</code></td>
+                                    <td>Có nội dung bên trong</td>
+                                    <td>Cần cả thẻ mở và thẻ đóng</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Thẻ tự đóng</strong></td>
+                                    <td><code>&lt;br&gt;</code>, <code>&lt;img&gt;</code>, <code>&lt;input&gt;</code>
+                                    </td>
+                                    <td>Không cần thẻ đóng</td>
+                                    <td>Còn gọi là void elements</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="example-box">
+                        <h4><i class="fas fa-code"></i> Ví dụ về các loại thẻ:</h4>
+                        <div class="code-block">
+                            <div class="code-header">
+                                <span>Các loại thẻ HTML</span>
+                                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                            </div>
+                            <span class="comment">&lt;!-- Thẻ có nội dung (mở và đóng) --&gt;</span><br>
+                            &lt;h1&gt;Tiêu đề&lt;/h1&gt;<br>
+                            &lt;p&gt;Đoạn văn bản.&lt;/p&gt;<br>
+                            &lt;div&gt;Khối nội dung&lt;/div&gt;<br>
+                            <br>
+                            <span class="comment">&lt;!-- Thẻ tự đóng (không có nội dung) --&gt;</span><br>
+                            &lt;br&gt; <span class="comment">&lt;!-- Xuống dòng --&gt;</span><br>
+                            &lt;img src="anh.jpg" alt="Mô tả"&gt; <span class="comment">&lt;!-- Hình ảnh
+                                --&gt;</span><br>
+                            &lt;input type="text"&gt; <span class="comment">&lt;!-- Ô nhập liệu --&gt;</span><br>
+                            &lt;hr&gt; <span class="comment">&lt;!-- Đường kẻ ngang --&gt;</span>
+                        </div>
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-exclamation-triangle"></i> Lưu ý quan trọng:</h4>
+                        <ul>
+                            <li>HTML <strong>không phân biệt hoa thường</strong> nhưng nên viết thường toàn bộ</li>
+                            <li>Luôn đóng thẻ đúng thứ tự (thẻ mở sau cùng phải đóng trước)</li>
+                            <li>Thẻ tự đóng trong HTML5 không cần dấu <code>/</code> ở cuối (ví dụ:
+                                <code>&lt;br&gt;</code> thay vì <code>&lt;br/&gt;</code>)
+                            </li>
+                            <li>Tuy nhiên, cả hai cách đều hợp lệ trong HTML5</li>
+                        </ul>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Nhận biết loại thẻ</h4>
+                        <p>Đoán xem các thẻ sau thuộc loại nào:</p>
+                        <div class="input-group">
+                            <label>1. <code>&lt;h2&gt;Tiêu đề phụ&lt;/h2&gt;</code></label>
+                            <select id="tag1">
+                                <option value="">Chọn loại</option>
+                                <option value="open-close">Thẻ mở & đóng</option>
+                                <option value="self-close">Thẻ tự đóng</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>2. <code>&lt;img src="logo.png" alt="Logo"&gt;</code></label>
+                            <select id="tag2">
+                                <option value="">Chọn loại</option>
+                                <option value="open-close">Thẻ mở & đóng</option>
+                                <option value="self-close">Thẻ tự đóng</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>3. <code>&lt;br&gt;</code></label>
+                            <select id="tag3">
+                                <option value="">Chọn loại</option>
+                                <option value="open-close">Thẻ mở & đóng</option>
+                                <option value="self-close">Thẻ tự đóng</option>
+                            </select>
+                        </div>
+                        <button class="btn" onclick="checkTagTypes()">
+                            <i class="fas fa-check"></i> Kiểm tra
+                        </button>
+                        <div class="result" id="tagTypesResult">
+                            <strong>Kết quả:</strong>
+                            <div class="result-content" id="tagTypesResultContent"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN THẺ VĂN BẢN VÀ TIÊU ĐỀ -->
+                <section id="text-tags" class="section">
+                    <h2><i class="fas fa-heading"></i> 2.6. CÁC THẺ TIÊU ĐỀ & VĂN BẢN</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thẻ</th>
+                                    <th>Giải thích</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>&lt;h1&gt;–&lt;h6&gt;</code></td>
+                                    <td>Tiêu đề từ lớn đến nhỏ</td>
+                                    <td><code>&lt;h1&gt;Tiêu đề chính&lt;/h1&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;p&gt;</code></td>
+                                    <td>Đoạn văn bản</td>
+                                    <td><code>&lt;p&gt;Đây là đoạn văn.&lt;/p&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;br&gt;</code></td>
+                                    <td>Xuống dòng</td>
+                                    <td>Dòng 1&lt;br&gt;Dòng 2</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;hr&gt;</code></td>
+                                    <td>Đường kẻ ngang</td>
+                                    <td><code>&lt;hr&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;strong&gt;</code>, <code>&lt;b&gt;</code></td>
+                                    <td>Làm đậm chữ</td>
+                                    <td><code>&lt;strong&gt;Quan trọng&lt;/strong&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;em&gt;</code>, <code>&lt;i&gt;</code></td>
+                                    <td>Làm nghiêng chữ</td>
+                                    <td><code>&lt;em&gt;Nhấn mạnh&lt;/em&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;span&gt;</code></td>
+                                    <td>Chứa nội dung nội dòng</td>
+                                    <td><code>&lt;span style="color:red"&gt;Đỏ&lt;/span&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;pre&gt;</code></td>
+                                    <td>Giữ định dạng văn bản gốc</td>
+                                    <td><code>&lt;pre&gt;Code giữ nguyên&lt;/pre&gt;</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>2.6.1. Thẻ <code>&lt;h1&gt;</code> đến <code>&lt;h6&gt;</code> – Tiêu đề</h3>
+                    <p><strong>Chức năng:</strong> Tạo tiêu đề nội dung từ lớn đến nhỏ, giúp chia nội dung rõ ràng, dễ
+                        đọc, dễ SEO.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp thẻ tiêu đề</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;h1&gt;Tiêu đề cấp 1&lt;/h1&gt;<br>
+                        &lt;h2&gt;Tiêu đề cấp 2&lt;/h2&gt;<br>
+                        &lt;h3&gt;Tiêu đề cấp 3&lt;/h3&gt;<br>
+                        &lt;h4&gt;Tiêu đề cấp 4&lt;/h4&gt;<br>
+                        &lt;h5&gt;Tiêu đề cấp 5&lt;/h5&gt;<br>
+                        &lt;h6&gt;Tiêu đề cấp 6&lt;/h6&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <h1 style="margin: 10px 0; color: var(--primary);">Trang chủ (H1)</h1>
+                        <h2 style="margin: 10px 0; color: var(--secondary);">Giới thiệu (H2)</h2>
+                        <h3 style="margin: 10px 0;">Lịch sử hình thành (H3)</h3>
+                        <h4 style="margin: 10px 0;">Giai đoạn đầu (H4)</h4>
+                        <h5 style="margin: 10px 0;">Chi tiết nhỏ (H5)</h5>
+                        <h6 style="margin: 10px 0;">Ghi chú (H6)</h6>
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Quy tắc sử dụng thẻ tiêu đề:</h4>
+                        <ul>
+                            <li><strong>Thẻ <code>&lt;h1&gt;</code> là tiêu đề lớn nhất</strong> (quan trọng nhất)</li>
+                            <li><strong>Thẻ <code>&lt;h6&gt;</code> là nhỏ nhất</strong> (ít quan trọng nhất)</li>
+                            <li><strong>Chỉ nên dùng 1 thẻ <code>&lt;h1&gt;</code> duy nhất</strong> trong mỗi trang
+                            </li>
+                            <li>Không nhảy cấp (ví dụ: từ H1 sang H3 mà không có H2)</li>
+                            <li>Quan trọng cho SEO - công cụ tìm kiếm đánh giá cao cấu trúc heading hợp lý</li>
+                        </ul>
+                    </div>
+
+                    <h3>2.6.2. Thẻ <code>&lt;p&gt;</code> – Đoạn văn bản</h3>
+                    <p><strong>Chức năng:</strong> Tạo đoạn văn bản đầy đủ, có khoảng cách dòng tự động.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ thẻ đoạn văn</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;p&gt;Xin chào! Đây là đoạn giới thiệu ngắn.&lt;/p&gt;<br>
+                        &lt;p&gt;Chúng tôi chuyên cung cấp các sản phẩm công nghệ.&lt;/p&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <p style="margin: 10px 0;">Xin chào! Đây là đoạn giới thiệu ngắn.</p>
+                        <p style="margin: 10px 0;">Chúng tôi chuyên cung cấp các sản phẩm công nghệ.</p>
+                    </div>
+
+                    <h3>2.6.3. Thẻ <code>&lt;br&gt;</code> – Xuống dòng</h3>
+                    <p><strong>Chức năng:</strong> Ngắt dòng trong cùng một đoạn.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ thẻ xuống dòng</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;p&gt;Địa chỉ:&lt;br&gt;123 Lý Thường Kiệt&lt;br&gt;Quận 10, TP.HCM&lt;/p&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <p style="margin: 10px 0;">Địa chỉ:<br>123 Lý Thường Kiệt<br>Quận 10, TP.HCM</p>
+                    </div>
+
+                    <h3>2.6.4. Thẻ <code>&lt;hr&gt;</code> – Đường kẻ ngang</h3>
+                    <p><strong>Chức năng:</strong> Tạo đường phân cách ngang giữa các phần nội dung.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ thẻ đường kẻ</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;h2&gt;Bài viết&lt;/h2&gt;<br>
+                        &lt;p&gt;Đây là phần giới thiệu.&lt;/p&gt;<br>
+                        &lt;hr&gt;<br>
+                        &lt;p&gt;Đây là nội dung chính của bài viết.&lt;/p&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <h4 style="margin: 10px 0; color: var(--primary);">Bài viết</h4>
+                        <p style="margin: 10px 0;">Đây là phần giới thiệu.</p>
+                        <hr style="margin: 15px 0; border: 1px solid #ddd;">
+                        <p style="margin: 10px 0;">Đây là nội dung chính của bài viết.</p>
+                    </div>
+
+                    <h3>2.6.5. Thẻ <code>&lt;strong&gt;</code> – Nhấn mạnh văn bản</h3>
+                    <p><strong>Chức năng:</strong> Tô đậm và nhấn mạnh ngữ nghĩa đoạn văn bản.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ thẻ strong</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;p&gt;&lt;strong&gt;Cảnh báo:&lt;/strong&gt; Bạn sắp xóa dữ liệu.&lt;/p&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <p style="margin: 10px 0;"><strong>Cảnh báo:</strong> Bạn sắp xóa dữ liệu.</p>
+                    </div>
+
+                    <h3>2.6.6. Thẻ <code>&lt;em&gt;</code> – Nhấn mạnh (in nghiêng)</h3>
+                    <p><strong>Chức năng:</strong> Tô nghiêng văn bản và nhấn mạnh.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ thẻ em</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;p&gt;Tôi &lt;em&gt;thực sự&lt;/em&gt; rất ấn tượng với bạn.&lt;/p&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <p style="margin: 10px 0;">Tôi <em>thực sự</em> rất ấn tượng với bạn.</p>
+                    </div>
+
+                    <h3>2.6.7. Thẻ <code>&lt;pre&gt;</code> – Hiển thị văn bản giữ nguyên định dạng</h3>
+                    <p><strong>Chức năng:</strong> Hiển thị văn bản đúng với định dạng ban đầu.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ thẻ pre</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;pre&gt;<br>for (int i = 0; i &lt; 5; i++) {<br> printf("Hello\n");<br>}<br>&lt;/pre&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <pre
+                            style="background: #f8f9fa; padding: 15px; border-radius: 5px; margin: 10px 0; font-family: 'Consolas', monospace;">
+for (int i = 0; i < 5; i++) {
+    printf("Hello\n");
+}</pre>
+                    </div>
+
+                    <h3>2.6.8. Thẻ <code>&lt;span&gt;</code> – Gói nội dung nhỏ trong dòng</h3>
+                    <p><strong>Chức năng:</strong> Định dạng một phần nhỏ của văn bản mà không xuống dòng.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ thẻ span</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;p&gt;Hôm nay trời &lt;span style="color:blue;"&gt;xanh&lt;/span&gt; và &lt;span
+                        style="font-weight:bold;"&gt;đẹp&lt;/span&gt;.&lt;/p&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <p style="margin: 10px 0;">Hôm nay trời <span style="color:blue;">xanh</span> và <span
+                                style="font-weight:bold;">đẹp</span>.</p>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Thực hành với thẻ văn bản</h4>
+                        <p>Tạo một đoạn văn bản với các thẻ khác nhau:</p>
+                        <div class="input-group">
+                            <label for="textTitle">Tiêu đề (h2):</label>
+                            <input type="text" id="textTitle" value="Bài học HTML">
+                        </div>
+                        <div class="input-group">
+                            <label for="textContent">Nội dung với <strong>strong</strong> và <em>em</em>:</label>
+                            <textarea id="textContent"
+                                rows="3">HTML là <strong>ngôn ngữ đánh dấu</strong> rất <em>quan trọng</em> cho web.</textarea>
+                        </div>
+                        <button class="btn" onclick="createTextExample()">
+                            <i class="fas fa-code"></i> Tạo đoạn văn
+                        </button>
+                        <div class="result" id="textExampleResult">
+                            <strong>Kết quả hiển thị:</strong>
+                            <div id="textExampleDisplay"
+                                style="padding: 15px; background: #f8f9fa; border-radius: 5px; margin-top: 10px;"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content" id="textExampleCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN LIÊN KẾT VÀ HÌNH ẢNH -->
+                <section id="link-image" class="section">
+                    <h2><i class="fas fa-link"></i> 2.7. THẺ LIÊN KẾT VÀ HÌNH ẢNH</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thẻ</th>
+                                    <th>Giải thích</th>
+                                    <th>Thuộc tính chính</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>&lt;a&gt;</code></td>
+                                    <td>Tạo liên kết</td>
+                                    <td>href, target, rel</td>
+                                    <td><code>&lt;a href="..."&gt;Link&lt;/a&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;img&gt;</code></td>
+                                    <td>Chèn ảnh</td>
+                                    <td>src, alt, width, height</td>
+                                    <td><code>&lt;img src="..." alt="..."&gt;</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>2.7.1. Thẻ <code>&lt;a&gt;</code> – Tạo liên kết (anchor)</h3>
+                    <p><strong>Chức năng:</strong> Tạo liên kết đến một trang web khác, tài liệu, email, số điện thoại,
+                        hoặc phần trong cùng một trang.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp thẻ liên kết</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- Liên kết đến website --&gt;</span><br>
+                        &lt;a href="https://www.google.com"&gt;Truy cập Google&lt;/a&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Mở trong tab mới --&gt;</span><br>
+                        &lt;a href="https://vnexpress.net" target="_blank"&gt;Xem tin tức&lt;/a&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Gửi email --&gt;</span><br>
+                        &lt;a href="mailto:email@example.com"&gt;Gửi email cho tôi&lt;/a&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Gọi điện thoại --&gt;</span><br>
+                        &lt;a href="tel:+84123456789"&gt;Gọi số này&lt;/a&gt;
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Giải thích thuộc tính:</h4>
+                        <ul>
+                            <li><strong>href (Hyperlink REFerence):</strong> Địa chỉ cần dẫn đến</li>
+                            <li><strong>target="_blank":</strong> Mở liên kết trong tab mới</li>
+                            <li><strong>mailto:</strong> Mở ứng dụng gửi email</li>
+                            <li><strong>tel:</strong> Gọi số điện thoại trên di động</li>
+                            <li>Nội dung bên trong thẻ <code>&lt;a&gt;</code> là văn bản (hoặc hình ảnh) người dùng nhấp
+                                vào</li>
+                        </ul>
+                    </div>
+
+                    <h3>2.7.2. Thẻ <code>&lt;img&gt;</code> – Chèn hình ảnh</h3>
+                    <p><strong>Chức năng:</strong> Hiển thị hình ảnh từ nguồn nội bộ hoặc bên ngoài.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cú pháp thẻ hình ảnh</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        <span class="comment">&lt;!-- Ảnh từ local --&gt;</span><br>
+                        &lt;img src="images/logo.png" alt="Logo công ty" width="150" height="100"&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Ảnh từ internet --&gt;</span><br>
+                        &lt;img src="https://www.w3schools.com/html/img_girl.jpg" alt="Cô gái" width="200"&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Ảnh trong liên kết --&gt;</span><br>
+                        &lt;a href="https://facebook.com"&gt;<br>
+                        &nbsp;&nbsp;&lt;img src="facebook-logo.png" alt="Facebook" width="100"&gt;<br>
+                        &lt;/a&gt;
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Giải thích thuộc tính:</h4>
+                        <ul>
+                            <li><strong>src:</strong> Đường dẫn đến file ảnh</li>
+                            <li><strong>alt:</strong> Văn bản thay thế nếu ảnh không hiển thị (rất quan trọng cho SEO và
+                                hỗ trợ người khiếm thị)</li>
+                            <li><strong>width, height:</strong> Đặt chiều rộng và cao của ảnh (nên dùng CSS thay vì
+                                thuộc tính HTML)</li>
+                            <li>Thẻ <code>&lt;img&gt;</code> là thẻ tự đóng, không có thẻ đóng</li>
+                        </ul>
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <p><a href="https://www.google.com" target="_blank"
+                                style="color: #3498db; text-decoration: none;">Truy cập Google</a> (liên kết)</p>
+                        <p><a href="mailto:example@email.com" style="color: #3498db; text-decoration: none;">Gửi email
+                                cho tôi</a> (email)</p>
+                        <div
+                            style="margin: 15px 0; padding: 10px; background: #f8f9fa; border-radius: 5px; text-align: center;">
+                            <p>Đây là vị trí hình ảnh sẽ hiển thị:</p>
+                            <div
+                                style="width: 200px; height: 150px; background: #e9ecef; border: 2px dashed #adb5bd; display: inline-flex; align-items: center; justify-content: center; color: #6c757d;">
+                                [Hình ảnh]
+                            </div>
+                            <p style="margin-top: 10px; font-size: 0.9em; color: #6c757d;">Hình ảnh với alt="Mô tả ảnh"
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo liên kết và hình ảnh</h4>
+                        <div class="input-group">
+                            <label for="linkText">Văn bản liên kết:</label>
+                            <input type="text" id="linkText" value="Truy cập Google">
+                        </div>
+                        <div class="input-group">
+                            <label for="linkUrl">URL liên kết:</label>
+                            <input type="text" id="linkUrl" value="https://www.google.com">
+                        </div>
+                        <div class="input-group">
+                            <label><input type="checkbox" id="newTab"> Mở trong tab mới (target="_blank")</label>
+                        </div>
+                        <button class="btn" onclick="createLinkExample()">
+                            <i class="fas fa-code"></i> Tạo liên kết
+                        </button>
+                        <div class="result" id="linkExampleResult">
+                            <strong>Kết quả:</strong>
+                            <div id="linkExampleDisplay"
+                                style="padding: 15px; background: #f8f9fa; border-radius: 5px; margin-top: 10px;"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content" id="linkExampleCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN THẺ DANH SÁCH -->
+                <section id="list-tags" class="section">
+                    <h2><i class="fas fa-list"></i> 2.8. CÁC THẺ DANH SÁCH (LIST TAGS)</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thẻ</th>
+                                    <th>Giải thích</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>&lt;ul&gt;</code></td>
+                                    <td>Danh sách không thứ tự (dấu chấm)</td>
+                                    <td><code>&lt;ul&gt;&lt;li&gt;Item&lt;/li&gt;&lt;/ul&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;ol&gt;</code></td>
+                                    <td>Danh sách có thứ tự (số, chữ)</td>
+                                    <td><code>&lt;ol&gt;&lt;li&gt;Step 1&lt;/li&gt;&lt;/ol&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;li&gt;</code></td>
+                                    <td>Mục trong danh sách</td>
+                                    <td>Dùng trong <code>&lt;ul&gt;</code> hoặc <code>&lt;ol&gt;</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>2.8.1. Thẻ <code>&lt;ul&gt;</code> – Danh sách không thứ tự</h3>
+                    <p><strong>Chức năng:</strong> Tạo danh sách dạng dấu chấm đầu dòng (●). Thường dùng để liệt kê mục,
+                        thực đơn, tùy chọn.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ danh sách không thứ tự</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;ul&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;HTML&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;CSS&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;JavaScript&lt;/li&gt;<br>
+                        &lt;/ul&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>JavaScript</li>
+                        </ul>
+                    </div>
+
+                    <h3>2.8.2. Thẻ <code>&lt;ol&gt;</code> – Danh sách có thứ tự</h3>
+                    <p><strong>Chức năng:</strong> Tạo danh sách dạng số thứ tự (1, 2, 3...). Thường dùng để hiển thị
+                        các bước, hướng dẫn, trình tự.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ danh sách có thứ tự</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;ol&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Bước 1: Chuẩn bị&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Bước 2: Thực hiện&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Bước 3: Hoàn tất&lt;/li&gt;<br>
+                        &lt;/ol&gt;<br>
+                        <br>
+                        <span class="comment">&lt;!-- Với kiểu khác --&gt;</span><br>
+                        &lt;ol type="A"&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Chuẩn bị&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Thực hiện&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;Hoàn tất&lt;/li&gt;<br>
+                        &lt;/ol&gt;
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Các kiểu đánh số:</h4>
+                        <ul>
+                            <li><strong>type="1"</strong> – số (mặc định)</li>
+                            <li><strong>type="A"</strong> – chữ cái hoa (A, B, C…)</li>
+                            <li><strong>type="a"</strong> – chữ thường (a, b, c…)</li>
+                            <li><strong>type="I"</strong> – số La Mã hoa (I, II, III…)</li>
+                            <li><strong>type="i"</strong> – số La Mã thường (i, ii, iii…)</li>
+                            <li><strong>start</strong> – đặt số bắt đầu (start="5")</li>
+                            <li><strong>reversed</strong> – đảo ngược thứ tự (<code>&lt;ol reversed&gt;</code>)</li>
+                        </ul>
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <ol style="margin: 10px 0; padding-left: 20px;">
+                            <li>Bước 1: Chuẩn bị</li>
+                            <li>Bước 2: Thực hiện</li>
+                            <li>Bước 3: Hoàn tất</li>
+                        </ol>
+                        <ol type="A" style="margin: 10px 0; padding-left: 20px;">
+                            <li>Chuẩn bị</li>
+                            <li>Thực hiện</li>
+                            <li>Hoàn tất</li>
+                        </ol>
+                    </div>
+
+                    <h3>2.8.3. Thẻ <code>&lt;li&gt;</code> – Mục trong danh sách</h3>
+                    <p><strong>Chức năng:</strong> Dùng bên trong <code>&lt;ul&gt;</code> hoặc <code>&lt;ol&gt;</code>
+                        để thể hiện từng mục. Có thể chứa nội dung phức tạp.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ danh sách lồng nhau</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;ul&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;HTML&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;CSS&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&lt;li&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;JavaScript<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;ul&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Cơ bản&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li&gt;Nâng cao&lt;/li&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul&gt;<br>
+                        &nbsp;&nbsp;&lt;/li&gt;<br>
+                        &lt;/ul&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <ul style="margin: 10px 0; padding-left: 20px;">
+                            <li>HTML</li>
+                            <li>CSS</li>
+                            <li>JavaScript
+                                <ul style="margin: 5px 0; padding-left: 20px;">
+                                    <li>Cơ bản</li>
+                                    <li>Nâng cao</li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-lightbulb"></i> Ghi nhớ:</h4>
+                        <ul>
+                            <li>Luôn đặt <code>&lt;li&gt;</code> trong <code>&lt;ul&gt;</code> hoặc
+                                <code>&lt;ol&gt;</code>
+                            </li>
+                            <li>Có thể lồng danh sách vào nhau (danh sách con)</li>
+                            <li>Không đặt thẻ <code>&lt;ul&gt;</code> hoặc <code>&lt;ol&gt;</code> trực tiếp trong
+                                <code>&lt;body&gt;</code> mà không có <code>&lt;li&gt;</code>
+                            </li>
+                            <li>Mỗi <code>&lt;li&gt;</code> có thể chứa nhiều thẻ khác: hình ảnh, liên kết, đoạn văn...
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo danh sách</h4>
+                        <p>Tạo danh sách các môn học:</p>
+                        <div class="input-group">
+                            <label>Loại danh sách:</label>
+                            <select id="listType">
+                                <option value="ul">Không thứ tự (ul)</option>
+                                <option value="ol">Có thứ tự (ol)</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="listItems">Các mục (mỗi dòng một mục):</label>
+                            <textarea id="listItems" rows="5">HTML
+CSS
+JavaScript
+PHP
+Python</textarea>
+                        </div>
+                        <button class="btn" onclick="createListExample()">
+                            <i class="fas fa-code"></i> Tạo danh sách
+                        </button>
+                        <div class="result" id="listExampleResult">
+                            <strong>Kết quả hiển thị:</strong>
+                            <div id="listExampleDisplay"
+                                style="padding: 15px; background: #f8f9fa; border-radius: 5px; margin-top: 10px;"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content" id="listExampleCode"></div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- PHẦN BẢNG DỮ LIỆU -->
+                <section id="table-tags" class="section">
+                    <h2><i class="fas fa-table"></i> 2.9. BẢNG DỮ LIỆU (TABLE)</h2>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thẻ</th>
+                                    <th>Giải thích</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>&lt;table&gt;</code></td>
+                                    <td>Tạo bảng dữ liệu</td>
+                                    <td>Bao toàn bộ bảng</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;tr&gt;</code></td>
+                                    <td>Hàng (row) trong bảng</td>
+                                    <td><code>&lt;tr&gt;...&lt;/tr&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;th&gt;</code></td>
+                                    <td>Ô tiêu đề (header)</td>
+                                    <td><code>&lt;th&gt;Tiêu đề&lt;/th&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;td&gt;</code></td>
+                                    <td>Ô dữ liệu (cell)</td>
+                                    <td><code>&lt;td&gt;Dữ liệu&lt;/td&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;thead&gt;</code></td>
+                                    <td>Nhóm hàng tiêu đề</td>
+                                    <td>Bao các thẻ <code>&lt;th&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;tbody&gt;</code></td>
+                                    <td>Nhóm nội dung chính</td>
+                                    <td>Bao các hàng dữ liệu</td>
+                                </tr>
+                                <tr>
+                                    <td><code>&lt;tfoot&gt;</code></td>
+                                    <td>Nhóm chân bảng</td>
+                                    <td>Bao các hàng cuối</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>2.9.1. Thẻ <code>&lt;table&gt;</code> – Tạo bảng dữ liệu trong HTML</h3>
+                    <p><strong>Mục đích:</strong> Dùng để trình bày dữ liệu theo dạng bảng gồm hàng (row) và cột
+                        (column), rất hữu ích trong việc hiển thị danh sách, thống kê, kết quả học tập, bảng giá.</p>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Cấu trúc bảng cơ bản</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;table border="1"&gt;<br>
+                        &nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;STT&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Họ tên&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th&gt;Điểm&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;1&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Nguyễn Văn A&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;9.5&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;2&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Trần Thị B&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;8.0&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &lt;/table&gt;
+                    </div>
+
+                    <div class="info-box">
+                        <h4><i class="fas fa-info-circle"></i> Giải thích các thẻ:</h4>
+                        <table style="width: 100%; margin: 10px 0; background: white;">
+                            <tr>
+                                <th style="background: #f8f9fa; padding: 10px;">Thẻ</th>
+                                <th style="background: #f8f9fa; padding: 10px;">Chức năng</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;"><code>&lt;table&gt;</code></td>
+                                <td style="padding: 10px;">Bao toàn bộ bảng</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;"><code>&lt;tr&gt;</code> (table row)</td>
+                                <td style="padding: 10px;">Tạo một hàng</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;"><code>&lt;th&gt;</code> (table header)</td>
+                                <td style="padding: 10px;">Ô tiêu đề – in đậm, canh giữa mặc định</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px;"><code>&lt;td&gt;</code> (table data)</td>
+                                <td style="padding: 10px;">Ô dữ liệu thường</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <table border="1" style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                            <tr>
+                                <th style="padding: 10px; background: #f8f9fa; text-align: left;">STT</th>
+                                <th style="padding: 10px; background: #f8f9fa; text-align: left;">Họ tên</th>
+                                <th style="padding: 10px; background: #f8f9fa; text-align: left;">Điểm</th>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;">1</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Nguyễn Văn A</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">9.5</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;">2</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Trần Thị B</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">8.0</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h3>2.9.2. Các thuộc tính bổ sung thường dùng</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Thuộc tính</th>
+                                    <th>Mô tả</th>
+                                    <th>Ví dụ</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><code>border="1"</code></td>
+                                    <td>Tạo đường viền cho bảng</td>
+                                    <td><code>&lt;table border="1"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>cellpadding="5"</code></td>
+                                    <td>Khoảng cách giữa nội dung và viền ô</td>
+                                    <td><code>&lt;table cellpadding="5"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>cellspacing="0"</code></td>
+                                    <td>Khoảng cách giữa các ô</td>
+                                    <td><code>&lt;table cellspacing="0"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>colspan</code></td>
+                                    <td>Gộp cột (span columns)</td>
+                                    <td><code>&lt;td colspan="2"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>rowspan</code></td>
+                                    <td>Gộp hàng (span rows)</td>
+                                    <td><code>&lt;td rowspan="2"&gt;</code></td>
+                                </tr>
+                                <tr>
+                                    <td><code>width, height</code></td>
+                                    <td>Đặt kích thước bảng hoặc ô</td>
+                                    <td><code>&lt;table width="100%"&gt;</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="code-block">
+                        <div class="code-header">
+                            <span>Ví dụ bảng với colspan và rowspan</span>
+                            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+                        </div>
+                        &lt;table border="1"&gt;<br>
+                        &nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;th colspan="2"&gt;Thông tin sinh viên&lt;/th&gt;<br>
+                        &nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td rowspan="2"&gt;Hình ảnh&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Họ tên&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &nbsp;&nbsp;&lt;tr&gt;<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&lt;td&gt;Điểm&lt;/td&gt;<br>
+                        &nbsp;&nbsp;&lt;/tr&gt;<br>
+                        &lt;/table&gt;
+                    </div>
+
+                    <div class="tag-demo">
+                        <h4>Kết quả hiển thị:</h4>
+                        <table border="1" style="width: 100%; border-collapse: collapse; margin: 15px 0;">
+                            <tr>
+                                <th colspan="2" style="padding: 10px; background: #f8f9fa; text-align: center;">Thông
+                                    tin sinh viên</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="2"
+                                    style="padding: 10px; border: 1px solid #ddd; text-align: center; vertical-align: middle;">
+                                    Hình ảnh</td>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Họ tên</td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border: 1px solid #ddd;">Điểm</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="note">
+                        <h4><i class="fas fa-lightbulb"></i> Lưu ý quan trọng về bảng:</h4>
+                        <ul>
+                            <li>Chỉ dùng bảng để hiển thị dữ liệu dạng bảng, không dùng bảng để bố cục trang web</li>
+                            <li>Bảng bố cục (layout tables) là cách làm cũ, hiện nay đã có CSS Layout (Flexbox, Grid)
+                            </li>
+                            <li>Luôn sử dụng <code>&lt;th&gt;</code> cho tiêu đề để hỗ trợ accessibility</li>
+                            <li>Có thể dùng <code>&lt;thead&gt;</code>, <code>&lt;tbody&gt;</code>,
+                                <code>&lt;tfoot&gt;</code> để nhóm các phần của bảng
+                            </li>
+                            <li>Thuộc tính <code>border</code>, <code>cellpadding</code>, <code>cellspacing</code> nên
+                                được thay thế bằng CSS</li>
+                        </ul>
+                    </div>
+
+                    <div class="interactive-section">
+                        <h4><i class="fas fa-play-circle"></i> Tạo bảng dữ liệu</h4>
+                        <p>Tạo bảng thông tin sinh viên:</p>
+                        <div class="input-group">
+                            <label for="tableRows">Số hàng dữ liệu:</label>
+                            <select id="tableRows">
+                                <option value="2">2 hàng</option>
+                                <option value="3">3 hàng</option>
+                                <option value="4">4 hàng</option>
+                                <option value="5">5 hàng</option>
+                            </select>
+                        </div>
+                        <button class="btn" onclick="createTableExample()">
+                            <i class="fas fa-code"></i> Tạo bảng
+                        </button>
+                        <div class="result" id="tableExampleResult">
+                            <strong>Kết quả hiển thị:</strong>
+                            <div id="tableExampleDisplay" style="margin-top: 10px;"></div>
+                            <strong>Mã HTML:</strong>
+                            <div class="result-content" id="tableExampleCode"></div>
+                        </div>
+                    </div>
+
+                    <div class="success-box">
+                        <h4><i class="fas fa-graduation-cap"></i> Tổng kết bài học</h4>
+                        <p>Hôm nay bạn đã học:</p>
+                        <ol>
+                            <li><strong>HTML là gì</strong> - Ngôn ngữ đánh dấu siêu văn bản</li>
+                            <li><strong>Cấu trúc file</strong> - Tổ chức dự án web khoa học</li>
+                            <li><strong>Công cụ phát triển</strong> - VS Code, trình duyệt, tiện ích</li>
+                            <li><strong>Cấu trúc HTML cơ bản</strong> - DOCTYPE, html, head, body</li>
+                            <li><strong>Các loại thẻ HTML</strong> - Thẻ mở/đóng, thẻ tự đóng</li>
+                            <li><strong>Thẻ văn bản và tiêu đề</strong> - h1-h6, p, br, hr, strong, em, pre, span</li>
+                            <li><strong>Thẻ liên kết và hình ảnh</strong> - a, img</li>
+                            <li><strong>Thẻ danh sách</strong> - ul, ol, li</li>
+                            <li><strong>Thẻ bảng dữ liệu</strong> - table, tr, th, td</li>
+                        </ol>
+                        <p>Đây là nền tảng quan trọng để học CSS và JavaScript trong các bài tiếp theo!</p>
+                    </div>
+                </section>
+
+                <section class="section bt"  id="bt">
+                    <h1>Giải chạy Techcombank Ho Chi Minh City International Marathon 2023</h1>
+
+                    <img style="width: 100%;" src="https://irace-web.s3.ap-southeast-1.amazonaws.com/photos/events/2023/12/16/event-techcombank-hcm-marathon-2023-banner.jpeg?v=120223"
+                        alt="Techcombank Marathon">
+
+                    <div class="info">
+                        <p><span class="label">Thời gian:</span> <span class="value">10/12/2023 04:00:00</span></p>
+                        <p><span class="label">Địa điểm:</span> <span class="value">Lê Duẩn - Nhà Thờ Đức Bà</span></p>
+                    </div>
+
+                    <hr>
+
+                    <h3>Giới thiệu</h3>
+                    <pre>
+        Giải Marathon Quốc tế Thành phố Hồ Chí Minh Techcombank Mùa thứ 6 là cơ hội tuyệt vời để bạn chiêm ngưỡng một
+        trong những thành phố năng động bậc nhất thế giới! Chạy dọc những con đường năng động của Thành phố đầy cảm hứng
+        này và tham gia một giải chạy mang tính biểu tượng nhất tại Đông Nam Á.
+    </pre>
+
+                    <table style="" border="1" cellpadding="10" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th style="color: black;background-color: rgb(255, 255, 255);" rowspan="2">Cự ly</th>
+                                <th style="color: black;background-color: rgb(255, 255, 255);" rowspan="2">Đối tượng</th>
+                                <th style="color: black;background-color: rgb(255, 255, 255);" colspan="3">Quyền lợi</th>
+                                <th style="color: black;background-color: rgb(255, 255, 255);" rowspan="2">Lệ phí (VNĐ)</th>
+                                <th style="color: black;background-color: rgb(255, 255, 255);" rowspan="2">Ghi chú</th>
+                            </tr>
+                            <tr>
+                                <th style="color: black;background-color: rgb(255, 255, 255);">Áo giải</th>
+                                <th style="color: black;background-color: rgb(255, 255, 255);">Huy chương</th>
+                                <th style="color: black;background-color: rgb(255, 255, 255);">Phụ kiện</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- 5km -->
+                            <tr>
+                                <td rowspan="2">5km</td>
+                                <td>Người lớn</td>
+                                <td rowspan="5">Có</td>
+                                <td rowspan="2" colspan="2">Không</td>
+                                <td>300.000</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Học sinh/Sinh viên</td>
+                                <td>150.000</td>
+                                <td rowspan="3">
+                                    <ul>
+                                        <li>Giảm 50% cho đối tượng ưu tiên</li>
+                                        <li> Có chip điện tử đo thời gian</li>
+                                    </ul>
+                                </td>
+                            </tr>
+
+                            <!-- 10km -->
+                            <tr>
+                                <td>10km</td>
+                                <td rowspan="3">Tất cả</td>
+                                <td rowspan="3">Có</td>
+                                <td>400.000</td>
+                                <td>Bao gồm nước uống, số bib</td>
+                            </tr>
+
+                            <!-- 21km -->
+                            <tr>
+                                <td>21km</td>
+                                <td rowspan="2">Có</td>
+                                <td>600.000</td>
+                                <!-- <td></td> -->
+                            </tr>
+
+                            <!-- 42km -->
+                            <tr>
+                                <td>42km</td>
+                                <td>900.000</td>
+                                <td>Tiếp sức & y tế dọc đường</td>
+                            </tr>
+
+                            <!-- VIP -->
+                            <tr>
+                                <td colspan="2">VIP (5km/10km/21km)</td>
+                                <td colspan="3">Áo riêng, huy chương + bộ quà tặng</td>
+                                <td>2.000.000</td>
+                                <td>Khu vực riêng, lối chạy riêng</td>
+                            </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="7" style="text-align:center; font-style:italic;">
+                                    * Lệ phí đã bao gồm thuế, bảo hiểm và hỗ trợ tổ chức
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+
+                    <!-- <form action="/submit-form" method="POST" style="width: 700px;">
+        <fieldset>
+            <legend>🔹 Thông tin cá nhân</legend>
+
+            <label for="fullname">Họ và tên:</label><br>
+            <input type="text" id="fullname" name="fullname" required><br><br>
+
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+
+            <label for="phone">Số điện thoại:</label><br>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" required><br><br>
+
+            <label for="dob">Ngày sinh:</label><br>
+            <input type="date" id="dob" name="dob"><br><br>
+
+            <label for="gender">Giới tính:</label><br>
+            <input type="radio" id="male" name="gender" value="Nam">
+            <label for="male">Nam</label>
+            <input type="radio" id="female" name="gender" value="Nữ">
+            <label for="female">Nữ</label><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>🔹 Đăng ký giải</legend>
+
+            <label for="distance">Chọn cự ly:</label><br>
+            <select id="distance" name="distance" required>
+                <option value="">--Chọn--</option>
+                <option value="5km">5km</option>
+                <option value="10km">10km</option>
+                <option value="21km">21km</option>
+                <option value="42km">42km</option>
+                <option value="vip">VIP</option>
+            </select><br><br>
+
+            <label for="shirt-size">Chọn size áo:</label><br>
+            <input list="shirt-sizes" name="shirt-size" id="shirt-size" required>
+            <datalist id="shirt-sizes">
+                <option value="S">
+                <option value="M">
+                <option value="L">
+                <option value="XL">
+                <option value="XXL">
+            </datalist><br><br>
+
+            <label>Đăng ký thêm:</label><br>
+            <input type="checkbox" id="chip" name="extras" value="chip">
+            <label for="chip">Chip thời gian</label><br>
+            <input type="checkbox" id="insurance" name="extras" value="insurance">
+            <label for="insurance">Bảo hiểm</label><br>
+            <input type="checkbox" id="transport" name="extras" value="transport">
+            <label for="transport">Xe đưa đón</label><br><br>
+        </fieldset>
+        <fieldset>
+            <legend>🔹 Ghi chú & xác nhận</legend>
+
+            <label for="note">Ghi chú thêm:</label><br>
+            <textarea id="note" name="note" rows="4" cols="50"
+                placeholder="Ghi yêu cầu đặc biệt nếu có..."></textarea><br><br>
+
+            <label for="agree">Xác nhận:</label>
+            <input type="checkbox" id="agree" name="agree" required>
+            <label for="agree">Tôi đồng ý với điều khoản giải chạy.</label><br><br>
+
+            <button type="submit">Gửi đăng ký</button>
+            <button type="reset">Xóa form</button>
+        </fieldset>
+    </form> -->
+
+
+                </section>
+            </main>
+        </div>
+
+        <footer>
+            <p>Bài 2: Giới thiệu về HTML &copy; GV: Nguyễn Đình Mạnh </p>
+        </footer>
+    </div>
+
+    <script>
+        // Xử lý điều hướng
+        document.addEventListener('DOMContentLoaded', function () {
+            const navLinks = document.querySelectorAll('.nav-link');
+            const sections = document.querySelectorAll('.section');
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Xóa class active từ tất cả các link và section
+                    navLinks.forEach(item => item.classList.remove('active'));
+                    sections.forEach(section => section.classList.remove('active'));
+
+                    // Thêm class active cho link được click
+                    this.classList.add('active');
+
+                    // Hiển thị section tương ứng
+                    const targetId = this.getAttribute('href').substring(1);
+                    document.getElementById(targetId).classList.add('active');
+                });
+            });
+        });
+
+        // Hàm copy code
+        function copyCode(button) {
+            const codeBlock = button.parentElement.parentElement;
+            const text = codeBlock.innerText;
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = 'Đã copy!';
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 2000);
+            });
+        }
+
+        // Kiểm tra công cụ
+        function checkTools() {
+            const vscode = document.getElementById('vscode').checked;
+            const chrome = document.getElementById('chrome').checked;
+            const liveServer = document.getElementById('live-server').checked;
+            const prettier = document.getElementById('prettier').checked;
+
+            const result = document.getElementById('toolsResult');
+            const output = document.getElementById('toolsResultContent');
+
+            result.classList.add('active');
+
+            let outputText = `=== KIỂM TRA CÔNG CỤ PHÁT TRIỂN ===\n\n`;
+            let score = 0;
+
+            if (vscode) {
+                outputText += `✅ Visual Studio Code: Đã cài đặt\n`;
+                score++;
+            } else {
+                outputText += `❌ Visual Studio Code: Chưa cài đặt\n`;
+                outputText += `   → Tải về: https://code.visualstudio.com/\n`;
+            }
+
+            if (chrome) {
+                outputText += `✅ Google Chrome: Đã cài đặt\n`;
+                score++;
+            } else {
+                outputText += `❌ Google Chrome: Chưa cài đặt\n`;
+                outputText += `   → Tải về: https://www.google.com/chrome/\n`;
+            }
+
+            if (liveServer) {
+                outputText += `✅ Live Server: Đã cài đặt\n`;
+                score++;
+            } else {
+                outputText += `❌ Live Server: Chưa cài đặt\n`;
+                outputText += `   → Mở VS Code → Extensions → Tìm "Live Server"\n`;
+            }
+
+            if (prettier) {
+                outputText += `✅ Prettier: Đã cài đặt\n`;
+                score++;
+            } else {
+                outputText += `❌ Prettier: Chưa cài đặt\n`;
+                outputText += `   → Mở VS Code → Extensions → Tìm "Prettier"\n`;
+            }
+
+            outputText += `\n=== TỔNG KẾT ===\n`;
+            outputText += `Số công cụ đã cài: ${score}/4\n`;
+
+            if (score === 4) {
+                outputText += `🎉 Hoàn hảo! Bạn đã sẵn sàng học HTML/CSS!`;
+            } else if (score >= 2) {
+                outputText += `👍 Tốt! Hãy cài thêm các công cụ còn thiếu để học hiệu quả hơn.`;
+            } else {
+                outputText += `📚 Cần cài đặt thêm công cụ. VS Code và Chrome là bắt buộc.`;
+            }
+
+            output.textContent = outputText;
+        }
+
+        // Tạo trang HTML đầu tiên
+        function createFirstPage() {
+            const title = document.getElementById('pageTitle').value;
+            const heading = document.getElementById('pageHeading').value;
+            const content = document.getElementById('pageContent').value;
+
+            const result = document.getElementById('firstPageResult');
+            const output = document.getElementById('firstPageResultContent');
+
+            result.classList.add('active');
+
+            let outputText = `&lt;!DOCTYPE html&gt;\n`;
+            outputText += `&lt;html lang="vi"&gt;\n`;
+            outputText += `&lt;head&gt;\n`;
+            outputText += `  &lt;meta charset="UTF-8"&gt;\n`;
+            outputText += `  &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;\n`;
+            outputText += `  &lt;title&gt;${title}&lt;/title&gt;\n`;
+            outputText += `&lt;/head&gt;\n`;
+            outputText += `&lt;body&gt;\n`;
+            outputText += `  &lt;h1&gt;${heading}&lt;/h1&gt;\n`;
+            outputText += `  &lt;p&gt;${content}&lt;/p&gt;\n`;
+            outputText += `&lt;/body&gt;\n`;
+            outputText += `&lt;/html&gt;`;
+
+            output.innerHTML = outputText;
+        }
+
+        // Kiểm tra loại thẻ
+        function checkTagTypes() {
+            const tag1 = document.getElementById('tag1').value;
+            const tag2 = document.getElementById('tag2').value;
+            const tag3 = document.getElementById('tag3').value;
+
+            const result = document.getElementById('tagTypesResult');
+            const output = document.getElementById('tagTypesResultContent');
+
+            result.classList.add('active');
+
+            let outputText = `=== KIỂM TRA LOẠI THẺ HTML ===\n\n`;
+            let score = 0;
+
+            // Câu 1
+            outputText += `1. &lt;h2&gt;Tiêu đề phụ&lt;/h2&gt;\n`;
+            outputText += `   Đáp án của bạn: ${tag1 === 'open-close' ? 'Thẻ mở & đóng' : tag1 === 'self-close' ? 'Thẻ tự đóng' : 'Chưa chọn'}\n`;
+            if (tag1 === 'open-close') {
+                outputText += `   ✅ ĐÚNG! Thẻ có cả mở và đóng, có nội dung bên trong\n`;
+                score++;
+            } else if (tag1 === 'self-close') {
+                outputText += `   ❌ SAI - Thẻ này có thẻ đóng &lt;/h2&gt; nên là thẻ mở & đóng\n`;
+            }
+
+            // Câu 2
+            outputText += `\n2. &lt;img src="logo.png" alt="Logo"&gt;\n`;
+            outputText += `   Đáp án của bạn: ${tag2 === 'open-close' ? 'Thẻ mở & đóng' : tag2 === 'self-close' ? 'Thẻ tự đóng' : 'Chưa chọn'}\n`;
+            if (tag2 === 'self-close') {
+                outputText += `   ✅ ĐÚNG! Thẻ &lt;img&gt; là thẻ tự đóng, không có thẻ đóng\n`;
+                score++;
+            } else if (tag2 === 'open-close') {
+                outputText += `   ❌ SAI - Thẻ &lt;img&gt; không có thẻ đóng, là thẻ tự đóng\n`;
+            }
+
+            // Câu 3
+            outputText += `\n3. &lt;br&gt;\n`;
+            outputText += `   Đáp án của bạn: ${tag3 === 'open-close' ? 'Thẻ mở & đóng' : tag3 === 'self-close' ? 'Thẻ tự đóng' : 'Chưa chọn'}\n`;
+            if (tag3 === 'self-close') {
+                outputText += `   ✅ ĐÚNG! Thẻ &lt;br&gt; là thẻ tự đóng, dùng để xuống dòng\n`;
+                score++;
+            } else if (tag3 === 'open-close') {
+                outputText += `   ❌ SAI - Thẻ &lt;br&gt; không có thẻ đóng, là thẻ tự đóng\n`;
+            }
+
+            outputText += `\n=== TỔNG KẾT ===\n`;
+            outputText += `Số câu đúng: ${score}/3\n`;
+
+            if (score === 3) {
+                outputText += `🎉 Xuất sắc! Bạn đã phân biệt rõ các loại thẻ HTML!`;
+            } else if (score >= 1) {
+                outputText += `👍 Tốt! Hãy ôn tập lại về các loại thẻ HTML.`;
+            } else {
+                outputText += `📚 Cần học lại về thẻ mở & đóng vs thẻ tự đóng.`;
+            }
+
+            output.textContent = outputText;
+        }
+
+        // Tạo ví dụ văn bản
+        function createTextExample() {
+            const title = document.getElementById('textTitle').value;
+            const content = document.getElementById('textContent').value;
+
+            const result = document.getElementById('textExampleResult');
+            const display = document.getElementById('textExampleDisplay');
+            const code = document.getElementById('textExampleCode');
+
+            result.classList.add('active');
+
+            // Hiển thị kết quả
+            display.innerHTML = `<h3 style="margin-top: 0; color: var(--primary);">${title}</h3>
+                                <p>${content.replace(/<strong>(.*?)<\/strong>/g, '<strong>$1</strong>')
+                    .replace(/<em>(.*?)<\/em>/g, '<em>$1</em>')}</p>`;
+
+            // Hiển thị mã HTML
+            let htmlCode = `<h3>${title}</h3>\n`;
+            htmlCode += `<p>${content}</p>`;
+            code.textContent = htmlCode;
+        }
+
+        // Tạo ví dụ liên kết
+        function createLinkExample() {
+            const text = document.getElementById('linkText').value;
+            const url = document.getElementById('linkUrl').value;
+            const newTab = document.getElementById('newTab').checked;
+
+            const result = document.getElementById('linkExampleResult');
+            const display = document.getElementById('linkExampleDisplay');
+            const code = document.getElementById('linkExampleCode');
+
+            result.classList.add('active');
+
+            // Tạo mã HTML
+            let targetAttr = newTab ? ' target="_blank"' : '';
+            let htmlCode = `<a href="${url}"${targetAttr}>${text}</a>`;
+
+            // Hiển thị kết quả
+            display.innerHTML = htmlCode;
+
+            // Hiển thị mã HTML
+            code.textContent = htmlCode;
+        }
+
+        // Tạo ví dụ danh sách
+        function createListExample() {
+            const type = document.getElementById('listType').value;
+            const items = document.getElementById('listItems').value.split('\n').filter(item => item.trim() !== '');
+
+            const result = document.getElementById('listExampleResult');
+            const display = document.getElementById('listExampleDisplay');
+            const code = document.getElementById('listExampleCode');
+
+            result.classList.add('active');
+
+            // Tạo mã HTML
+            let htmlCode = `<${type}>\n`;
+            items.forEach(item => {
+                htmlCode += `  <li>${item.trim()}</li>\n`;
+            });
+            htmlCode += `</${type}>`;
+
+            // Hiển thị kết quả
+            display.innerHTML = htmlCode;
+
+            // Hiển thị mã HTML
+            code.textContent = htmlCode;
+        }
+
+        // Tạo ví dụ bảng
+        function createTableExample() {
+            const rows = parseInt(document.getElementById('tableRows').value);
+
+            const result = document.getElementById('tableExampleResult');
+            const display = document.getElementById('tableExampleDisplay');
+            const code = document.getElementById('tableExampleCode');
+
+            result.classList.add('active');
+
+            // Tạo mã HTML
+            let htmlCode = `<table border="1">\n`;
+            htmlCode += `  <tr>\n`;
+            htmlCode += `    <th>STT</th>\n`;
+            htmlCode += `    <th>Họ tên</th>\n`;
+            htmlCode += `    <th>Điểm</th>\n`;
+            htmlCode += `  </tr>\n`;
+
+            for (let i = 1; i <= rows; i++) {
+                htmlCode += `  <tr>\n`;
+                htmlCode += `    <td>${i}</td>\n`;
+                htmlCode += `    <td>Sinh viên ${i}</td>\n`;
+                htmlCode += `    <td>${(7 + i * 0.5).toFixed(1)}</td>\n`;
+                htmlCode += `  </tr>\n`;
+            }
+
+            htmlCode += `</table>`;
+
+            // Hiển thị kết quả
+            display.innerHTML = htmlCode;
+
+            // Hiển thị mã HTML
+            code.textContent = htmlCode;
+        }
+    </script>
+</body>
+
+</html>
