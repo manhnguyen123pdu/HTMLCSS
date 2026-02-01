@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    color: #333333;
+}
+.section{
+    width: 600px;
+}
+/* Tiêu đề chính */
+.section.bt h1 {
+    color: #16a34a;
+    font-size: 34px;
+    font-weight: bold;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+/* Nhãn */
+.label {
+    color: #2563eb;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Tiêu đề phụ */
+.section.bt h3 {
+    color: #7c2d12;
+    font-size: 22px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Giới thiệu */
+.section.bt p {
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    font-style: italic;
+    color: #065f46;
+    line-height: 1.8;
+    word-spacing: 4px;
+}
+
+/* Bảng */
+table th {
+    color: #1d4ed8;
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+table td {
+    color: #111827;
+    font-size: 15px;
+    text-align: center;
+    line-height: 1.6;
+}
+
+/* Ghi chú */
+tfoot td {
+    font-style: italic;
+    text-align: center;
+    color: #6b7280;
+}
+
+/* Form */
+legend {
+    color: #be185d;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+label {
+    color: #1e40af;
+    font-weight: 500;
+}
+
+input,
+select,
+textarea,
+button {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #000000;
+}
+
+    </style>
+</head>
+<body>
+  <div class="container-bt1">
+      <section class="section bt">
+
+    <h1>Chương trình Tình nguyện Mùa Hè Xanh 2025</h1>
+
+    <div class="info">
+        <p><span class="label">Thời gian:</span>
+           <span class="value">01/07/2025 – 31/08/2025</span></p>
+
+        <p><span class="label">Địa bàn:</span>
+           <span class="value">Các tỉnh miền Tây Nam Bộ</span></p>
+    </div>
+
+    <h3>Giới thiệu chương trình</h3>
+
+    <p>
+Mùa Hè Xanh là chương trình tình nguyện thường niên
+dành cho sinh viên trên toàn quốc.
+Chương trình hướng đến các hoạt động cộng đồng,
+xây dựng nông thôn và hỗ trợ giáo dục.
+    </p>
+
+    <h3>Nội dung hoạt động</h3>
+
+    <table border="1" cellpadding="8" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Hoạt động</th>
+                <th>Đối tượng</th>
+                <th>Thời gian</th>
+                <th>Ghi chú</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr>
+                <td>Dạy học hè</td>
+                <td>Thiếu nhi</td>
+                <td>Tháng 7</td>
+                <td></td>
+            </tr>
+
+            <tr>
+                <td>Xây dựng cầu đường</td>
+                <td>Cộng đồng</td>
+                <td>Tháng 7 - 8</td>
+                <td>Lao động tập thể</td>
+            </tr>
+
+            <tr>
+                <td>Bảo vệ môi trường</td>
+                <td>Người dân</td>
+                <td>Tháng 8</td>
+                <td>
+                    <ul>
+                        <li>Trồng cây</li>
+                        <li>Thu gom rác</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    * Sinh viên tham gia được cấp giấy chứng nhận
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <h3>Đăng ký tham gia</h3>
+
+    <form>
+        <fieldset>
+            <legend>Thông tin cá nhân</legend>
+
+            <label>Họ và tên:</label><br>
+            <input type="text"><br><br>
+
+            <label>Email:</label><br>
+            <input type="email"><br><br>
+
+            <label>Số điện thoại:</label><br>
+            <input type="tel"><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Nguyện vọng</legend>
+
+            <label>Khu vực mong muốn:</label><br>
+            <select>
+                <option>Tiền Giang</option>
+                <option>Bến Tre</option>
+                <option>Trà Vinh</option>
+            </select><br><br>
+
+            <label>
+                <input type="checkbox"> Tham gia dạy học
+            </label><br>
+
+            <label>
+                <input type="checkbox"> Tham gia lao động
+            </label><br><br>
+        </fieldset>
+
+        <fieldset>
+            <legend>Xác nhận</legend>
+
+            <textarea rows="4" cols="40"></textarea><br><br>
+
+            <input type="checkbox"> Tôi đồng ý tham gia chương trình<br><br>
+
+            <button>Gửi đăng ký</button>
+        </fieldset>
+    </form>
+
+</section>
+  </div>
+
+</body>
+</html>
