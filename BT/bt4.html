@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mini Shop - Flexbox Basic</title>
+
+  <style>
+    /* RESET */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    /* HEADER */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #222;
+      padding: 15px 40px;
+    }
+
+    .logo {
+      color: white;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    .menu a {
+      color: white;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 14px;
+      text-transform: uppercase;
+    }
+
+    /* BANNER */
+    .banner {
+      text-align: center;
+      padding: 60px 20px;
+      background-color: #f4f4f4;
+    }
+
+    .banner h1 {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+
+    .banner p {
+      font-size: 16px;
+      color: #555;
+    }
+
+    /* PRODUCTS */
+    .products {
+      display: flex;
+      justify-content: space-around;
+      margin: 40px;
+    }
+
+    .product {
+      width: 220px;
+      border: 1px solid #ccc;
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      background-color: white;
+    }
+
+    .product img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+      margin-bottom: 10px;
+      border-radius: 4px;
+    }
+
+    .product h3 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .desc {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+
+    .price {
+      font-size: 16px;
+      font-weight: bold;
+      color: red;
+    }
+
+    /* SALE BADGE */
+    .sale {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background-color: red;
+      color: white;
+      font-size: 12px;
+      padding: 4px 8px;
+    }
+
+    /* FOOTER */
+    .footer {
+      background-color: #222;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="logo">MyShop</div>
+    <nav class="menu">
+      <a href="#">Home</a>
+      <a href="#">Products</a>
+      <a href="#">About</a>
+      <a href="#">Contact</a>
+    </nav>
+  </header>
+
+  <!-- BANNER -->
+  <section class="banner">
+    <h1>Welcome to MyShop</h1>
+    <p>Best products with best prices</p>
+  </section>
+
+  <!-- PRODUCT LIST -->
+  <section class="products">
+
+    <div class="product">
+      <span class="sale">SALE</span>
+      <img src="../img/2024_3_7_638454239916491907_pc-gaming-e-power-n3050-core-i5-12400f.webp" alt="Product 1">
+      <h3>Product 1</h3>
+      <p class="desc">Simple product description</p>
+      <p class="price">$100</p>
+    </div>
+
+    <div class="product">
+      <span class="sale">SALE</span>
+      <img src="../img//e_dra_egm24f100s_1_5d3ec3a1b1.webp" alt="Product 2">
+      <h3>Product 2</h3>
+      <p class="desc">Simple product description</p>
+      <p class="price">$120</p>
+    </div>
+
+    <div class="product">
+      <span class="sale">SALE</span>
+      <img src="../img//lg_24u411a_b_den_01_a9e8d6d501.webp" alt="Product 3">
+      <h3>Product 3</h3>
+      <p class="desc">Simple product description</p>
+      <p class="price">$90</p>
+    </div>
+
+    <div class="product">
+      <span class="sale">SALE</span>
+      <img src="../img/lg_27up850k_w_1_2c2b67cff4.webp" alt="Product 4">
+      <h3>Product 4</h3>
+      <p class="desc">Simple product description</p>
+      <p class="price">$150</p>
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2026 MyShop. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
