@@ -1,0 +1,289 @@
+/*  bước 1: chia layout
+bước 2  reset css mặc định
+bước  code từng phần theo giao diện mẫu
+*/
+/*GLOBAL */
+body,
+html {
+  width: 100%;
+  height: 100%;
+}
+html{
+    scroll-behavior: smooth;
+}
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+/* css header */
+header {
+    width: 100%;
+  text-align: center;
+  background-color: #1f2944;
+  position: fixed;
+}
+header img {
+  width: 100px;
+}
+
+/* css banner */
+.banner {
+  background-image: url("https://static-images.vnncdn.net/files/publish/2023/5/29/anh-1-2382.jpg");
+  background-position: center;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+}
+.banner h5 {
+  font-size: 30px;
+  color: white;
+}
+.banner h2 {
+  margin-top: 30px;
+  font-size: 45px;
+  color: #fffa67;
+}
+.banner button {
+  margin-top: 30px;
+  padding: 10px 30px;
+  background-color: transparent;
+  border: 2px solid white;
+  color: white;
+}
+
+/* css overview */
+.overview {
+  margin-top: 30px;
+}
+.overview .overview__content {
+  width: 1200px;
+  margin: auto;
+  display: flex;
+  gap: 30px;
+}
+.overview .overview__left {
+  width: 50%;
+}
+.overview .overview__left img {
+  width: 100%;
+}
+.overview .overview__right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: #0a3643;
+}
+.overview .overview__right h3 {
+  font-size: 24px;
+}
+.overview .overview__right ul {
+  list-style: none;
+}
+.overview .overview__right ul li {
+  font-size: 17px;
+  margin: 20px;
+}
+.overview .overview__right ul li b {
+  margin-left: 5px;
+}
+/* csssintro */
+.intro {
+  background-color: #0a3643;
+  padding: 40px 0;
+}
+.intro h2 {
+  margin-bottom: 30px;
+  text-align: center;
+  color: white;
+  font-size: 35px;
+}
+.intro h2 span {
+  color: #f0c849;
+}
+.intro .intro__content {
+  width: 1200px;
+  margin: auto;
+  display: flex;
+  gap: 30px;
+}
+
+.intro .intro__left {
+  color: white;
+}
+.intro .intro__left p {
+  padding: 8px 0;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  line-height: 25px;
+  font-size: 16px;
+}
+.intro .intro__left ul {
+  padding: 8px 0;
+  letter-spacing: 1px;
+  word-spacing: 1px;
+  line-height: 25px;
+  font-size: 15px;
+  list-style: none;
+}
+.intro .intro__left span {
+  color: #f0c849;
+  font-weight: bold;
+}
+
+/* css layout place */
+.layoutPlace {
+  width: 1200px;
+  margin: auto;
+}
+.layoutPlace h2 {
+  margin-top: 50px;
+  font-size: 35px;
+  color: #0a3643;
+  text-align: center;
+}
+.layoutPlace img {
+  width: 100%;
+}
+
+/* css product */
+.product {
+}
+.product h2 {
+  margin-top: 50px;
+  margin-bottom: 15px;
+  font-size: 35px;
+  color: #0a3643;
+  text-align: center;
+}
+.product .product__content {
+  width: 1200px;
+  margin: auto;
+  display: flex;
+}
+.product .product__left {
+  width: 50%;
+}
+.product .product__left img {
+  width: 100%;
+}
+.product .product__right {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.product .product__right p{
+    margin: 5px;
+    font-size: 16px;
+    line-height: 30px;
+}
+.product .product__right b{
+    color: #1f2944;
+}
+.product .product__right i{
+    margin-right: 2px;
+}
+.product .product__right ul{
+    list-style: none;
+}
+.product .product__right ul li{
+    line-height: 30px;
+}
+
+
+
+.footer {
+  background-color: #1e2745;
+  padding: 50px 0px;
+  color: white;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 60px;
+}
+.newsletter{
+  width:30% ;
+}
+.newsletter h3,
+.contact h3 {
+  font-weight: 700;
+  font-size: 18px;
+  margin-bottom: 20px;
+}
+
+.newsletter form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.newsletter input {
+  width: 260px;
+  padding: 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+}
+
+.newsletter button {
+  background-color: #d6a74f;
+  border: none;
+  color: white;
+  font-weight: 600;
+  font-size: 14px;
+  padding: 10px 0;
+  width: 100px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.newsletter button:hover {
+  opacity: 0.9;
+}
+
+.contact p {
+  font-size: 14px;
+  margin: 6px 0;
+}
+
+.contact i {
+  color: #d6a74f;
+  margin-right: 8px;
+}
+
+.copyright {
+  width: 30%;
+  text-align: right;
+  font-size: 14px;
+  margin-top: 20px;
+  color: #ccc;
+}
+
+
+/* css backtoptop */
+.backToTop{
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    width: 50px;
+    height: 50px;
+    border: 2px solid black;
+    text-align: center;
+    line-height: 50px;
+    border-radius: 100%;
+}
+
