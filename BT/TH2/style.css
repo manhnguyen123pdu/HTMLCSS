@@ -1,0 +1,485 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background: #ffffff;
+    color: #1a1a1a;
+    line-height: 1.5;
+}
+
+.container {
+    margin: 0 auto;
+    padding: 0 80px;
+}
+
+/* Header */
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 60px;
+    background-color: #f5f5f5;
+    border-bottom: 1px solid #ddd;
+}
+
+/* LEFT SIDE */
+.logo-section {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.logo-section h1 {
+    font-size: 40px;
+    font-weight: 600;
+    letter-spacing: 2px;
+}
+
+.version {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: #666;
+}
+
+.plus {
+    font-weight: bold;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+}
+
+.version .text {
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+/* RIGHT SIDE MENU */
+.menu {
+    display: flex;
+    gap: 30px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #999;
+    font-size: 14px;
+    letter-spacing: 1px;
+    position: relative;
+    padding-bottom: 5px;
+}
+
+.menu a:hover {
+    color: #000;
+}
+
+.menu a.active {
+    color: #000;
+}
+
+.menu a.active::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #000;
+}
+
+/* BANNER */
+.banner video{
+    width: 100%;
+}
+
+
+
+
+.discover {
+    padding: 60px 80px;
+}
+
+.section-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.discover-wrapper {
+    display: flex;
+    gap: 60px;
+}
+
+/* LEFT IMAGE */
+.discover-image {
+    flex: 1.2;
+    background-color: #ddd;
+    padding: 40px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.discover-image img {
+    max-width: 100%;
+}
+
+.rotate {
+    position: absolute;
+    bottom: 15px;
+    font-size: 12px;
+    color: #777;
+}
+
+/* RIGHT CONTENT */
+.discover-content {
+    flex: 1;
+}
+
+.top-line,
+.bottom-line {
+    height: 1px;
+    background-color: #999;
+    margin: 20px 0;
+}
+
+.discover-content h3 {
+    font-size: 28px;
+    margin-bottom: 15px;
+}
+
+.price {
+    margin-bottom: 15px;
+}
+
+.price strong {
+    font-weight: bold;
+}
+
+.color-title {
+    margin: 15px 0 8px;
+    font-weight: 600;
+}
+
+.color-options {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.color {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.color.silver {
+    background: linear-gradient(45deg, #ddd, #999);
+}
+
+.color.black {
+    background: #000;
+}
+
+.color.gold {
+    background: linear-gradient(45deg, #a67c00, #000);
+}
+
+.color.active {
+    border: 2px solid #000;
+}
+
+.description {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.compare-btn {
+    width: 100%;
+    padding: 18px;
+    background-color: #111;
+    color: #fff;
+    border: none;
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.compare-btn:hover {
+    background-color: #333;
+}
+.threesixty {
+  width: 600px;
+  height: 400px;
+  margin: 0 auto;
+}
+/* SECTION */
+.design-section {
+    position: relative;
+  background: #f2f2f2;
+  padding: 40px 0;
+  font-family: Arial, sans-serif;
+}
+
+/* Tiêu đề trên cùng */
+.section-heading {
+  font-size: 22px;
+  font-weight: bold;
+  margin-left: 40px;
+  margin-bottom: 20px;
+}
+
+/* Banner */
+.design-banner {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  overflow: hidden;
+}
+
+/* Ảnh thành phố nền */
+.city-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Chữ lớn mờ phía sau */
+.bg-text {
+  position: absolute;
+  top: 40px;
+  left: 40px;
+  font-size: 180px;
+  font-weight: bold;
+  color: rgba(255,255,255,0.25);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Ảnh xe */
+.bike-img {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  height: 600px;
+  z-index: 3;
+}
+
+/* Nội dung mô tả */
+.design-content {
+  max-width: 500px;
+  margin: 30px 50px;
+}
+
+.design-content h3 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.design-content p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  text-align: justify;
+}
+.feature-section {
+  background: #f2f2f2;
+  padding: 60px 40px;
+  font-family: Arial, sans-serif;
+}
+
+.feature-container {
+  display: flex;
+  gap: 40px;
+  justify-content: center;
+}
+
+.feature-item {
+  width: 500px;
+}
+
+.feature-item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.feature-item h3 {
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.feature-item p {
+  font-size: 14px;
+  line-height: 1.6;
+  color: #333;
+}
+.spec-section {
+  background: #f5f6f8;
+  padding: 100px 8%;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.spec-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.spec-table-wrapper {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0,0,0,0.08);
+}
+
+.spec-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.spec-table thead {
+  background: #111;
+  color: #fff;
+}
+
+.spec-table thead th {
+  text-align: left;
+  padding: 20px 30px;
+  font-size: 18px;
+  letter-spacing: 2px;
+}
+
+.spec-table td {
+  padding: 18px 30px;
+  font-size: 16px;
+  border-bottom: 1px solid #eee;
+}
+
+.spec-table td:first-child {
+  width: 35%;
+  font-weight: 600;
+  color: #333;
+}
+
+.spec-table tr:hover {
+  background: #f9fafc;
+}
+.modern-footer {
+  background: #f5f7fa;
+  padding-top: 70px;
+  font-family: 'Segoe UI', sans-serif;
+  border-top: 1px solid #e5e7eb;
+}
+
+.footer-container {
+  margin: auto;
+  padding: 0 8%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 60px;
+}
+
+.footer-col h3 {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  letter-spacing: 1px;
+  color: #111;
+}
+
+.footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-col ul li {
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #6b7280;
+}
+
+.footer-col ul li a {
+  text-decoration: none;
+  color: #6b7280;
+  transition: 0.3s;
+}
+
+.footer-col ul li a:hover {
+  color: #111;
+}
+
+.footer-bottom {
+  margin-top: 60px;
+  padding: 25px 8%;
+  text-align: center;
+  font-size: 13px;
+  color: #9ca3af;
+  border-top: 1px solid #e5e7eb;
+}
+
+
+.grid-gallery {
+  padding: 60px 8%;
+  background: #f5f7fa;
+}
+.grid-gallery h3{
+    margin-bottom: 20px;
+    font-size: 30px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  grid-template-rows: 300px 300px;
+  gap: 20px;
+}
+
+/* Ảnh lớn */
+.item-1 {
+  grid-row: span 2;
+  grid-column: span 1;
+}
+
+/* Ảnh dưới cùng bên phải */
+.item-4 {
+  grid-column: span 2;
+}
+
+
+.item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 18px;
+  transition: 0.4s ease;
+}
+
+/* Hover */
+.item {
+  overflow: hidden;
+  border-radius: 18px;
+}
+
+.item:hover img {
+  transform: scale(1.08);
+}
