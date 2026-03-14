@@ -287,3 +287,114 @@ header img {
     border-radius: 100%;
 }
 
+/* ================= RESPONSIVE ================= */
+
+/* Tablet */
+@media screen and (max-width: 1024px) {
+
+  .overview .overview__content,
+  .intro .intro__content,
+  .product .product__content {
+    width: 90%;
+    flex-direction: column;
+  }
+
+  .overview .overview__left,
+  .overview .overview__right,
+  .product .product__left,
+  .product .product__right {
+    width: 100%;
+  }
+
+  .layoutPlace {
+    width: 90%;
+  }
+
+  .footer-container{
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .newsletter,
+  .copyright{
+    width: 100%;
+    text-align: left;
+  }
+
+  .newsletter input{
+    width: 100%;
+  }
+}
+
+
+/* Mobile */
+@media screen and (max-width: 768px) {
+
+  header img{
+    width: 70px;
+  }
+
+  .banner h5{
+    font-size: 20px;
+  }
+
+  .banner h2{
+    font-size: 28px;
+  }
+
+  .banner button{
+    padding: 8px 20px;
+    font-size: 14px;
+  }
+
+  .intro h2,
+  .product h2,
+  .layoutPlace h2{
+    font-size: 26px;
+  }
+
+  .overview .overview__right ul li{
+    font-size: 15px;
+    margin: 10px 0;
+  }
+
+  iframe{
+    width: 100%;
+    height: 300px;
+  }
+
+  .backToTop{
+    right: 20px;
+    bottom: 20px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+  }
+}
+
+
+/* Small mobile */
+@media screen and (max-width: 480px){
+
+  .banner h2{
+    font-size: 22px;
+  }
+
+  .banner h5{
+    font-size: 18px;
+  }
+
+  .overview .overview__content,
+  .intro .intro__content,
+  .product .product__content{
+    gap: 15px;
+  }
+
+  .intro .intro__left p{
+    font-size: 14px;
+  }
+
+  .newsletter button{
+    width: 100%;
+  }
+}
